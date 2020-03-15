@@ -64,11 +64,11 @@ public class FileUploadController {
 	}
 
 	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("game") String game,
-			@RequestParam("type") String type, RedirectAttributes redirectAttributes) {
-		System.out.println("game is: " + game);
-		System.out.println("type is: " + type);
-		storageService.store(file);
+	public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("game") String gameName,
+			@RequestParam("type") String typeName, RedirectAttributes redirectAttributes) {
+		System.out.println("game is: " + gameName);
+		System.out.println("type is: " + typeName);
+		storageService.store(file,gameName, typeName);
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
 

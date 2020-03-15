@@ -30,7 +30,7 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public void store(MultipartFile file, String gameName, String typeName) {
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		try {
 			if (file.isEmpty()) {
@@ -43,7 +43,10 @@ public class FileSystemStorageService implements StorageService {
 								+ filename);
 			}
 			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, this.rootLocation.resolve(filename),
+				Path path = this.rootLocation.resolve(gameName).resolve(typeName);
+				this.rootLocation.resolve(gameName).toFile().mkdir();
+				this.rootLocation.resolve(gameName).resolve(typeName).toFile().mkdir();
+				Files.copy(inputStream, path.resolve(filename),
 					StandardCopyOption.REPLACE_EXISTING);
 			}
 		}

@@ -74,9 +74,10 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public Resource loadAsResource(String filename) {
+	public Resource loadAsResource(String gameName, String typeName, String filename) {
 		try {
-			Path file = load(filename);
+//			Path file = load(filename);
+			Path file = rootLocation.resolve(gameName).resolve(typeName).resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
 			if (resource.exists() || resource.isReadable()) {
 				return resource;

@@ -45,21 +45,22 @@ public class FileUploadController {
 		List<Game> findAll = gameService.findAll();
 		model.addAttribute("games", findAll);
 
-		model.addAttribute("files",
-				storageService.loadAll()
-						.map(path -> MvcUriComponentsBuilder
-								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-								.build().toUri().toString())
-						.collect(Collectors.toList()));
+//		model.addAttribute("files",
+//				storageService.loadAll()
+//						.map(path -> MvcUriComponentsBuilder
+//								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
+//								.build().toUri().toString())
+//						.collect(Collectors.toList()));
 
 		return "uploadForm";
 	}
 
-	@GetMapping("/upload/files/{filename:.+}")
+	@GetMapping("/upload/files/{gameName}/{typeName}/{filename:.+}")
 	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+	public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
+			@PathVariable String filename) {
 
-		Resource file = storageService.loadAsResource(filename);
+		Resource file = storageService.loadAsResource(gameName, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
 
@@ -68,7 +69,7 @@ public class FileUploadController {
 			@RequestParam("type") String typeName, RedirectAttributes redirectAttributes) {
 		System.out.println("game is: " + gameName);
 		System.out.println("type is: " + typeName);
-		storageService.store(file,gameName, typeName);
+		storageService.store(file, gameName, typeName);
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
 

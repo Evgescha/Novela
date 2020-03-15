@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{commons :: head}">
+<meta charset="UTF-8">
+</head>
+<body>
+	<div class="container">
+		<form action="/addScenario" method="POST">
+			<div class="gameName">
+				<p>Название игры</p>
+				<input type="text" name="gameName">
+			</div>
+			<div class="gameLabel">
+				<p>Название метки</p>
+				<input type="text" name="gameLabel">
+			</div>
+			<div class="gameCommands">
+				<p>Список комманд</p>
+				<textarea type="text" name="gameCommands"></textarea>
+			</div>
+			<button type="submit">Отправить</button>
+		</form>
+	</div>
+</body>
+</html>

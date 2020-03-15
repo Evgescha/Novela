@@ -1,0 +1,155 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.game {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+}
+
+.background1 {
+	background: black;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	/* 	display: none; */
+}
+
+.background2 {
+	background: black;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	/* 	background-image: url("http://localhost:8080/scene/get?type=scene&folder=cg&name=d1_grasshopper"); */
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background: black;
+}
+
+.sprites {
+	height: 100%;
+}
+
+.sprite {
+	height: inherit;
+	position: absolute;
+	height: 200%;
+	top: -20%;
+}
+
+/* position */
+.left {
+	left: 0;
+}
+
+.cleft {
+	left: 25%;
+	transform: translate(-20%, 0%);
+}
+
+.center {
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.cright {
+	right: 25%;
+	transform: translate(20%, 0%);
+}
+
+.right {
+	right: 0;
+}
+
+/* location */
+.far {
+	transform: scale(0.7);
+	position: fixed;
+	/*     top: 0%; */
+}
+
+.close {
+	transform: scale(1.5);
+	position: fixed;
+	/*     top: 40%; */
+}
+
+.window {
+	width: 100%;
+	min-height: 20%;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	bottom: 0;
+	font-family: "Open Sans", sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+.textAuthor {
+	color: rgb(0, 234, 50);
+	margin: 5px 0 10px 20px;
+}
+
+.textContent {
+	color: #DEC88C;
+	margin: 0 10px;
+}
+
+.menu {
+	color: white;
+	position: absolute;
+	top: 50%;
+	width: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
+.menuTitle {
+	
+}
+
+.menuChoose li {
+	color: white;
+	border: 1px solid black;
+	background: #b69999;
+	font-size: 30px;
+	padding: 25px 10px;
+	text-align: center;
+	margin: 25px;
+	list-style-type: none;
+}
+
+.menuChoose li:hover {
+	color: black;
+	background: #f0cbcb;
+}
+
+.audio {
+	display: none;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+/* ADD GAMES */
+.gamesItem {
+	width: 600px;
+	border: 1px solid;
+	margin: 0 auto;
+	display: flex;
+}
+
+.infoLeft, .itemImage {
+	width: 400px;
+}

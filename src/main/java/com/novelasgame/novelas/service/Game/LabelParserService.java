@@ -1,0 +1,129 @@
+package com.novelasgame.novelas.service.Game;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.novelasgame.novelas.entity.DataBase.Command;
+import com.novelasgame.novelas.entity.DataBase.Game;
+import com.novelasgame.novelas.entity.DataBase.Label;
+import com.novelasgame.novelas.entity.game.Char;
+import com.novelasgame.novelas.entity.game.Dialog;
+import com.novelasgame.novelas.entity.game.Hide;
+import com.novelasgame.novelas.entity.game.Jump;
+import com.novelasgame.novelas.entity.game.Menu;
+import com.novelasgame.novelas.entity.game.MenuItem;
+import com.novelasgame.novelas.entity.game.Scene;
+import com.novelasgame.novelas.entity.game.Sound;
+import com.novelasgame.novelas.entity.game.Variables;
+import com.novelasgame.novelas.entity.game.Window;
+import com.novelasgame.novelas.service.DataBase.GameService;
+
+@Service
+public class LabelParserService {
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    public ArrayList<Object> list = new ArrayList<>();
+    // для цикла
+    int i = 0;
+    List<Command> commands = new ArrayList<>();
+    @Autowired
+    public GameService gameService;
+    String gameName;
+    public ArrayList<Object> Parse(String gameName, String labelName) {
+    	this.gameName=gameName;
+        list.clear();
+        Game game = gameService.findByName(gameName);
+        Label label = null;
+        for (Label lbl : game.getLabels()) {
+            if (lbl.getName().equalsIgnoreCase(labelName)) {
+                label = lbl;
+                break;
+            }
+        }
+
+        commands = label.getCommands();
+
+        String cmd = "";
+        for (i = 0; i < commands.size(); i++) {
+            cmd = commands.get(i).getValue().trim();
+            String[] arr = cmd.split(" ");
+
+            if (arr[0].contains("menu")) {
+                list.add(getMenu(cmd));
+            } else
+                list.add(getCommand(cmd));
+
+        }
+//         for(Object o:list)System.out.println(o);
+        return list;
+    }
+
+    public Object getMenu(String cmd) {
+        i++;
+        Menu menu = new Menu();
+//            System.out.println("menu:" + cmd);
+        cmd = commands.get(i).getValue().replace("\t", "    ");
+        while (cmd.charAt(0) == ' ') {
+            if (cmd.charAt(4) != ' ') {
+                menu.getItems().add(new MenuItem(cmd.trim()));
+            } else {
+                menu.getItems().get(menu.getItems().size() - 1).getCommands().add(getCommand(cmd.trim()));
+                System.out.println("menu chooser: " + getCommand(cmd.trim()));
+            }
+            i++;
+            if (commands.size() > i)
+                cmd = commands.get(i).getValue().replace("\t", "    ");
+            else
+                break;
+        }
+        i--;
+        return menu;
+    }
+
+    public Object getCommand(String cmd) {
+        String[] arr = cmd.split(" ");
+
+        if (cmd.charAt(0) == '"')
+            return new Dialog(cmd);
+
+        if (arr.length > 1 && arr[1].charAt(0) == '"')
+            return new Dialog(cmd);
+
+        if (arr[0].contains("stop") || arr[0].contains("play"))
+            return new Sound(cmd);
+
+        if (arr[0].contains("scene"))
+            return new Scene(cmd);
+
+        if (arr[0].contains("window"))
+            return new Window(cmd);
+
+        if (arr[0].contains("hide"))
+            return new Hide(cmd);
+
+        if (arr.length > 5 && arr[1].charAt(0) != '"' && arr[0].charAt(0) != '"' && arr[0].charAt(0) != '$')
+            return new Char(cmd);
+        
+        if (cmd.charAt(0) == '$' && (cmd.contains("=") || cmd.contains("++") || cmd.contains("--")))
+            return new Variables(cmd);
+        
+        if (arr[0].contains("jump"))
+            return new Jump(cmd, gameName);
+
+        return null;
+    }
+
+    public String toJson(Object temp) {
+        try {
+            return mapper.writeValueAsString(temp);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
+}

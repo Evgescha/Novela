@@ -24,26 +24,29 @@ import com.novelasgame.novelas.entity.DataBase.Game;
 import com.novelasgame.novelas.service.DataBase.GameService;
 import com.novelasgame.novelas.service.DataBase.ResourcesItemService;
 import com.novelasgame.novelas.storage.StorageFileNotFoundException;
+import com.novelasgame.novelas.storage.StorageProperties;
 import com.novelasgame.novelas.storage.StorageService;
 
 @Controller
 public class FileUploadController {
 
-	private final StorageService storageService;
-	@Autowired
-	GameService gameService;
-	@Autowired
-	ResourcesItemService resourcesItemService;
+    private final StorageService storageService;
+    @Autowired
+    GameService gameService;
+    @Autowired
+    ResourcesItemService resourcesItemService;
+    @Autowired
+    StorageProperties storageProps;
 
-	@Autowired
-	public FileUploadController(StorageService storageService) {
-		this.storageService = storageService;
-	}
+    @Autowired
+    public FileUploadController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
-	@GetMapping("/upload")
-	public String listUploadedFiles(Model model) throws IOException {
-		List<Game> findAll = gameService.findAll();
-		model.addAttribute("games", findAll);
+    @GetMapping("/upload")
+    public String listUploadedFiles(Model model) throws IOException {
+        List<Game> findAll = gameService.findAll();
+        model.addAttribute("games", findAll);
 
 //		model.addAttribute("files",
 //				storageService.loadAll()
@@ -52,33 +55,42 @@ public class FileUploadController {
 //								.build().toUri().toString())
 //						.collect(Collectors.toList()));
 
-		return "uploadForm";
-	}
+        return "uploadForm";
+    }
 
-	@GetMapping("/upload/files/{gameName}/{typeName}/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
-			@PathVariable String filename) {
+    @GetMapping("/upload/files/{gameName}/{typeName}/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
+            @PathVariable String filename) {
 
-		Resource file = storageService.loadAsResource(gameName, typeName, filename);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
-	}
+        Resource file = storageService.loadAsResource(gameName, typeName, filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
+    }
 
-	@PostMapping("/upload")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("game") String gameName,
-			@RequestParam("type") String typeName, RedirectAttributes redirectAttributes) {
-		System.out.println("game is: " + gameName);
-		System.out.println("type is: " + typeName);
-		storageService.store(file, gameName, typeName);
-		redirectAttributes.addFlashAttribute("message",
-				"You successfully uploaded " + file.getOriginalFilename() + "!");
+    @PostMapping("/upload")
+    public String handleFileUpload(@RequestParam(name = "file", required = true) MultipartFile file,
+            @RequestParam(name = "game", required = true) String gameName,
+            @RequestParam(name = "type", required = true) String typeName,
+            @RequestParam(name = "charName") String charName, RedirectAttributes redirectAttributes) {
+        if (!typeName.equalsIgnoreCase("characterImages")) {
+            System.out.println("game is: " + gameName);
+            System.out.println("type is: " + typeName);
+            storageProps.setLocation(gameName, typeName);
+            storageService.store(file/** , gameName, typeName **/
+            );
+            redirectAttributes.addFlashAttribute("message",
+                    "You successfully uploaded " + file.getOriginalFilename() + "!");
+        } else {
+            storageProps.setLocation(gameName, typeName, charName);
+            storageService.store(file/* , gameName, typeName */);
+        }
 
-		return "redirect:/upload";
-	}
+        return "redirect:/upload";
+    }
 
-	@ExceptionHandler(StorageFileNotFoundException.class)
-	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-		return ResponseEntity.notFound().build();
-	}
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+        return ResponseEntity.notFound().build();
+    }
 
 }

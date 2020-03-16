@@ -1,22 +1,27 @@
 package com.novelasgame.novelas.storage;
 
+import java.nio.file.Paths;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("storage")
+@ConfigurationProperties
 public class StorageProperties {
 
-	/**
-	 * Folder location for storing files
-	 */
-	private String location = "upload-dir";
+    /**
+     * Folder location for storing files
+     */
+    private final String ground = "upload-dir";
+    private String location = "upload-dir";
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String... locArr) {
+        this.location = this.ground;
+        for (String str : locArr)
+            this.location = Paths.get(this.getLocation()).resolve(str).toString();
+        System.err.println(this.getLocation());
+    }
 
 }

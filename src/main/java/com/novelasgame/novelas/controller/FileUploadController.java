@@ -62,7 +62,8 @@ public class FileUploadController {
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
             @PathVariable String filename) {
-
+        storageProps.setLocation();
+        System.out.println("location: "+storageProps.getLocation());
         Resource file = storageService.loadAsResource(gameName, typeName, filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
     }

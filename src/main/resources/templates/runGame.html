@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <title>Play Scene</title>
@@ -48,6 +48,8 @@
 		data = data.replace(/(&quot\;)/g, "\"");
 // 		console.log(data);
 		var arr = JSON.parse(data);
+		
+		var gameName="[[${gameName}]]";
 	</script>
 </body>
 </html>

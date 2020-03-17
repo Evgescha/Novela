@@ -8,26 +8,27 @@ function next() {
 		nextDialog(arr[i - 1]);
 		return;
 	}
-
+	if (i == arr.length)
+		return;
 	var temp = arr[i];
 	console.log(arr[i]);
-	
-	//пропускаем не обработанные комманды
+
+	// пропускаем не обработанные комманды
 	if (temp == null) {
-		while(temp==null){
+		while (temp == null) {
 			i++;
 			temp = arr[i];
 		}
-	} 
-	
+	}
+
 	parse(temp);
 	i++;
-	
+
 }
 
-//!!!!!!!!!!!!!!!!!!!!!!Parse
+// !!!!!!!!!!!!!!!!!!!!!!Parse
 // в зависимости от комманды вызываем нужный метод-обработчик
-function parse(temp){
+function parse(temp) {
 	if (temp["type"] == "char")
 		addChar(temp);
 	else if (temp["type"] == "dialog")
@@ -47,8 +48,6 @@ function parse(temp){
 	else if (temp["type"] == "menu")
 		menu(temp);
 }
-
-
 
 // !!!!!!!!!!!!!!!!!!!!!!!
 // получение пути по entity

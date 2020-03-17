@@ -8,7 +8,10 @@
 		<form action="/addScenario" method="POST">
 			<div class="gameName">
 				<p>Название игры</p>
-				<input type="text" name="gameName">
+				<select id="res_gameSelect" type="text" name="gameName">
+							<option th:value="${game.name}" th:each="game:${games}"
+								th:text="${game.name}">GameName</option>
+					</select>
 			</div>
 			<div class="gameLabel">
 				<p>Название метки</p>

@@ -14,7 +14,7 @@ import lombok.Data;
 public class ResourceItem extends AbstractEntity{
 
     private String type;
-    private String path;
+    private String name;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")

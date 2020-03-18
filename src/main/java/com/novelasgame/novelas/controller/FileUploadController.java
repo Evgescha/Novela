@@ -2,7 +2,6 @@ package com.novelasgame.novelas.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,10 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.novelasgame.novelas.entity.DataBase.Game;
+import com.novelasgame.novelas.entity.DataBase.ResourceItem;
+import com.novelasgame.novelas.service.TypeResources;
 import com.novelasgame.novelas.service.DataBase.GameService;
 import com.novelasgame.novelas.service.DataBase.ResourcesItemService;
 import com.novelasgame.novelas.storage.StorageFileNotFoundException;
@@ -72,20 +72,29 @@ public class FileUploadController {
 	public String handleFileUpload(@RequestParam(name = "files", required = true) MultipartFile[] files,
 			@RequestParam(name = "game", required = true) String gameName,
 			@RequestParam(name = "type", required = true) String typeName,
-			@RequestParam(name = "charName", required = false, defaultValue = "") String charName, RedirectAttributes redirectAttributes) {
-		if (!typeName.equalsIgnoreCase("characterImages")) {
+			@RequestParam(name = "charName", required = false, defaultValue = "") String charName,
+			RedirectAttributes redirectAttributes) {
+		Game game = gameService.findByName(gameName);
+		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
 			System.out.println("game is: " + gameName);
 			System.out.println("type is: " + typeName);
 			storageProps.setLocation(gameName, typeName);
-			for (MultipartFile file : files)
+			for (MultipartFile file : files) {
+				System.out.println(charName);
+				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(),null, game);
 				storageService.store(file);
-			redirectAttributes.addFlashAttribute("message", "You successfully uploaded files!");
+				resourcesItemService.create(item);
+			}
 		} else {
 			storageProps.setLocation(gameName, typeName, charName);
-			for (MultipartFile file : files)
+			for (MultipartFile file : files) {
+				ResourceItem item = new ResourceItem(TypeResources.CHARACTER_IMAGES, file.getOriginalFilename(),charName, game);
 				storageService.store(file);
+				resourcesItemService.create(item);
+			}
 		}
 
+		redirectAttributes.addFlashAttribute("message", "You successfully uploaded files!");
 		return "redirect:/upload";
 	}
 

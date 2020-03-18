@@ -1,13 +1,10 @@
 package com.novelasgame.novelas;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 
 import com.novelasgame.novelas.storage.StorageProperties;
-import com.novelasgame.novelas.storage.StorageService;
 
 /**
  * Hello world!
@@ -55,12 +52,12 @@ public class App {
         System.out.println("Hello World!");
                 
     }
-    @Bean
-	CommandLineRunner init(StorageService storageService) {
-		return (args) -> {
-			storageService.deleteAll();
-			storageService.init();
-		};
-	}
+//    @Bean
+//	CommandLineRunner init(StorageService storageService) {
+//		return (args) -> {
+//			storageService.deleteAll();
+//			storageService.init();
+//		};
+//	}
     
 }

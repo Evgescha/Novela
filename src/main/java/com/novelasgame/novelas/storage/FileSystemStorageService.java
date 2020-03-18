@@ -31,7 +31,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file/* , String gameName, String typeName */) {
+    public void store(MultipartFile file) {
         this.rootLocation = Paths.get(this.properties.getLocation());
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
@@ -44,7 +44,6 @@ public class FileSystemStorageService implements StorageService {
                         "Cannot store file with relative path outside current directory " + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
-                // Path path = this.rootLocation.resolve(gameName).resolve(typeName);
                 this.rootLocation.toFile().mkdirs();
                 System.out.println(rootLocation.toString());
                 Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);

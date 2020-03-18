@@ -14,9 +14,23 @@ import lombok.Data;
 public class ResourceItem extends AbstractEntity{
 
     private String type;
-    private String name;
+    private String fileName;
+    private String charName;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
+
+	public ResourceItem(String type, String fileName, String charName, Game game) {
+		super();
+		this.type = type;
+		this.fileName = fileName;
+		this.charName = charName;
+		this.game = game;
+	}
+
+	public ResourceItem() {
+		super();
+	}
+    
 }

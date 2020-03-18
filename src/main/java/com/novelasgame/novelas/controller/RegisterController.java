@@ -30,6 +30,6 @@ public class RegisterController {
         String response = success ? "Success registration" : "Registration failed";
         System.out.println("registration users: "+response);
         model.addAttribute("success", response);
-        return "login";
+        return "index";
     }
 }

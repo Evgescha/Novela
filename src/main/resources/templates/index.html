@@ -1,87 +1,145 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>NovelasGame</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src="/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/bootstrap.min.js"></script>
+<link href="//fonts.googleapis.com/css?family=Sacramento"
+	rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 
 <body>
-	<div class="container">
-		<h2>NovelasGame</h2>
-
-		<h3 class="group">Тестим все, что видим..</h3>
-		<div class="row">
-			<div class="item one-third column">
-				<a href="/games" class="item_name">Добавить игру"</a>
-				<p class="item_description">Переход на страницу добавления игры,
-					ее описания и тд.</p>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">NovelasGame</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"	data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav" th:if="${#request.userPrincipal != null}">
+					<a class="nav-item nav-link" href="#">Profile</a>
+					<a class="nav-item nav-link" href="#">Add new Game</a>
+					<a class="nav-item nav-link" href="#">Add scenario</a>
+					<a class="nav-item nav-link" href="#">Add resources</a>
+					<a class="nav-item nav-link" href="/logout">LogOut</a> 
+				</div>
+				<div class="navbar-nav" th:if="${#request.userPrincipal == null}">
+					<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#loginModal" >LogIn</a>
+					<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#regModal">SingIn</a>
+				</div>
 			</div>
-			<div class="item one-third column">
-				<a href="/addScenario" class="item_name">Добавить сценарий</a>
-				<p class="item_description">Переход на страницу добавления
-					сценария к существующей игре</p>
-			</div>
-			<div class="item one-third column">
-				<a href="/runGame?gameName=summer&labelName=default"
-					class="item_name">Запустить игру summer</a>
-				<p class="item_description">Запуск игры с именем "summer" и
-					меткой "default"</p>
-			</div>
-
-			<div class="item one-third column">
-				<a href="/upload" class="item_name">Открыть окно ресурсов</a>
-				<p class="item_description">Открыть окно, которое позволяе
-					добавлять/удалять такие ресурсы как спрайты, фоны</p>
-			</div>
-			<div class="item one-third column">
-				<a href="/runGame?gameName=default&labelName=menu" class="item_name">Тест
-					меню выбора</a>
-				<p class="item_description">Запуск игры с именем "default" и
-					меткой "menu"</p>
-			</div>
-			<div class="item one-third column">
-				<a href="/logout" class="item_name">LogOut</a>
-				<p class="item_description">Выйти</p>
-			</div>
+		</nav>
 
 
+		<div class="container_slider_css">
+			<a href="#index-gamePrev"> 
+				<img class="photo_slider_css" src="/forPages/1.jpg"> 
+				<img class="photo_slider_css" src="/forPages/2.jpg">
+				<img class="photo_slider_css" src="/forPages/3.jpg"> 
+				<img class="photo_slider_css" src="/forPages/4.jpg">
+			</a>
+		</div>
+	</header>
 
-			<!-- пока не реализовано -->
-			<div class="item one-third column">
-				<a href="sound" class="item_name">Минимальный тест запуска
-					звуков</a>
-				<p class="item_description">Передаем некоторые звуки в модель,
-					они воспроизводятся по кнопке</p>
-			</div>
-			<div class="item one-third column">
-				<a href="#" class="item_name">Тест смены дня и ночи</a>
-				<p class="item_description">Смена дня и ночи текущего фона</p>
-			</div>
-			<div class="item one-third column">
-				<a href="#" class="item_name">Тест анимационных эффектов</a>
-				<p class="item_description">Плавное появление, затухание как
-					фонов, так и персонажей, белый и темный цвет при смене кадров</p>
-			</div>
-			<div class="item one-third column">
-				<a href="#" class="item_name">Тест тегов</a>
-				<p class="item_description">Меняем метки и смотрим другую верту
-					развития</p>
-			</div>
-			<div class="item one-third column">
-				<a href="#" class="item_name">Тест загрузки и сохранения</a>
-				<p class="item_description">Меняем ветки и смотрим, произошла ли
-					смена</p>
+	<section id="index-gamePrev">
+		<div class="container">
+			<div class="index-gamePrev d-flex justify-content-center">Our games</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="games d-flex flex-wrap justify-content-center">
+
+				<div class="games-item position-relative" th:each="game:${games}">
+					<a th:href="@{/runGame(gameName=${game.name},labelName='default')}"
+						class="game-banner"> <img
+						src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg"
+						class="game-image">
+					</a>
+					<div class="game-detail position-absolute">
+						<span class="game-title text-uppercase"
+							th:text="${game.originalName}">Kingdom Rush: Frontiers</span>
+					</div>
+				</div>
 			</div>
 		</div>
+	</section>
 
-
-
+	<footer>
+		<div class="index-gamePrev d-flex justify-content-center">Have a nice Game</div>
+		<div class="powered"><p id="powered">Powered By Yauhenii© 2019-2020	</p></div>
+	</footer>
+	
+	
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-transparent">
+			<div class="form-top modal-body">
+				<div class="form-top-left">
+					<h3>Login to our site</h3>
+					<p>Enter username and password to log on:</p>
+				</div>
+				<div class="form-top-right">
+					<i class="fa fa-lock"></i>
+				</div>
+			</div>
+			<div class="form-bottom">
+				<form role="form" action="/perform_login" method="post" class="login-form">
+					<div class="form-group">
+						<label class="sr-only" for="form-username">Username</label>
+						<input type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="form-password">Password</label>
+						<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+					</div>
+					<button type="submit" class="btn bg-primary text-white">Sign in!</button>
+				</form>
+			</div>
+		</div>
 	</div>
+</div>
+
+
+
+<div class="modal fade" id="regModal" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content bg-transparent">
+			<div class="form-top modal-body">
+				<div class="form-top-left">
+					<h3>Sign up now</h3>
+					<p>Fill in the form below to get instant access:</p>
+				</div>
+				<div class="form-top-right">
+					<i class="fa fa-pencil"></i>
+				</div>
+			</div>
+			<div class="form-bottom">
+				<form role="form" action="/registration" method="post" class="registration-form">
+					<div class="form-group">
+						<label class="sr-only" for="form-first-name">User name</label>
+						<input type="text" name="username" placeholder="User name..." class="form-username form-control" id="form-username">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="form-email">Email</label>
+						<input type="text" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="form-last-name">Last name</label>
+						<input type="password" name="password" placeholder="password" class="form-password form-control" id="form-password">
+					</div>
+					<button type="submit" class="btn bg-primary text-white">Sign me up!</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 
 </html>

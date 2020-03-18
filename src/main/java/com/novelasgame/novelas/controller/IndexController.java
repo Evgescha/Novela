@@ -25,6 +25,6 @@ public class IndexController {
 		if (!games.isEmpty())
 			model.addAttribute("games", games);
 		
-		return "index2";
+		return "index";
 	}
 }

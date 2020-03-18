@@ -52,7 +52,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/")
                 .loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true").and()
+                .failureUrl("/index?error=true").and()
             .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")

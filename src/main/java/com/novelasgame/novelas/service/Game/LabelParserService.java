@@ -112,7 +112,7 @@ public class LabelParserService {
 		if (arr[0].contains("hide"))
 			return new Hide(cmd);
 
-		if (arr[0].contains("show") )
+		if (arr[0].contains("show") && arr.length>2)
 			return getChar(cmd);
 
 		if (cmd.charAt(0) == '$' && (cmd.contains("=") || cmd.contains("++") || cmd.contains("--")))

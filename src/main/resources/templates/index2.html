@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>NovelasGame</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/bootstrap.min.js"></script>
+<link href="//fonts.googleapis.com/css?family=Sacramento"
+	rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">NovelasGame</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav align-items-center">
+					<a class="nav-item nav-link" href="#">LogIn</a>
+					<a class="nav-item nav-link" href="#">SingIn</a>
+					<a class="nav-item nav-link" href="#">Profile</a>
+					<a class="nav-item nav-link" href="#">Add new Game</a>
+					<a class="nav-item nav-link" href="#">Add resources</a>
+					<a class="nav-item nav-link" href="#">Add scenario</a> 
+				</div>
+			</div>
+		</nav>
+
+
+		<div class="container_slider_css">
+			<a href="#index-gamePrev"> <img class="photo_slider_css"
+				src="/1.jpg"> <img class="photo_slider_css" src="/2.jpg">
+				<img class="photo_slider_css" src="/3.jpg"> <img
+				class="photo_slider_css" src="/4.jpg">
+			</a>
+		</div>
+	</header>
+
+	<section id="index-gamePrev">
+		<div class="container">
+			<div class="index-gamePrev d-flex justify-content-center">Our
+				games</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="games d-flex flex-wrap justify-content-center">
+
+				<div class="games-item position-relative" th:each="game:${games}">
+					<a th:href="@{/runGame(gameName=${game.name},labelName='default')}"
+						class="game-banner"> <img
+						src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg"
+						class="game-image">
+					</a>
+					<div class="game-detail position-absolute">
+						<span class="game-title text-uppercase"
+							th:text="${game.originalName}">Kingdom Rush: Frontiers</span>
+					</div>
+				</div>
+				<!-- 				<div class="games-item position-relative"> -->
+				<!-- 					<a href="#" class="game-banner"> <img -->
+				<!-- 						src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-2.jpg" -->
+				<!-- 						class="game-image"> -->
+				<!-- 					</a> -->
+				<!-- 					<div class="game-detail position-absolute"> -->
+				<!-- 						<span class="game-title">THE ELDER SCROLLS V: SKYRIM</span> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+				<!-- 				<div class="games-item position-relative"> -->
+				<!-- 					<a href="#" class="game-banner"> <img -->
+				<!-- 						src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-3.jpg" -->
+				<!-- 						class="game-image"> -->
+				<!-- 					</a> -->
+				<!-- 					<div class="game-detail position-absolute"> -->
+				<!-- 						<span class="game-title">GRAND THIEVES AUTO 4 REVIEW</span> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="index-gamePrev d-flex justify-content-center">Have a
+			nice Game</div>
+		<div class="powered">
+			<p id="powered">
+				Powered By Yauhenii</a> © 2020
+			</p>
+		</div>
+	</footer>
+</body>
+
+</html>

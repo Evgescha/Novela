@@ -13,6 +13,9 @@
 </head>
 
 <body>
+	<div th:if="${success}">
+		<h3 th:text="${success}"></h3>
+	</div>
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">NovelasGame</a>

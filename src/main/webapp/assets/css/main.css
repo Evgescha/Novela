@@ -210,7 +210,7 @@ body {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 26px;
-	background: url('/bg.jpg') repeat scroll #282828;
+	background: url('/forPages/bg.jpg') repeat scroll #282828;
 	position: relative;
 	letter-spacing: 0.6px;
 }
@@ -227,7 +227,7 @@ body {
 	font: 400 70px/100px "Sacramento", cursive;
 	text-transform: capitalize !important;
 	letter-spacing: 0.5px;
-	background: url('/title-image.png') no-repeat scroll center bottom;
+	background: url('/forPages/title-image.png') no-repeat scroll center bottom;
 }
 
 .games-item {
@@ -298,9 +298,6 @@ img.game-image {
 
 /***** Top content *****/
 
-.inner-bg {
-    padding: 60px 0 80px 0;
-}
 
 .top-content .text {
 	color: #fff;
@@ -373,21 +370,4 @@ img.game-image {
 	border-color: #19b9e7;
 }
 
-.social-login {
-	margin-top: 35px;
-}
 
-.social-login h3 {
-	color: #fff;
-}
-
-.social-login-buttons {
-	margin-top: 25px;
-}
-
-.middle-border {
-	min-height: 300px;
-	margin-top: 170px;
-	border-right: 1px solid #fff;
-	border-right: 1px solid rgba(255, 255, 255, 0.6);
-}

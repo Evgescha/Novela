@@ -46,16 +46,16 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/games", "/games/**").hasAnyRole("USER", "ADMIN")
             .antMatchers("/login", "/registration").anonymous()
-            .antMatchers("/StartPage.jpg", "/gameRes/**","/h2-console/**","/images/**").permitAll()
+            .antMatchers("/h2-console/**","/images/**","/forPages/**","/js/**","/css/**","/").permitAll()
             .anyRequest().authenticated().and()
             .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true").and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/")
             .deleteCookies("JSESSIONID");
         http.headers().frameOptions().sameOrigin();
     }

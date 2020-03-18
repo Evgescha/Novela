@@ -6,7 +6,7 @@ function addSound(snd) {
 	console.log("add sound");
 	if (snd["play"] == true) {
 		var url = objectToUrl(snd, "/sound/get");
-		getSound(url, snd);
+		getSound("upload/files/"+gameName+"/musicSound/"+snd["name"]+".ogg", snd);
 	} else {
 		let vol = 0;
 		if (snd["fade"] != 0) {
@@ -19,32 +19,22 @@ function addSound(snd) {
 
 // получаем музыку
 function getSound(urls, snd) {
-	$.ajax({
-		url : urls,
-		method : "GET", // Что бы воспользоваться POST методом, меняем
-		// данную строку на POST
-		success : function(data) {
+	$("audio").attr("src", urls);
+	// произведение музыки при заданных условиях
+	if (snd["sound_loop"] == true)
+		document.getElementById("myAudio").loop = true;
+	else
+		document.getElementById("myAudio").loop = false;
 
-			console.log(data); // Возвращаемые данные выводим в консоль
-			$("audio").attr("src", data);
-			// произведение музыки при заданных условиях
-			if (snd["sound_loop"] == true)
-				document.getElementById("myAudio").loop = true;
-			else
-				document.getElementById("myAudio").loop = false;
-
-			let vol = 0;
-			$(".audio").prop("volume", 1);
-			if (snd["fade"] != 0) {
-				$(".audio").prop("volume", 0);
-				vol = 100 / snd["fade"];
-			}
-			$('audio').trigger("play");
+	let vol = 0;
+	$(".audio").prop("volume", 1);
+	if (snd["fade"] != 0) {
+		$(".audio").prop("volume", 0);
+		vol = 100 / snd["fade"];
+	}
+	$('audio').trigger("play");
 			clearInterval(intervalUp);
 			intervalUp = setInterval(soundVolumeUp, 500, vol / 2);
-
-		}
-	});
 }
 
 // увеличиваем громкость музыки

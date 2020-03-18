@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.novelasgame.novelas.entity.game.Char;
@@ -22,8 +23,8 @@ public class SpriteController {
 
     @ResponseBody
     @GetMapping(value = "/char", produces = MediaType.IMAGE_PNG_VALUE)
-    private byte[] getChar(@ModelAttribute Char chr) throws IOException {
-        return charService.getImageByte(chr);
+    private byte[] getChar(@RequestParam("gameName") String gameName, @ModelAttribute Char chr) throws IOException {
+        return charService.getImageByte(gameName,chr);
     }
 }
 

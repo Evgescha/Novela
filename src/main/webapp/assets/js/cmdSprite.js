@@ -2,7 +2,8 @@
 // добавляем персонажа на экран
 function addChar(chr) {
 	console.log("add char");
-	var imageUrl = objectToUrl(chr, "/images/char");
+	var imageUrl = objectToUrl(chr, "/images/char")+"&gameName="+gameName;
+	console.log("url: "+imageUrl);
 	var div = `<img class="sprite ${chr["name"]} ${chr["position"]} ${chr["location"]}"  src="${imageUrl}">`;
 	// если персонаж существует, заменить
 	if ($("." + chr["name"]).length > 0) {

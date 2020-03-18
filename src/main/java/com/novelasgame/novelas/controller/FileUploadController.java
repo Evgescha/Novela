@@ -67,7 +67,12 @@ public class FileUploadController {
 		Resource file = storageService.loadAsResource(gameName, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
-
+	@GetMapping("/upload/files/{gameName}/{typeName}/{charName}/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
+			@PathVariable String filename,@PathVariable String charName) {
+		return serveFile(gameName, typeName+"/"+charName, filename);
+	}
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam(name = "files", required = true) MultipartFile[] files,
 			@RequestParam(name = "game", required = true) String gameName,

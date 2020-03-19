@@ -380,3 +380,22 @@ img.game-image {
 .description-image{
 	width: 100%;
 }
+.description-gameTitle{
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0 0 12px;
+    line-height: 30px;
+    border-bottom: 1px solid #4a4a4a;
+    margin-top: 10px;
+    color: #c7c7c7;
+    font-family: 'Work Sans',sans-serif;
+}
+.description-desc {
+   font-weight: 500;
+    color: #ffffff;
+    font-size: 14px;
+}
+.description-gameInfo{
+	border-bottom: 1px solid #4a4a4a;	
+}

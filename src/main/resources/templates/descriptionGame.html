@@ -12,9 +12,6 @@
 <div th:replace="~{commons :: nav}"></div>
 
 
-
-
-
 <section id="descriptionGame">
 	<div class="container">
 		<div class="row">
@@ -34,15 +31,28 @@
 					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/124865666.png">
 					        </div>
 					    </div>
-					    <div class="owl-nav">
-					        <div class="owl-prev">prev</div>
-					        <div class="owl-next">next</div>
-					    </div>
+<!-- 					    <div class="owl-nav"> -->
+<!-- 					        <div class="owl-prev">prev</div> -->
+<!-- 					        <div class="owl-next">next</div> -->
+<!-- 					    </div> -->
 					</div>
 				</div>
 			</div>
+			
 			<div class="col col-md-5">
-				
+				<h3 class="description-gameTitle">EverLasting Summer</h3>
+				<ul class="description-gameInfo">
+					<li><span class="description-desc">Brand: </span>Canon</li>
+					<li><span class="description-desc">Product Code: </span>Product 16</li>
+					<li><span class="description-desc">Reward Points: </span>600</li>
+					<li><span class="description-desc">Availability: </span>In Stock</li>
+				</ul>
+				<div class="description-text">
+					<span>Description:</span>
+					<p>
+						Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -57,17 +67,17 @@ $('#carousel').each(function () {
 	  // Создаем карусель
 	  var owl = $(this).find('.owl-carousel').owlCarousel();
 
-	  // При клике по кнопке Влево
-	  $(this).find('.owl-prev').on('click', function () {
-	    // Перематываем карусель назад
-	    owl.trigger('prev.owl.carousel');
-	  });
+// 	  // При клике по кнопке Влево
+// 	  $(this).find('.owl-prev').on('click', function () {
+// 	    // Перематываем карусель назад
+// 	    owl.trigger('prev.owl.carousel');
+// 	  });
 
-	  // При клике по кнопке Вправо
-	  $(this).find('.owl-next').on('click', function () {
-	    // Перематываем карусель вперед
-	    owl.trigger('next.owl.carousel');
-	  });
+// 	  // При клике по кнопке Вправо
+// 	  $(this).find('.owl-next').on('click', function () {
+// 	    // Перематываем карусель вперед
+// 	    owl.trigger('next.owl.carousel');
+// 	  });
 	  
 	  $(this).find('.owl-item').on('click', function () {
 		    // меняем главную картинку

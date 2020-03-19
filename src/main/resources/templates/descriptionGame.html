@@ -31,21 +31,22 @@
 					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/124865666.png">
 					        </div>
 					    </div>
-<!-- 					    <div class="owl-nav"> -->
-<!-- 					        <div class="owl-prev">prev</div> -->
-<!-- 					        <div class="owl-next">next</div> -->
-<!-- 					    </div> -->
 					</div>
+				</div>
+				<div class="description-btns justify-content-around d-flex mb-5">
+					<a class="btn btn-secondary w-25">Play</a>
+					<a class="btn btn-secondary w-25">Load and Play</a>
 				</div>
 			</div>
 			
 			<div class="col col-md-5">
 				<h3 class="description-gameTitle">Aliquam Quaerat</h3>
 				<ul class="description-gameInfo">
-					<li><span class="description-desc">Brand: </span>Canon</li>
-					<li><span class="description-desc">Product Code: </span>Product 16</li>
-					<li><span class="description-desc">Reward Points: </span>600</li>
-					<li><span class="description-desc">Availability: </span>In Stock</li>
+					<li><span class="description-desc">Year:     </span><div>2020</div></li>
+					<li><span class="description-desc">Author:   </span><div>Yauheni</div></li>
+					<li><span class="description-desc">Genres:   </span><div>Action, Drama</div></li>
+					<li><span class="description-desc">Duration: </span><div>7 hours</div></li>
+					<li><span class="description-desc">Language: </span><div>English</div></li>
 				</ul>
 				<div class="description-text">
 					<span>Description:</span>
@@ -58,29 +59,94 @@
 	</div>
 </section>
 
+<section id="description-comments" class="my-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<div id="comment-form">
+					<form class="comment-form">
+							<div id="review">
+								<table class="table table-striped table-bordered">
+									<tbody>
+										<tr>
+											<td style="width: 50%;" class="commentsName"><strong>Matthew Wade</strong></td>
+											<td class="text-right commenstData" >09/03/2017</td>
+										</tr>
+										<tr>
+											<td colspan="2" class="comment-info">
+												<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+												<span class="fa fa-stack">
+													<i class="fa fa-star fa-stack-2x"></i>
+													<i class="fa fa-star-o fa-stack-2x"></i>
+												</span>              
+												<span class="fa fa-stack">
+													<i class="fa fa-star fa-stack-2x"></i>
+													<i class="fa fa-star-o fa-stack-2x"></i>
+												</span>              
+												<span class="fa fa-stack">
+													<i class="fa fa-star fa-stack-2x"></i>
+													<i class="fa fa-star-o fa-stack-2x"></i>
+												</span>              
+												<span class="fa fa-stack">
+													<i class="fa fa-star fa-stack-2x"></i>
+													<i class="fa fa-star-o fa-stack-2x"></i>
+												</span>              
+												<span class="fa fa-stack">
+													<i class="fa fa-star fa-stack-2x"></i>
+													<i class="fa fa-star-o fa-stack-2x"></i>
+												</span>   
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="text-right"></div>
+							</div>
+							
+							
+						<h3>Write a review</h3>
+						<div class="form-group required">
+							<div class="col-sm-12">
+								<label class="control-label" >Your Name</label>
+								<input type="text" name="name" class="form-control">
+							</div>
+						</div>
+						<div class="form-group required">
+							<div class="col-sm-12">
+								<label class="control-label" >Your Review</label>
+								<textarea name="text" rows="5" class="form-control"></textarea>
+								<div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+							</div>
+						</div>
+						<div class="form-group required">
+							<div class="col-sm-12">
+								<label class="control-label">Rating</label>&nbsp;&nbsp;&nbsp; Bad&nbsp;
+								<input type="radio" name="rating" value="1">&nbsp;
+								<input type="radio" name="rating" value="2">&nbsp;
+								<input type="radio" name="rating" value="3">&nbsp;
+								<input type="radio" name="rating" value="4">&nbsp;
+								<input type="radio" name="rating" value="5">&nbsp;Good
+							</div>
+						</div>
+						<div class="buttons clearfix">
+							<div class="pull-right">
+								<button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <div th:replace="~{commons :: footer}"></div>
 
 <script type="text/javascript">
 	
 $('#carousel').each(function () {
-
-	  // Создаем карусель
 	  var owl = $(this).find('.owl-carousel').owlCarousel();
-
-// 	  // При клике по кнопке Влево
-// 	  $(this).find('.owl-prev').on('click', function () {
-// 	    // Перематываем карусель назад
-// 	    owl.trigger('prev.owl.carousel');
-// 	  });
-
-// 	  // При клике по кнопке Вправо
-// 	  $(this).find('.owl-next').on('click', function () {
-// 	    // Перематываем карусель вперед
-// 	    owl.trigger('next.owl.carousel');
-// 	  });
-	  
+		//changing main image
 	  $(this).find('.owl-item').on('click', function () {
-		    // меняем главную картинку
 		    $(".description-image").attr("src",$(this).attr("src"));
 		  });
 	  

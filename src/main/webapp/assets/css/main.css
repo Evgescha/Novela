@@ -396,6 +396,6 @@ img.game-image {
     color: #ffffff;
     font-size: 14px;
 }
-.description-gameInfo{
+.description-gameInfo, #descriptionGame{
 	border-bottom: 1px solid #4a4a4a;	
 }

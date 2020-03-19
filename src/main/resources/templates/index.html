@@ -1,67 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>NovelasGame</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="/js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<script src="/js/bootstrap.min.js"></script>
-<link href="//fonts.googleapis.com/css?family=Sacramento"
-	rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<head  th:insert="~{commons :: head(NovelasGame)}">
 </head>
-
 <body>
-	<div th:if="${success}">
-		<h3 th:text="${success}"></h3>
-	</div>
-	<header>
-	<div th:insert="~{commons :: nav}"></div>
+
+<div th:if="${success}">
+	<h3 th:text="${success}"></h3>
+</div>
+
+
+<div th:insert="~{commons :: nav}"></div>
+
 		
+<section>
+	<div class="container_slider_css">
+		<a href="#index-gamePrev"> 
+			<img class="photo_slider_css" src="/forPages/1.jpg"> 
+			<img class="photo_slider_css" src="/forPages/2.jpg">
+			<img class="photo_slider_css" src="/forPages/3.jpg"> 
+			<img class="photo_slider_css" src="/forPages/4.jpg">
+		</a>
+	</div>
+</section>
 
+<section id="index-gamePrev">
+	<div class="container">
+		<div class="index-gamePrev d-flex justify-content-center">Our games</div>
+	</div>
+</section>
 
-		<div class="container_slider_css">
-			<a href="#index-gamePrev"> 
-				<img class="photo_slider_css" src="/forPages/1.jpg"> 
-				<img class="photo_slider_css" src="/forPages/2.jpg">
-				<img class="photo_slider_css" src="/forPages/3.jpg"> 
-				<img class="photo_slider_css" src="/forPages/4.jpg">
-			</a>
-		</div>
-	</header>
+<section>
+	<div class="container">
+		<div class="games d-flex flex-wrap justify-content-center">
 
-	<section id="index-gamePrev">
-		<div class="container">
-			<div class="index-gamePrev d-flex justify-content-center">Our games</div>
-		</div>
-	</section>
-
-	<section>
-		<div class="container">
-			<div class="games d-flex flex-wrap justify-content-center">
-
-				<div class="games-item position-relative" th:each="game:${games}">
-					<a th:href="@{/runGame(gameName=${game.name},labelName='default')}"
-						class="game-banner"> <img
-						src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg"
-						class="game-image">
-					</a>
-					<div class="game-detail position-absolute">
-						<span class="game-title text-uppercase"
-							th:text="${game.originalName}">Kingdom Rush: Frontiers</span>
-					</div>
+			<div class="games-item position-relative" th:each="game:${games}">
+				<a th:href="@{/runGame(gameName=${game.name},labelName='default')}"
+					class="game-banner"> <img
+					src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg"
+					class="game-image">
+				</a>
+				<div class="game-detail position-absolute">
+					<span class="game-title text-uppercase"
+						th:text="${game.originalName}">Kingdom Rush: Frontiers</span>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<footer>
-		<div class="index-gamePrev d-flex justify-content-center">Have a nice Game</div>
-		<div class="powered"><p id="powered">Powered By Yauhenii© 2019-2020	</p></div>
-	</footer>
-	
-	
+<div th:insert="~{commons :: footer}"></div>
 
 </body>
 

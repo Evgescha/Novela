@@ -266,7 +266,7 @@ img.game-image {
 	transition: all 0.5s ease;
 }
 
-#powered {
+#index-powered {
     font-size: 16px;
     text-align: center;
     margin: 0;
@@ -275,7 +275,7 @@ img.game-image {
     color: #b2b2b2;
     font-weight: 300;
 }
-.powered {
+.index-powered {
     clear: both;
     padding: 59px 0;
     border-top: 1px solid #4a4a4a;
@@ -296,7 +296,7 @@ img.game-image {
 
 
 
-/***** Top content *****/
+/* -------------------modal reg and login */
 
 
 .top-content .text {

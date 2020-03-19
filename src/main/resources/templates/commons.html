@@ -1,54 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head">
-<meta charset="UTF-8">
-<title>Добавить сценарий</title>
-<style type="text/css">
-form {
-	display: flex;
-	flex-direction: column;
-	width: 400px;
-	margin: auto;
-}
-
-.gameName, .gameLabel, .gameCommands {
-	display: flex;
-	flex-direction: column;
-}
-.gameCommands textarea{
-height: 300px;
-}
-</style>
+<head th:fragment="head (title)">
+	<title th:text="${title}"></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<script src="/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/font.css"	>
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 <body>
 
-<!-- <div th:fragment="nav"> -->
-<!--       &copy; 2011 The Good Thymes Virtual Grocery -->
-<!-- </div> -->
-
-<nav th:fragment="nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
-	<a class="navbar-brand" href="/">NovelasGame</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"	data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		<div class="navbar-nav" th:if="${#request.userPrincipal != null}">
-			<a class="nav-item nav-link" href="#">Profile</a>
-			<a class="nav-item nav-link" href="#">Add new Game</a>
-			<a class="nav-item nav-link" href="#">Add scenario</a>
-			<a class="nav-item nav-link" href="#">Add resources</a>
-			<a class="nav-item nav-link" href="/logout">LogOut</a> 
+<header th:fragment="nav">
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">NovelasGame</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"	data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav" th:if="${#request.userPrincipal != null}">
+				<a class="nav-item nav-link" href="#">Profile</a>
+				<a class="nav-item nav-link" href="#">Add new Game</a>
+				<a class="nav-item nav-link" href="#">Add scenario</a>
+				<a class="nav-item nav-link" href="#">Add resources</a>
+				<a class="nav-item nav-link" href="/logout">LogOut</a> 
+			</div>
+			<div class="navbar-nav" th:if="${#request.userPrincipal == null}">
+				<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#loginModal" >LogIn</a>
+				<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#regModal">SingIn</a>
+				<div th:insert="~{commons :: loginModal}"></div>
+				<div th:insert="~{commons :: regModal}"></div>
+			</div>
 		</div>
-		<div class="navbar-nav" th:if="${#request.userPrincipal == null}">
-			<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#loginModal" >LogIn</a>
-			<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#regModal">SingIn</a>
-			<div th:insert="~{commons :: loginModal}"></div>
-			<div th:insert="~{commons :: regModal}"></div>
-		</div>
-	</div>
-</nav>
-
+	</nav>
+</header>
 <div th:fragment="loginModal" class="modal fade" id="loginModal" tabindex="-1" role="dialog" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content bg-transparent">
@@ -77,8 +64,6 @@ height: 300px;
 		</div>
 	</div>
 </div>
-
-
 
 <div th:fragment="regModal" class="modal fade" id="regModal" tabindex="-1" role="dialog" >
 	<div class="modal-dialog" role="document">
@@ -112,6 +97,11 @@ height: 300px;
 		</div>
 	</div>
 </div>
+
+<footer th:fragment="footer" >
+	<div class="index-gamePrev d-flex justify-content-center">Have a nice Game</div>
+	<div class="index-powered"><p id="index-powered">Powered By Yauhenii© 2019-2020	</p></div>
+</footer>
 
 </body>
 </html>

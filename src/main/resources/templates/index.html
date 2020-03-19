@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head  th:insert="~{commons :: head(NovelasGame)}">
+<head>
+	<title>NovelasGame</title>
+	<meta th:replace="~{commons :: head}"></meta>
 </head>
 <body>
 
@@ -9,7 +11,7 @@
 </div>
 
 
-<div th:insert="~{commons :: nav}"></div>
+<div th:replace="~{commons :: nav}"></div>
 
 		
 <section>
@@ -34,10 +36,9 @@
 		<div class="games d-flex flex-wrap justify-content-center">
 
 			<div class="games-item position-relative" th:each="game:${games}">
-				<a th:href="@{/runGame(gameName=${game.name},labelName='default')}"
-					class="game-banner"> <img
-					src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg"
-					class="game-image">
+				<a href="/description" class="game-banner">
+<!-- 				<a h:href="@{/runGame(gameName=${game.name},labelName='default')}" class="game-banner">  -->
+					<img src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg" class="game-image">
 				</a>
 				<div class="game-detail position-absolute">
 					<span class="game-title text-uppercase"
@@ -48,7 +49,7 @@
 	</div>
 </section>
 
-<div th:insert="~{commons :: footer}"></div>
+<div th:replace="~{commons :: footer}"></div>
 
 </body>
 

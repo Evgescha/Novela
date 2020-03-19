@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Description</title>
+	<meta th:replace="~{commons :: head}"></meta>
+	<link rel="stylesheet" href="/forPages/carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="/forPages/carousel/owl.theme.default.min.css">
+	<script src="forPages/carousel/owl.carousel.min.js"></script>
+	
+</head>
+<body>
+<div th:replace="~{commons :: nav}"></div>
+
+
+
+
+
+<section id="descriptionGame">
+	<div class="container">
+		<div class="row">
+			<div class="col col-md-5">
+				<div class="description-images mb-4">
+					<img class="description-image" src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/cache/catalog/06-792x800.jpg">
+				</div>
+				<div class="description-spinner" id="carousel">
+					<div class="owl-carousel owl-theme owl-loaded">
+					    <div class="owl-stage-outer">
+					        <div class="owl-stage">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/670239941.png">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/734167937.png">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/440458311.png">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/936906533.png">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/773543518.png">
+					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/124865666.png">
+					        </div>
+					    </div>
+					    <div class="owl-nav">
+					        <div class="owl-prev">prev</div>
+					        <div class="owl-next">next</div>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<div class="col col-md-5">
+				
+			</div>
+		</div>
+	</div>
+</section>
+
+<div th:replace="~{commons :: footer}"></div>
+
+<script type="text/javascript">
+	
+$('#carousel').each(function () {
+
+	  // Создаем карусель
+	  var owl = $(this).find('.owl-carousel').owlCarousel();
+
+	  // При клике по кнопке Влево
+	  $(this).find('.owl-prev').on('click', function () {
+	    // Перематываем карусель назад
+	    owl.trigger('prev.owl.carousel');
+	  });
+
+	  // При клике по кнопке Вправо
+	  $(this).find('.owl-next').on('click', function () {
+	    // Перематываем карусель вперед
+	    owl.trigger('next.owl.carousel');
+	  });
+	  
+	  $(this).find('.owl-item').on('click', function () {
+		    // меняем главную картинку
+		    $(".description-image").attr("src",$(this).attr("src"));
+		  });
+	  
+	});
+	
+</script>
+</body>
+</html>

@@ -3,42 +3,102 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Add new Game</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/css/main.css">
+<meta th:replace="~{commons :: head}"></meta>
 </head>
 <body>
-	<h2 th:text="${notification}"></h2>
-	<div class="container">
-		<form action="/games/addGame" method="POST">
-			<div class="name">
-				<p>Short name, 1 word</p>
-				<input type="text" name="name">
-			</div>
-			<div class="originalName">
-				<p>Full name</p>
-				<input type="text" name="originalName">
-			</div>
-			<div class="description">
-				<p>Description</p>
-				<textarea type="text" name="description"></textarea>
-			</div>
-			<button type="submit">Send</button>
-		</form>
-	</div>
-
-	<section id="games">
-		<h4>Games</h4>
-		<div class="gamesItem" th:each="game:${games}">
-			<div class="infoLeft">
-				<img src="StartPage.jpg" class="itemImage"> 
-				<a class="itemPlay" th:href="@{/runGame(gameName=${game.name},labelName='default')}">Play</a>
-				<a class="itemRemove" th:href="@{/games/deleteGame(gameId=${game.id})}" >Delete</a>
-			</div>
-			<div class="infoRight">
-				<p class="itemName" th:text="${game.originalName}">Name</p>
-				<p class="itemDesc" th:text="${game.description}">Description</p>
-			</div>
+	
+	<h2 th:if="${notification}" th:text="${notification}" class="text-center"></h2>
+	
+	<div th:replace="~{commons :: nav}"></div>
+	
+	<section id="newGame" class="my-5">
+		<div class="newGame container">
+		<div class="row justify-content-center">
+			<div id="content" class="col-sm-9">
+		      <h1>Game info</h1>
+		      <form action="https://demo.codezeel.com/opencart/OPC06/OPC060134/index.php?route=account/edit" method="post" enctype="multipart/form-data" class="form-horizontal">
+		        <fieldset>
+		          <legend>Information about the game</legend>
+					 <div class="form-group required">
+						<label class="col-sm-2 control-label">Title game</label>
+						<div class="col-sm-10">
+							<input type="text" name="title" placeholder="Everlasting Summer" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Year of publication</label>
+						<div class="col-sm-10">
+							<input type="text" name="year" placeholder="2020" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Select genres</label>
+						<div class="col-sm-10">
+							<input type="text" name="genres" placeholder="" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Game duration</label>
+						<div class="col-sm-10">
+							<input type="text" name="duration" placeholder="7 hours 20minuts" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Language</label>
+						<div class="col-sm-10">
+							<input type="text" name="language" placeholder="Russian" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-10">
+							<input type="text" name="" placeholder="" class="form-control">
+						</div>
+					</div>
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Avatar</label>
+						<div class="col-sm-10">
+							<input type="text" name="" placeholder="" class="form-control">
+						</div>
+					</div>					          
+					<div class="form-group required">
+						<label class="col-sm-2 control-label">Screens (6 photos)</label>
+						<div class="col-sm-10">
+							<input type="text" name="" placeholder="" class="form-control">
+						</div>
+					</div>	
+				</fieldset>
+		        <div class="buttons clearfix">
+		          <div class="pull-left"><a href="https://demo.codezeel.com/opencart/OPC06/OPC060134/index.php?route=account/account" class="btn btn-default">Back</a></div>
+		          <div class="pull-right">
+		            <input type="submit" value="Continue" class="btn btn-secondary">
+		          </div>
+		        </div>
+		      </form>
+		      </div>
+	      </div>
 		</div>
 	</section>
+	
+<!-- 	<div class="container"> -->
+<!-- 		<form action="/games/addGame" method="POST"> -->
+<!-- 			<div class="name"> -->
+<!-- 				<p>Short name, 1 word</p> -->
+<!-- 				<input type="text" name="name"> -->
+<!-- 			</div> -->
+<!-- 			<div class="originalName"> -->
+<!-- 				<p>Full name</p> -->
+<!-- 				<input type="text" name="originalName"> -->
+<!-- 			</div> -->
+<!-- 			<div class="description"> -->
+<!-- 				<p>Description</p> -->
+<!-- 				<textarea type="text" name="description"></textarea> -->
+<!-- 			</div> -->
+<!-- 			<button type="submit">Send</button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+
+		
+	<div th:replace="~{commons :: footer}"></div>
 </body>
 </html>

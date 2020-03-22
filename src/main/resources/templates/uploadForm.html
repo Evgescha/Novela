@@ -1,16 +1,16 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <title>Upload</title>
+<meta th:replace="~{commons :: head}"></meta>
 <link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css"
+	href="/forPages/fileinput/fileinput.min.css"
 	media="all" rel="stylesheet" type="text/css" />
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-	media="all" rel="stylesheet" type="text/css" />
-
+<script
+	src="/forPages/fileinput/fileinput.min.js"
+	type="text/javascript"></script>
+<script
+	src="/forPages/fileinput/theme.min.js"
+	type="text/javascript"></script>
 <style type="text/css">
 .main-section {
 	margin: 0 auto;
@@ -38,8 +38,8 @@
 				<tr>
 					<td>Select the game:</td>
 					<td><select id="res_gameSelect" type="text" name="game">
-							<option th:value="${game.name}" th:each="game:${games}"
-								th:text="${game.name}">GameName</option>
+							<option th:value="${game.title}" th:each="game:${games}"
+								th:text="${game.title}">GameName</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -62,7 +62,7 @@
 						<div class="form-group">
 							<div class="file-loading">
 								<input id="file-1" type="file" multiple class="file"
-									data-overwrite-initial="false" data-min-file-count="1"
+									data-overwrite-initial="false" 
 									name="files">
 							</div>
 						</div>

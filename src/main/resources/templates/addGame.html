@@ -5,18 +5,14 @@
 <title>Add new Game</title>
 <meta th:replace="~{commons :: head}"></meta>
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css"
+	href="/forPages/fileinput/fileinput.min.css"
 	media="all" rel="stylesheet" type="text/css" />
 <script
-	src="/js/fileinput.js"
+	src="/forPages/fileinput/fileinput.min.js"
 	type="text/javascript"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js"
+	src="/forPages/fileinput/theme.min.js"
 	type="text/javascript"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-	type="text/javascript"></script>
-	
 </head>
 <body>
 	
@@ -29,40 +25,40 @@
 		<div class="row justify-content-center">
 			<div id="content" class="col-sm-9">
 		      <h1>Game info</h1>
-		      <form action="https://demo.codezeel.com/opencart/OPC06/OPC060134/index.php?route=account/edit" method="post" enctype="multipart/form-data" class="form-horizontal">
+		      <form id="form" action="/games/addGame" method="post" enctype="multipart/form-data" class="form-horizontal">
 		        <fieldset>
 		          <legend>Information about the game</legend>
 					 <div class="form-group required">
 						<label class="col-sm-2 control-label">Title game</label>
 						<div class="col-sm-10">
-							<input type="text" name="title" placeholder="Everlasting Summer" class="form-control">
+							<input required type="text" name="title" placeholder="Everlasting Summer" class="form-control" >
 						</div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Year of publication</label>
 						<div class="col-sm-10">
-							<input type="text" name="year" placeholder="2020" class="form-control">
+							<input required type="number" name="year" placeholder="2020" class="form-control" min=1970 max=2025>
 						</div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Select genres</label>
-						<div class="col-sm-10 class="form-control"">
-							<input type="checkbox" name="genres" value="Action"  /> Action<br />
-							<input type="checkbox" name="genres" value="Dramma"  /> Dramma<br />
-							<input type="checkbox" name="genres" value="Yaoi"    /> Yaoi<br />
-							<input type="checkbox" name="genres" value="more18"  /> More 18<br />
+						<div class="col-sm-10">
+							<input type="checkbox" name="genre" value="Action"  /> Action<br />
+							<input type="checkbox" name="genre" value="Dramma"  /> Dramma<br />
+							<input type="checkbox" name="genre" value="Yaoi"    /> Yaoi<br />
+							<input type="checkbox" name="genre" value="more18"  /> More 18<br />
 						</div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Game duration</label>
 						<div class="col-sm-10">
-							<input type="text" name="duration" placeholder="7 hours 20minuts" class="form-control">
+							<input required type="number" min=5 name="duration" placeholder="20 minutes" class="form-control" >
 						</div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Language</label>
 						<div class="col-sm-10">
-							<select name="language" size="1"  class="form-control">
+							<select name="language" size="1"  class="form-control" >
 								<option value="first">English</option>
 								<option value="second">Russian</option>
 								<option value="third">Japan</option>
@@ -73,7 +69,7 @@
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Description</label>
 						<div class="col-sm-10">
-							<textarea name="description" placeholder="This is Story about..." class="form-control" rows="5" cols="150"></textarea>
+							<textarea required name="description" placeholder="This is Story about..." class="form-control" rows="5" cols="150" ></textarea>
 						</div>
 					</div>
 					<div class="form-group required">
@@ -81,8 +77,8 @@
 						<div class="col-sm-10">							
 							<div class="form-group">
 								<div class="file-loading">
-									<input id="file-1" type="file" class="file"	data-overwrite-initial="false" data-min-file-count="1" data-max-file-count="1"
-										name="avatar">
+									<input  id="file-1" type="file" class="file"	 required 
+										name="ava">
 								</div>
 							</div>
 						</div>
@@ -92,15 +88,15 @@
 						<div class="col-sm-10">							
 							<div class="form-group">
 								<div class="file-loading">
-									<input id="file-6" type="file" class="file"	multiple data-overwrite-initial="false" data-max-file-count="6" data-mi-file-count="1"
-										name="screens">
+									<input  id="file-6" type="file" class="file" 
+										multiple name="screen"  required > 
 								</div>
 							</div>
 						</div>
 					</div>	
 				</fieldset>
 		        <div class="buttons clearfix">
-		          <div class="pull-left"><a href="https://demo.codezeel.com/opencart/OPC06/OPC060134/index.php?route=account/account" class="btn btn-default">Back</a></div>
+		          <div class="pull-left"><a href="/" class="btn btn-secondary">Back</a></div>
 		          <div class="pull-right">
 		            <input type="submit" value="Continue" class="btn btn-secondary">
 		          </div>
@@ -112,54 +108,14 @@
 	</section>
 	
 	
-<!-- 	<div class="container"> -->
-<!-- 		<form action="/games/addGame" method="POST"> -->
-<!-- 			<div class="name"> -->
-<!-- 				<p>Short name, 1 word</p> -->
-<!-- 				<input type="text" name="name"> -->
-<!-- 			</div> -->
-<!-- 			<div class="originalName"> -->
-<!-- 				<p>Full name</p> -->
-<!-- 				<input type="text" name="originalName"> -->
-<!-- 			</div> -->
-<!-- 			<div class="description"> -->
-<!-- 				<p>Description</p> -->
-<!-- 				<textarea type="text" name="description"></textarea> -->
-<!-- 			</div> -->
-<!-- 			<button type="submit">Send</button> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
-
-		
 	<div th:replace="~{commons :: footer}"></div>
 	
 	
 	
 	
 	
-		<script type="text/javascript">
+<script type="text/javascript">
 
-		$("#file-1").fileinput({
-			theme : 'fa',
-			uploadUrl : '/upload',
-			allowedFileExtensions : [ 'jpg', 'png'],
-			overwriteInitial : false,
-			maxFileSize : 10000,
-			slugCallback : function(filename) {
-				return filename.replace('(', '_').replace(']', '_');
-			}
-		});
-				
-		$("#file-6").fileinput({
-			theme : 'fa',
-			uploadUrl : '/upload',
-			allowedFileExtensions : [ 'jpg', 'png'],
-			overwriteInitial : false,
-			maxFileSize : 10000,
-			slugCallback : function(filename) {
-				return filename.replace('(', '_').replace(']', '_');
-			}
-		});
-	</script>
+</script>
 </body>
 </html>

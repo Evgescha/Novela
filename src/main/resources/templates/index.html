@@ -37,12 +37,11 @@
 
 			<div class="games-item position-relative" th:each="game:${games}">
 				<a href="/description" class="game-banner">
-<!-- 				<a h:href="@{/runGame(gameName=${game.name},labelName='default')}" class="game-banner">  -->
-					<img src="https://demo.codezeel.com/opencart/OPC06/OPC060134/image/catalog/cms-banner-1.jpg" class="game-image">
+					<img th:src="@{${game.avatar}}" class="game-image">
 				</a>
 				<div class="game-detail position-absolute">
 					<span class="game-title text-uppercase"
-						th:text="${game.originalName}">Kingdom Rush: Frontiers</span>
+						th:text="${game.title}">Kingdom Rush: Frontiers</span>
 				</div>
 			</div>
 		</div>

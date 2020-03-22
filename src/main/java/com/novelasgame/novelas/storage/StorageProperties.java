@@ -10,14 +10,18 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private final String ground = "upload-dir";
+    public final String ground = "upload-dir";
     private String location = "upload-dir";
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String... locArr) {
+    public String getGround() {
+		return ground;
+	}
+
+	public void setLocation(String... locArr) {
         this.location = this.ground;
         for (String str : locArr)
             this.location = Paths.get(this.getLocation()).resolve(str).toString();

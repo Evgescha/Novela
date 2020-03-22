@@ -31,7 +31,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public String store(MultipartFile file) {
         this.rootLocation = Paths.get(this.properties.getLocation());
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
@@ -45,12 +45,14 @@ public class FileSystemStorageService implements StorageService {
             }
             try (InputStream inputStream = file.getInputStream()) {
                 this.rootLocation.toFile().mkdirs();
-                System.out.println(rootLocation.toString());
+//                System.out.println(rootLocation.toString());
                 Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+        System.out.println("SAVE AS: "+this.rootLocation.resolve(filename).toString());
+        return this.rootLocation.resolve(filename).toString();
     }
 
     @Override
@@ -101,4 +103,10 @@ public class FileSystemStorageService implements StorageService {
             throw new StorageException("Could not initialize storage", e);
         }
     }
+
+	@Override
+	public void store(MultipartFile[] files) {
+		for(MultipartFile file:files)
+			store(file);
+	}
 }

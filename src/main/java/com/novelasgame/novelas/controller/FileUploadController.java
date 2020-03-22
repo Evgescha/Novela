@@ -47,24 +47,16 @@ public class FileUploadController {
 	public String listUploadedFiles(Model model) throws IOException {
 		List<Game> findAll = gameService.findAll();
 		model.addAttribute("games", findAll);
-
-//		model.addAttribute("files",
-//				storageService.loadAll()
-//						.map(path -> MvcUriComponentsBuilder
-//								.fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-//								.build().toUri().toString())
-//						.collect(Collectors.toList()));
-
 		return "uploadForm";
 	}
 
-	@GetMapping("/upload/files/{gameName}/{typeName}/{filename:.+}")
+	@GetMapping("/upload/files/{gameId}/{typeName}/{filename:.+}")
 	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
+	public ResponseEntity<Resource> serveFile(@PathVariable String gameId, @PathVariable String typeName,
 			@PathVariable String filename) {
 		storageProps.setLocation();
 		System.out.println("location: " + storageProps.getLocation());
-		Resource file = storageService.loadAsResource(gameName, typeName, filename);
+		Resource file = storageService.loadAsResource(gameId, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
 	@GetMapping("/upload/files/{gameName}/{typeName}/{charName}/{filename:.+}")
@@ -79,7 +71,7 @@ public class FileUploadController {
 			@RequestParam(name = "type", required = true) String typeName,
 			@RequestParam(name = "charName", required = false, defaultValue = "") String charName,
 			RedirectAttributes redirectAttributes) {
-		Game game = gameService.findByName(gameName);
+		Game game = gameService.findByTitle(gameName);
 		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
 			System.out.println("game is: " + gameName);
 			System.out.println("type is: " + typeName);

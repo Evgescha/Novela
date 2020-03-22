@@ -11,12 +11,12 @@ public class Jump {
     static Logger logger = Logger.getLogger(Jump.class.getName());
     private final String type = "jump";
     private String label;
-    private String gameName;
+    private long gameId;
     
     
     public Jump() {}
-    public Jump(String cmd, String gameName) {
+    public Jump(String cmd, long gameId) {
         label=cmd.trim().split(" ")[1];
-        this.gameName=gameName;
+        this.gameId=gameId;
     }
 }

@@ -63,10 +63,15 @@ public class GameService implements CrudService<Game> {
             return false;
         }
     }
-    public Game findByName(String name) {
-        return repository.findByNameIgnoreCase(name);
+    public Game findByTitle(String title) {
+        return repository.findByTitleIgnoreCase(title);
     }
-
+    
+//    public Game findByName(String name) {
+//        return repository.findByTitleIgnoreCase(name);
+//    }
+    
+    
     public List<Game> findAll() {
         return repository.findAll();
     }

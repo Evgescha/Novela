@@ -8,6 +8,6 @@ import com.novelasgame.novelas.entity.DataBase.Game;
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
     
-    public Game findByNameIgnoreCase(String name);
+	public Game findByTitleIgnoreCase(String title);
     
 }

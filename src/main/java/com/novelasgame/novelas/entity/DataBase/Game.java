@@ -1,5 +1,6 @@
 package com.novelasgame.novelas.entity.DataBase;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.novelasgame.novelas.repository.DropEntity;
@@ -24,17 +29,29 @@ import lombok.Data;
 @Entity
 public class Game extends AbstractEntity implements DropEntity{
     
-    @Column(unique = true)
-    private String name;
+//    @Column(unique = true)
+//    private String name;
     
     @Column
-    private String originalName;
+    private String title;
     
     @Column
-    private String avatar="default.png";
+    private int year;
 
+    @Column
+    private int duration;
+    
+    @Column
+    private String language;
+    
     @Column(length=1000)
     private String description;
+    
+    @Column(length=255)
+    private String avatar="default.png";
+
+    @Column
+    private String[] screens;
     
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -50,16 +67,33 @@ public class Game extends AbstractEntity implements DropEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    
+    @JsonIgnore
+    @Fetch(value = FetchMode.SELECT)
+    @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @JoinTable(name = "game_genre",
+        joinColumns = @JoinColumn(name = "game_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id"),
+        uniqueConstraints = @UniqueConstraint(
+                name="games_genres",
+                columnNames = {"game_id", "genre_id"})
+    )
+    private Collection<Genre> genres;
+    
+    
     @Override
     public String getOwnerUsername() {
         return user.getUsername();
     }
 
-    @Override
-    public String toString() {
-        return "Game [name=" + name + ", originalName=" + originalName + ", avatar=" + avatar + ", description="
-                + description + ", labels=" + labels + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "Game [title=" + title + ", year=" + year + ", duration=" + duration + ", language=" + language
+				+ ", description=" + description + ", avatar=" + avatar + ", screens=" + Arrays.toString(screens)
+				+ ", genres=" + genres + "]";
+	}
+
     
 
 }

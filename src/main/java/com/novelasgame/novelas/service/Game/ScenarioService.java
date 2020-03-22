@@ -19,7 +19,7 @@ public class ScenarioService {
 
     public void saveScenario(Scenario sc) {
         Game game = null;
-        game = gameService.findByName(sc.getGameName());
+        game = gameService.read(sc.getGameId());
         if (game == null) {
             return;
 //            game = new Game();

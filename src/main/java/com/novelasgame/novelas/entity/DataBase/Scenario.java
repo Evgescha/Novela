@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Scenario {
     
-    private String gameName;
+    private long gameId;
     private String gameLabel;
     private String gameCommands;
     

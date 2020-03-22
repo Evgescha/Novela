@@ -39,13 +39,13 @@ public class LabelParserService {
 
 	// для цикла
 	int i = 0;
-	String gameName;
+	long gameId;
 	String cmd;
 
-	public ArrayList<Object> Parse(String gameName, String labelName) {
-		this.gameName = gameName;
+	public ArrayList<Object> Parse(long gameId, String labelName) {
+		this.gameId = gameId;
 		list.clear();
-		Game game = gameService.findByName(gameName);
+		Game game = gameService.read(gameId);
 		Label label = null;
 		for (Label lbl : game.getLabels()) {
 			if (lbl.getName().equalsIgnoreCase(labelName)) {
@@ -119,7 +119,7 @@ public class LabelParserService {
 			return new Variables(cmd);
 
 		if (arr[0].contains("jump"))
-			return new Jump(cmd, gameName);
+			return new Jump(cmd, gameId);
 
 		return null;
 	}
@@ -173,7 +173,7 @@ public class LabelParserService {
 		}
 
 		// find item with current emotion
-		List<ResourceItem> findByGameAndCharName = reItemService.findByGameAndCharName(gameService.findByName(gameName),
+		List<ResourceItem> findByGameAndCharName = reItemService.findByGameAndCharName(gameService.read(gameId),
 				split[1]);
 		for (ResourceItem item : findByGameAndCharName) {
 			if (item.getFileName().contains(emotion)) {

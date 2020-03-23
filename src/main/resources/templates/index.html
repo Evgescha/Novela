@@ -36,7 +36,7 @@
 		<div class="games d-flex flex-wrap justify-content-center">
 
 			<div class="games-item position-relative" th:each="game:${games}">
-				<a href="/description" class="game-banner">
+				<a th:href="@{/description/${game.id}}" class="game-banner">
 					<img th:src="@{${game.avatar}}" class="game-image">
 				</a>
 				<div class="game-detail position-absolute">

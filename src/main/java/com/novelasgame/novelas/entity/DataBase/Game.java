@@ -65,6 +65,9 @@ public class Game extends AbstractEntity implements DropEntity{
     @OneToMany(fetch=FetchType.LAZY, mappedBy="game", cascade=CascadeType.ALL)
     private Collection<ResourceItem> resourceItems;
     
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="game", cascade=CascadeType.ALL)
+    private Collection<Comment> comments;
+    
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

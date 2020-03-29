@@ -55,7 +55,7 @@ public class FileUploadController {
 	public ResponseEntity<Resource> serveFile(@PathVariable String gameId, @PathVariable String typeName,
 			@PathVariable String filename) {
 		storageProps.setLocation();
-		System.out.println("location: " + storageProps.getLocation());
+//		System.out.println("location: " + storageProps.getLocation());
 		Resource file = storageService.loadAsResource(gameId, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
@@ -73,11 +73,11 @@ public class FileUploadController {
 			RedirectAttributes redirectAttributes) {
 		Game game = gameService.findByTitle(gameName);
 		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
-			System.out.println("game is: " + gameName);
-			System.out.println("type is: " + typeName);
+//			System.out.println("game is: " + gameName);
+//			System.out.println("type is: " + typeName);
 			storageProps.setLocation(gameName, typeName);
 			for (MultipartFile file : files) {
-				System.out.println(charName);
+//				System.out.println(charName);
 				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(),null, game);
 				storageService.store(file);
 				resourcesItemService.create(item);

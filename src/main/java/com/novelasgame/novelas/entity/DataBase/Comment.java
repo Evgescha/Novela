@@ -1,18 +1,13 @@
 package com.novelasgame.novelas.entity.DataBase;
 
 import java.sql.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -34,4 +29,9 @@ public class Comment extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	@Override
+	public String toString() {
+		return "Comment [text=" + text + ", date=" + date + ", game=" + game.getTitle() + ", user=" + user.getUsername() + "]";
+	}
 }

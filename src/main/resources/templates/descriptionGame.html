@@ -59,20 +59,21 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div id="comment-form">
-					<form class="comment-form">
+					<form class="comment-form" action="/comments" method="post">
+						<input hidden="true" type="number" th:value="${game.id}" name="gameId">
 							<div id="review">
 								<table class="table table-striped table-bordered">
-									<tbody>
+									<tbody th:each="i : ${#numbers.sequence(comments.size() - 1, 0, -1)}"    th:with="comment=${comments[i]}">
 										<tr>
-											<td style="width: 50%;" class="commentsName"><strong>Matthew Wade</strong></td>
-											<td class="text-right commenstData" >09/03/2017</td>
+											<td style="width: 50%;" class="commentsName"><strong th:text="${comment.user.username}">Matthew Wade</strong></td>
+											<td class="text-right commenstData" th:text="${comment.date}">09/03/2017</td>
 										</tr>
-										<tr>
-											<td colspan="2" class="comment-info">
-												<p class="commentText">Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
-											</td>
-										</tr>
-									</tbody>
+											<tr>
+												<td colspan="2" class="comment-info">
+													<p class="commentText" th:text="${comment.text}">Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+												</td>
+											</tr>
+										</tbody>
 								</table>
 								<div class="text-right"></div>
 							</div>
@@ -82,7 +83,7 @@
 						<div class="form-group required">
 							<div class="col-sm-12">
 								<label class="control-label" >Your Name</label>
-								<input type="text" name="name" class="form-control">
+								<input type="text" name="username"  class="form-control" th:value="${#request.userPrincipal.name}" disabled="disabled">
 							</div>
 						</div>
 						<div class="form-group required">
@@ -104,7 +105,7 @@
 <!-- 						</div> -->
 						<div class="buttons clearfix">
 							<div class="pull-right">
-								<button type="button" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
+								<button type="submit" id="button-review" data-loading-text="Loading..." class="btn btn-primary">Continue</button>
 							</div>
 						</div>
 					</form>

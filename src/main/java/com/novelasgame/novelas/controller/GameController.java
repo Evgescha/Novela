@@ -19,6 +19,7 @@ import com.novelasgame.novelas.entity.DataBase.Game;
 import com.novelasgame.novelas.entity.DataBase.ResourceItem;
 import com.novelasgame.novelas.service.TypeResources;
 import com.novelasgame.novelas.service.DataBase.GameService;
+import com.novelasgame.novelas.service.DataBase.GenreService;
 import com.novelasgame.novelas.service.DataBase.ResourcesItemService;
 import com.novelasgame.novelas.storage.StorageProperties;
 import com.novelasgame.novelas.storage.StorageService;
@@ -35,6 +36,8 @@ public class GameController {
 	StorageProperties storageProps;
 	@Autowired
 	StorageService storageService;
+	@Autowired
+	GenreService genreService;
 
 	@GetMapping()
 	public String getGameController(Model model, @RequestParam(name = "isCreate", required = false) String isCreate) {
@@ -43,6 +46,7 @@ public class GameController {
 			model.addAttribute("games", games);
 		if (isCreate != null)
 			model.addAttribute("notification", isCreate);
+		model.addAttribute("genres", genreService.findAll());
 		return "addGame";
 	}
 

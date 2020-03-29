@@ -415,6 +415,9 @@ img.game-image {
     color: #ffffff;
     font-size: 14px;
 }
+.description-gameInfo{
+	padding: 0px;
+}
 .description-gameInfo li{
 	display: flex;
 }

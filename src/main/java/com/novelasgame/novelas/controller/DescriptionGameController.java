@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.novelasgame.novelas.service.DataBase.GameService;
 
 @Controller
-@RequestMapping("/description")
+@RequestMapping()
 public class DescriptionGameController {
 
 	
@@ -18,7 +18,7 @@ public class DescriptionGameController {
 	GameService gameService;
 	
 	
-	@GetMapping("/{gameId}")
+	@GetMapping("/description{gameId}")
 	public String getDescriptionGamePage(@PathVariable long gameId, Model model){
 		
 		model.addAttribute("game", gameService.read(gameId));

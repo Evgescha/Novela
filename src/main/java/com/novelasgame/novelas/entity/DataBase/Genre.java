@@ -31,5 +31,10 @@ public class Genre extends AbstractEntity {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return  name + " ";
+	}
+
     
 }

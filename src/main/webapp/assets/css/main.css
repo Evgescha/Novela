@@ -17,15 +17,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 body {
 	margin: 0;
 	padding: 0;
@@ -508,4 +499,8 @@ legend {
 	margin-bottom: 0;
 	padding-top: 7px;
 	text-align: left;
+}
+
+.genres{
+	margin: 0 5px 0 30px;
 }

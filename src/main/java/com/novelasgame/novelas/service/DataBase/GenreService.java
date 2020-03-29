@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.novelasgame.novelas.entity.DataBase.Game;
 import com.novelasgame.novelas.entity.DataBase.Genre;
+import com.novelasgame.novelas.entity.DataBase.Label;
 import com.novelasgame.novelas.repository.GenreRepository;
 
 @Service
@@ -51,5 +52,8 @@ public class GenreService implements CrudService<Genre> {
     }
     public List<Genre> findAll() {
         return repository.findAll();
+    }
+    public Genre findByName(String name) {
+        return repository.findByName(name);
     }
 }

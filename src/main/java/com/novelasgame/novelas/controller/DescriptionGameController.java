@@ -12,15 +12,12 @@ import com.novelasgame.novelas.service.DataBase.GameService;
 @Controller
 @RequestMapping()
 public class DescriptionGameController {
-
 	
 	@Autowired
 	GameService gameService;
 	
-	
 	@GetMapping("/description{gameId}")
 	public String getDescriptionGamePage(@PathVariable long gameId, Model model){
-		
 		model.addAttribute("game", gameService.read(gameId));
 		return "descriptionGame";
 	}

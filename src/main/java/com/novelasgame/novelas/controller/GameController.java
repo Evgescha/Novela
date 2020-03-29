@@ -57,19 +57,17 @@ public class GameController {
 			//загрузить аватарку
 			game = gameService.findByTitle(game.getTitle());
 			storageProps.setLocation(game.getId() + "", TypeResources.AVATAR_IMAGE);
-			ResourceItem item = new ResourceItem(TypeResources.AVATAR_IMAGE, avatar.getName(), null, game);
+			ResourceItem item = new ResourceItem(TypeResources.AVATAR_IMAGE, avatar.getOriginalFilename(), null, game);
 			storageService.store(avatar);
 			resourcesItemService.create(item);
-			System.out.println("AVA?: "+avatar.getOriginalFilename());
 			game.setAvatar("upload/files/"+game.getId()+"/"+TypeResources.AVATAR_IMAGE+"/"+avatar.getOriginalFilename());
-			System.out.println("avatarName: "+game.getAvatar());
 			gameService.update(game);
 			item=null;
 			
 			//загрузить скрины
 			storageProps.setLocation(game.getId() + "", TypeResources.SCREEN_IMAGE);
 			for(MultipartFile file:screens) {
-				item = new ResourceItem(TypeResources.SCREEN_IMAGE, file.getName(), null, game);
+				item = new ResourceItem(TypeResources.SCREEN_IMAGE, file.getOriginalFilename(), null, game);
 				storageService.store(file);
 				resourcesItemService.create(item);
 				item=null;

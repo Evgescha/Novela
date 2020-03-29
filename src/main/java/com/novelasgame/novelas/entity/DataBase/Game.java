@@ -42,6 +42,9 @@ public class Game extends AbstractEntity implements DropEntity{
     private int duration;
     
     @Column
+    private String author;
+    
+    @Column
     private String language;
     
     @Column(length=1000)
@@ -50,8 +53,8 @@ public class Game extends AbstractEntity implements DropEntity{
     @Column(length=255)
     private String avatar="default.png";
 
-    @Column
-    private String[] screens;
+//    @Column
+//    private String[] screens;
     
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -90,7 +93,7 @@ public class Game extends AbstractEntity implements DropEntity{
 	@Override
 	public String toString() {
 		return "Game [title=" + title + ", year=" + year + ", duration=" + duration + ", language=" + language
-				+ ", description=" + description + ", avatar=" + avatar + ", screens=" + Arrays.toString(screens)
+				+ ", description=" + description + ", avatar=" + avatar + ", "//screens=" + Arrays.toString(screens)
 				+ ", genres=" + genres + "]";
 	}
 

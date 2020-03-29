@@ -32,5 +32,11 @@ public class ResourceItem extends AbstractEntity{
 	public ResourceItem() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "/upload/files/" + getGame().getId() + "/" + getType() + "/" + getFileName();
+	}
+	
     
 }

@@ -22,13 +22,8 @@
 				<div class="description-spinner" id="carousel">
 					<div class="owl-carousel owl-theme owl-loaded">
 					    <div class="owl-stage-outer">
-					        <div class="owl-stage">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/670239941.png">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/734167937.png">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/440458311.png">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/936906533.png">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/773543518.png">
-					            <img class="owl-item px-1" src="https://anivisual.net/_ph/3/124865666.png">
+					        <div class="owl-stage" >
+ 					        	<img class="owl-item px-1"  th:src="${resourceItem}" th:if="${resourceItem.type == 'screenImage'}" th:each="resourceItem:${game.resourceItems}"> 
 					        </div>
 					    </div>
 					</div>
@@ -40,10 +35,10 @@
 			</div>
 			
 			<div class="col col-md-5">
-				<h3 class="description-gameTitle">Aliquam Quaerat</h3>
+				<h3 class="description-gameTitle" th:text="${game.title}">Aliquam Quaerat</h3>
 				<ul class="description-gameInfo">
 					<li><span class="description-desc">Year:     </span><div th:text="${game.year}">2020</div></li>
-<!-- 					<li><span class="description-desc">Author:   </span><div th:text="${game.}">Yauheni</div></li> -->
+					<li><span class="description-desc">Author:   </span><div th:text="${game.author}">Yauheni</div></li>
 <!-- 					<li><span class="description-desc">Genres:   </span><div th:text="${game.genre}">Action, Drama</div></li> -->
 					<li><span class="description-desc">Duration: </span><div th:text="${game.duration}">7 hours</div></li>
 					<li><span class="description-desc">Language: </span><div th:text="${game.language}">English</div></li>

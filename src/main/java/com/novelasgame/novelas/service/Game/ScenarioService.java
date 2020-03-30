@@ -20,19 +20,16 @@ public class ScenarioService {
     public void saveScenario(Scenario sc) {
         Game game = null;
         game = gameService.read(sc.getGameId());
-        if (game == null) {
+        if (game == null) 
             return;
-//            game = new Game();
-//            game.setName(sc.getGameName());
-//            game.setLabels(new ArrayList<Label>());;
-        }
+        
 
         Label label = null;
         if (game.getLabels() != null)
             for (Label lb : game.getLabels()) {
                 if (lb.getName().contains(sc.getGameLabel())) {
                     label = lb;
-                    return;
+                    break;
                 }
             }
         if (label == null) {

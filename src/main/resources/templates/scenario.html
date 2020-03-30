@@ -8,14 +8,6 @@
 <body>
 	<div th:replace="~{commons :: nav}"></div>
 
-<div>
-	<div>start user</div>
-	
-<!-- 	<div th:if="${#request.userPrincipal.name=='' or #request.isUserInRole('ADMIN')}">lol</div> -->
-	
-	<div>end all</div>
-</div>
-	
 	<section id="newScenario" class="my-5">
 		<div class="newScenario container">
 		<div class="row justify-content-center">
@@ -27,7 +19,7 @@
 						<label class="col-sm-2 control-label">Game</label>
 						<div class="col-sm-10 scenarioInput">
 							<select name="gameId" size="1"  class="form-control" required>
-								<option th:value="${game.id}" th:each="game:${games}" th:text="${game.title}">GameName</option>
+								<option th:value="${game.id}" th:each="game:${games}" th:text="${game.title}" th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}">GameName</option>
 							</select>
 						</div>
 					</div>
@@ -46,7 +38,7 @@
 				</fieldset>
 		        <div class="buttons clearfix">
 		          <div class="justify-content-center d-flex">
-		            <input type="submit" value="Continue" class="btn btn-primary">
+		            <input type="submit" value="Send" class="btn btn-primary">
 		          </div>
 		        </div>
 		      </form>

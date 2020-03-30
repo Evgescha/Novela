@@ -517,3 +517,6 @@ legend {
 .scenarioInput{
 	display: contents;
 }
+.wCheckbox{
+	width: 10%
+}

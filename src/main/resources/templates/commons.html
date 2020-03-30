@@ -101,6 +101,55 @@
 	</div>
 </div>
 
+<!-- scenario - each game button -->
+<div th:fragment="eachGameButton" class="d-flex my-1" th:value="${game.id}" th:each="game:${games}" th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}">
+	<button class="btn btn-primary" data-toggle="modal" th:data-target="'.game'+${game.id}" th:text="${game.title}">Large modal</button>
+
+	<div th:class="'modal fade game'+${game.id}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+    		<div class="modal-content bg-dark" >
+      			<h3>Select label</h3>
+				<div th:replace="~{commons :: eachlabelButton}"></div>
+			</div>
+    	</div>
+	</div>
+</div>
+
+
+<!-- scenario - each label button -->
+<div th:fragment="eachlabelButton" th:each="label:${game.labels}">		
+	<button class="btn btn-primary" data-toggle="modal" th:data-target="'.game'+${game.id}+'label'+${label.id}" th:text="${label.name}">label name</button>
+
+	<div th:class="'modal fade game'+${game.id}+'label'+${label.id}" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-dark p-3" >
+				<form action="/scenario/deleteCommand" method="post">
+			    	<h3 th:text="'Label: '+${label.name}"></h3>
+			    	<h3>Select commands for deleting</h3>
+			    	<input name="labelId" type="number" th:value="${label.id}" hidden>
+			    	<table class="w-100">
+						<tr th:each="command:${label.commands}">
+							<td>
+								<div th:text="${command.value}"></div>
+							</td>
+							<td class="wCheckbox">
+								<input type="checkbox" name="commandId" th:value="${command.id}">
+							</td>
+						</tr>
+					</table>
+					<input type="submit" value="Delete selected" class="btn btn-secondary">
+				</form>
+				<form action="/scenario/deleteLabel" method="post">
+					<input name="gameId" type="number" th:value="${game.id}" hidden>
+					<input name="labelId" type="number" th:value="${label.id}" hidden>
+					<input type="submit" value="Delete LABEL" class="btn btn-secondary">
+				</form>
+		  	</div>
+		</div>
+	</div>
+</div>
+
+
 <footer th:fragment="footer" >
 	<div class="index-gamePrev d-flex justify-content-center">Have a nice Game</div>
 	<div class="index-powered"><p id="index-powered">Powered By Yauhenii© 2019-2020	</p></div>

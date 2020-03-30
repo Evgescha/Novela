@@ -27,7 +27,7 @@ public class Label extends AbstractEntity {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER ,cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Game> games;
 
     @Fetch(value = FetchMode.SELECT)

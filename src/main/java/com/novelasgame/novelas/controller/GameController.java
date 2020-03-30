@@ -63,6 +63,7 @@ public class GameController {
 			game = gameService.findByTitle(game.getTitle());
 			storageProps.setLocation(game.getId() + "", TypeResources.AVATAR_IMAGE);
 			ResourceItem item = new ResourceItem(TypeResources.AVATAR_IMAGE, avatar.getOriginalFilename(), null, game);
+//			System.out.println(item);
 			storageService.store(avatar);
 			resourcesItemService.create(item);
 			game.setAvatar("upload/files/" + game.getId() + "/" + TypeResources.AVATAR_IMAGE + "/"
@@ -74,6 +75,7 @@ public class GameController {
 			storageProps.setLocation(game.getId() + "", TypeResources.SCREEN_IMAGE);
 			for (MultipartFile file : screens) {
 				item = new ResourceItem(TypeResources.SCREEN_IMAGE, file.getOriginalFilename(), null, game);
+//				System.out.println(item);
 				storageService.store(file);
 				resourcesItemService.create(item);
 				item = null;

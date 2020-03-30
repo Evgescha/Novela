@@ -35,6 +35,7 @@
 						<a class="btn btn-secondary w-25">Play</a> <a
 							class="btn btn-secondary w-25">Load and Play</a> <a
 							class="btn btn-secondary w-25"
+							th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}"
 							th:href="'/games/deleteGame?gameId='+${game.id}">Delete</a>
 					</div>
 				</div>

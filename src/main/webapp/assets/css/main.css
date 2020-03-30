@@ -507,3 +507,13 @@ legend {
 .genres{
 	margin: 0 5px 0 30px;
 }
+
+
+
+
+
+
+/* ----------------------------------scenarios */
+.scenarioInput{
+	display: contents;
+}

@@ -32,7 +32,7 @@ public class ScenarioController {
         if (!games.isEmpty())
             model.addAttribute("games", games);
         System.out.println("View add scene");
-        return "addScenario";
+        return "scenario";
     }
 
     @PostMapping()

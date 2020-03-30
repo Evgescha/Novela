@@ -56,20 +56,34 @@ public class ScenarioController {
 	private String deleteCommand(@RequestParam("labelId") long labelId, @RequestParam("commandId") long[] commandIds) {
 		Label label = labelService.read(labelId);
 		for (long commandId : commandIds) {
-			int id=-1;
+			int id = -1;
 			List<Command> commands = label.getCommands();
-			System.out.println("size: "+commands.size());
-			for (int i = commands.size()-1;i>=0; i--) {
+			System.out.println("size: " + commands.size());
+			for (int i = commands.size() - 1; i >= 0; i--) {
 				if (commands.get(i).getId() == commandId) {
-					id=i;
+					id = i;
 				}
-				System.out.println("i: "+i+", id: "+id);
+				System.out.println("i: " + i + ", id: " + id);
 			}
 			commands.remove(id);
 		}
 		labelService.update(label);
 		for (long commandId : commandIds) {
 			commandService.delete(commandId);
+		}
+		return "redirect:/scenario";
+	}
+
+	@PostMapping("/update")
+	private String updateCommand(@RequestParam(name = "commandId", required = true) long[] commandId,
+			@RequestParam(name = "newValue", required = true) String[] newValue) {
+
+		for (int i = 0; i < commandId.length; i++) {
+			if (newValue[i] != "null") {
+				Command read = commandService.read(commandId[i]);
+				read.setValue(newValue[i]);
+				commandService.update(read);
+			}
 		}
 		return "redirect:/scenario";
 	}
@@ -84,22 +98,20 @@ public class ScenarioController {
 			}
 		}
 		gameService.update(game);
-		
-		
-		
+
 		Label label = labelService.read(labelId);
 		List<Long> forDel = new ArrayList<Long>();
 		List<Command> commands = label.getCommands();
-		while(commands.size()>0) {
+		while (commands.size() > 0) {
 			forDel.add(commands.get(0).getId());
 			commands.remove(0);
 		}
 		labelService.update(label);
 		labelService.delete(labelId);
-		for (long id:forDel) {
+		for (long id : forDel) {
 			commandService.delete(id);
 		}
-		forDel=null;
+		forDel = null;
 		return "redirect:/scenario";
 	}
 }

@@ -123,26 +123,27 @@
 	<div th:class="'modal fade game'+${game.id}+'label'+${label.id}" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content bg-dark p-3" >
-				<form action="/scenario/deleteCommand" method="post">
+				<form  method="post">
 			    	<h3 th:text="'Label: '+${label.name}"></h3>
 			    	<h3>Select commands for deleting</h3>
 			    	<input name="labelId" type="number" th:value="${label.id}" hidden>
+					<input name="gameId" type="number" th:value="${game.id}" hidden>
 			    	<table class="w-100">
 						<tr th:each="command:${label.commands}">
 							<td>
 								<div th:text="${command.value}"></div>
+							</td>
+							<td>
+								<input type="text" name="newValue" value="none" th:data-ids="${command.id}">
 							</td>
 							<td class="wCheckbox">
 								<input type="checkbox" name="commandId" th:value="${command.id}">
 							</td>
 						</tr>
 					</table>
-					<input type="submit" value="Delete selected" class="btn btn-secondary">
-				</form>
-				<form action="/scenario/deleteLabel" method="post">
-					<input name="gameId" type="number" th:value="${game.id}" hidden>
-					<input name="labelId" type="number" th:value="${label.id}" hidden>
-					<input type="submit" value="Delete LABEL" class="btn btn-secondary">
+					<input type="submit" formaction="/scenario/deleteCommand" value="Delete selected" class="btn btn-secondary">
+					<input type="submit" formaction="/scenario/update" value="Update selected" class="btn btn-secondary">
+					<input type="submit" formaction="/scenario/deleteLabel" value="Delete LABEL" class="btn btn-secondary">
 				</form>
 		  	</div>
 		</div>

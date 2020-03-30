@@ -51,7 +51,7 @@ public class FileSystemStorageService implements StorageService {
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
-        System.out.println("SAVE AS: "+this.rootLocation.resolve(filename).toString());
+//        System.out.println("SAVE AS: "+this.rootLocation.resolve(filename).toString());
         return this.rootLocation.resolve(filename).toString();
     }
 
@@ -77,7 +77,7 @@ public class FileSystemStorageService implements StorageService {
             this.rootLocation = Paths.get(this.properties.getLocation());
 //			Path file = load(filename);
             Path file = rootLocation.resolve(gameName).resolve(typeName).resolve(filename);
-            System.out.println("path to file:"+file);
+//            System.out.println("path to file:"+file);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;

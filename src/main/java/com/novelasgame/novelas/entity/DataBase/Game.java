@@ -63,7 +63,7 @@ public class Game extends AbstractEntity implements DropEntity{
     private List<Label> labels;
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="game", cascade=CascadeType.ALL)
-    private Collection<ResourceItem> resourceItems;
+    private List<ResourceItem> resourceItems;
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="game", cascade=CascadeType.ALL)
     private Collection<Comment> comments;

@@ -1,8 +1,10 @@
 package com.novelasgame.novelas.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.SafeHtml.Attribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -50,6 +52,94 @@ public class ResourcesController {
 		return "resources";
 	}
 
+	@ResponseBody
+	@GetMapping("/upload/getRes")
+	public List<ResourceItem> getUploadedRes(@RequestParam(name = "gameId", required = true) long gameId,
+			@RequestParam(name = "type", required = true) String typeName, Model model) throws IOException {
+		Game game = gameService.read(gameId);
+		List<ResourceItem> findByGameAndType = resourcesItemService.findByGameAndType(game, typeName);
+		return findByGameAndType;
+	}
+
+	@PostMapping("/upload/updateRes")
+	public String updateRes(
+			@RequestParam(name = "newName", required = true) String[] newName,
+			@RequestParam(name = "resId", required = true) long[] resId,RedirectAttributes redirectAttributes) throws IOException {
+		
+		List<String> newNames = new ArrayList<String>();
+		for(String name:newName)
+			if(name.length()>1)
+				newNames.add(name);
+		
+		if (newNames.size()!=resId.length) {
+			redirectAttributes.addFlashAttribute("message", "Incorrectly marked resources for editing");
+			return "redirect:/upload";
+		}
+		for (int i=0; i< resId.length;i++) {
+			ResourceItem read = resourcesItemService.read(resId[i]);
+			read.setFileName(newNames.get(i));
+			resourcesItemService.update(read);
+		}
+		redirectAttributes.addFlashAttribute("message", "You updatesd names your's files");
+		return "redirect:/upload";
+	}
+
+	@PostMapping("/upload/deleteRes")
+	public String removeRes(@RequestParam(name = "gameId", required = true) long gameId,
+			@RequestParam(name = "resId", required = true) long[] resIds,RedirectAttributes redirectAttributes) throws IOException {
+		Game game = gameService.read(gameId);
+		
+		for (long resId : resIds) {
+			int id = -1;
+			List<ResourceItem> resourceItems = game.getResourceItems();
+			System.out.println("size: " + resourceItems.size());
+			for (int i = resourceItems.size() - 1; i >= 0; i--) {
+				if (resourceItems.get(i).getId() == resId) {
+					id = i;
+				}
+				System.out.println("i: " + i + ", id: " + id);
+			}
+			resourceItems.remove(id);
+		}
+		gameService.update(game);
+		for (long resId : resIds) {
+			resourcesItemService.delete(resId);
+		}
+		
+		redirectAttributes.addFlashAttribute("message", "You deleted files");
+		return "redirect:/upload";
+	}
+	
+	@PostMapping("/upload/deleteAllResType")
+	public String removeAllResType(@RequestParam(name = "gameId", required = true) long gameId,
+			@RequestParam(name = "resourcesType", required = true) String resourcesType,RedirectAttributes redirectAttributes) throws IOException {
+
+		Game game = gameService.read(gameId);
+		
+		List<ResourceItem> findByGameAndType = resourcesItemService.findByGameAndType(game, resourcesType);
+		
+		for (ResourceItem res : findByGameAndType) {
+			int id = -1;
+			List<ResourceItem> resourceItems = game.getResourceItems();
+			System.out.println("size: " + resourceItems.size());
+			for (int i = resourceItems.size() - 1; i >= 0; i--) {
+				if (resourceItems.get(i).getId() == res.getId()) {
+					id = i;
+				}
+				System.out.println("i: " + i + ", id: " + id);
+			}
+			resourceItems.remove(id);
+		}
+		
+		gameService.update(game);
+		
+		for (ResourceItem res : findByGameAndType) {
+			resourcesItemService.delete(res.getId());
+		}
+		redirectAttributes.addFlashAttribute("message", "You deleted all files of "+resourcesType+" category!");
+		return "redirect:/upload";
+	}
+
 	@GetMapping("/upload/files/{gameId}/{typeName}/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String gameId, @PathVariable String typeName,
@@ -59,12 +149,14 @@ public class ResourcesController {
 		Resource file = storageService.loadAsResource(gameId, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
+
 	@GetMapping("/upload/files/{gameName}/{typeName}/{charName}/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String gameName, @PathVariable String typeName,
-			@PathVariable String filename,@PathVariable String charName) {
-		return serveFile(gameName, typeName+"/"+charName, filename);
+			@PathVariable String filename, @PathVariable String charName) {
+		return serveFile(gameName, typeName + "/" + charName, filename);
 	}
+
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam(name = "files", required = true) MultipartFile[] files,
 			@RequestParam(name = "gameId", required = true) long gameId,
@@ -75,17 +167,18 @@ public class ResourcesController {
 		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
 //			System.out.println("game is: " + gameName);
 //			System.out.println("type is: " + typeName);
-			storageProps.setLocation(gameId+"", typeName);
+			storageProps.setLocation(gameId + "", typeName);
 			for (MultipartFile file : files) {
 //				System.out.println(charName);
-				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(),null, game);
+				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(), null, game);
 				storageService.store(file);
 				resourcesItemService.create(item);
 			}
-		} else if(charName!="" || charName!=null){
-			storageProps.setLocation(gameId+"", typeName, charName);
+		} else if (charName != "" || charName != null) {
+			storageProps.setLocation(gameId + "", typeName, charName);
 			for (MultipartFile file : files) {
-				ResourceItem item = new ResourceItem(TypeResources.CHARACTER_IMAGES, file.getOriginalFilename(),charName, game);
+				ResourceItem item = new ResourceItem(TypeResources.CHARACTER_IMAGES, file.getOriginalFilename(),
+						charName, game);
 				storageService.store(file);
 				resourcesItemService.create(item);
 			}

@@ -26,7 +26,7 @@
 		        <fieldset>
 		          <legend>What you'll upload?</legend>
 					<div class="form-group required">
-						<label class="col-sm-2 control-label">Game name</label>
+						<label class="col-sm-12 control-label">Game name</label>
 						<div class="col-sm-10 resourceInput">
 							<select id="res_gameSelect" type="text" name="gameId" size="1"  class="form-control" required> 
 								<option th:value="${game.id}" th:each="game:${games}" 
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 					<div class="form-group required">
-						<label class="col-sm-2 control-label">Select resources type</label>
+						<label class="col-sm-12 control-label">Select resources type</label>
 						<div class="col-sm-10 resourceInput">
 							<select id="res_typeResSelect" name="type" size="1"  class="form-control">
 								<option value="backgroundImages">BackgroundImages</option>
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div class="form-group required">
-						<label class="col-sm-2 control-label">Character's name</label>
+						<label class="col-sm-12 control-label">Character's name</label>
 						<div class="col-sm-10 resourceInput">
 							<input required type="text" name="charName" placeholder="Michael" class="form-control" id="res_charName">
 						</div>
@@ -67,11 +67,8 @@
 						</div>
 					</div>	
 				</fieldset>
-		        <div class="buttons clearfix">
-		          <div class="pull-left"><a href="/" class="btn btn-secondary">Main</a></div>
-		          <div class="pull-right">
-		            <input type="submit" value="Continue" class="btn btn-secondary">
-		          </div>
+		        <div class="buttons clearfix d-flex justify-content-center">
+		            <input type="submit" value="Upload" class="btn btn-secondary">
 		        </div>
 		      </form>
 		      </div>
@@ -80,11 +77,38 @@
 	</section>
 	
 
+
+	<section id="resourcesEdit" class="my-5">
+			<div class="resourcesEdit container">
+				<div class="row justify-content-center">
+					<div id="content" class="col-sm-9">
+						<div class="buttons d-flex justify-content-center mb-5">
+				            <input type="submit" value="Look selected resources" class="btn btn-secondary getRes">
+			            </div>
+			            <div id="resourcesFind">
+			            	<form method="post">
+				            	<div class="form-group required">
+									<input  class="resourcesGameId" type="text" name="gameId" value="none" hidden>
+									<input class="resourcesType" type="text" name="resourcesType" value="none" hidden>
+							    	<table class="w-100"></table>
+								</div>
+								<div class="resBtn d-flex justify-content-between">
+									<input type="submit" formaction="/upload/deleteRes" value="Delete selected" class="btn btn-secondary">
+									<input type="submit" formaction="/upload/updateRes" value="Update selected" class="btn btn-secondary">
+									<input type="submit" formaction="/upload/deleteAllResType" value="Delete ALL OF TYPE" class="btn btn-secondary">
+								</div>
+							</form>
+			            </div>
+					</div>
+				</div>
+			</div>
+	</section>
+			
+			
 	<div th:replace="~{commons :: footer}"></div>
 	
 	
-	<script type="text/javascript">
-
+<script type="text/javascript">
 	$('#res_charName').prop('disabled', true);
 	$('#res_typeResSelect').change(function(){
 		if ($('#res_typeResSelect').val()!="characterImages")
@@ -92,6 +116,49 @@
 		else 
 			$('#res_charName').prop('disabled', false);
 	});
-	</script>
+	
+	var data, gameId, type;
+	$('.getRes').click(function(){
+		gameId=$('#res_gameSelect').val();
+		type=$('#res_typeResSelect').val();
+		
+		 $.get("/upload/getRes", {gameId:gameId, type:type}, function(_data) {
+			data=_data;
+			console.log(data);
+			show();
+		});
+		 
+	});
+	function show(){
+		var values="";
+		
+		data.forEach( function(v, i) { 
+			values+='<tr class="rowImage my-3"><td><img class="resImage mx-1" src="/upload/files/'+gameId+'/'+type+'/'+v['fileName']+'"></td>'+
+'						<td><input class="resOldName mx-1" disabled type="text" name="oldName" value="'+v['fileName']+'"></td>'+
+'						<td><input class="resNewName mx-1" type="text" name="newName" value=""></td>'+
+'						<td class="wCheckbox mx-1"><input type="checkbox" name="resId" value="'+v['id']+'"></td>'+
+'					</tr>';
+			} );
+		$("#resourcesFind table").html(values);
+		$(".resourcesGameId").attr("value",gameId);
+		$(".resourcesType").attr("value",type);
+		
+		hide();
+	}
+	
+	function hide(){
+		var btns = $(".resBtn");
+		if($("#resourcesFind table").html().length>0){
+			btns.css("visibility", "visible");
+			
+		} else{
+			btns.css("visibility", "hidden");
+		}
+	}
+	hide();
+	
+	
+	
+</script>
 </body>
 </html>

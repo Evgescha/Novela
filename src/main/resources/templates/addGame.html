@@ -16,7 +16,7 @@
 </head>
 <body>
 	
-	<h2 class="text-center" th:if="${notification}" th:text="${notification}" class="text-center"></h2>
+	<h2 th:if="${notification}" th:text="${notification}" class="text-center"></h2>
 	
 	<div th:replace="~{commons :: nav}"></div>
 	

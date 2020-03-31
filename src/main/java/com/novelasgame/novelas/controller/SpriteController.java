@@ -16,21 +16,21 @@ import com.novelasgame.novelas.entity.DataBase.ResourceItem;
 import com.novelasgame.novelas.entity.game.Char;
 import com.novelasgame.novelas.service.Game.СharacterService;
 
-@Controller
+//@Controller
 @RequestMapping(/* "/images" */)
 public class SpriteController {
 
-	@Autowired
-	private СharacterService charService;
-
-	@ResponseBody
-	@GetMapping(value = "/char", produces = MediaType.IMAGE_PNG_VALUE)
-	private byte[] getChar(@RequestParam("gameName") String gameName, @ModelAttribute Char chr) throws IOException {
-		return charService.getImageByte(gameName, chr);
-	}
-
-	@GetMapping("/resItem{resItem}")
-	private String getRes(@ModelAttribute ResourceItem resItem) {
-		return "/upload/files/" + resItem.getGame().getId() + "/" + resItem.getType() + "/" + resItem.getFileName();
-	}
+//	@Autowired
+//	private СharacterService charService;
+//
+//	@ResponseBody
+//	@GetMapping(value = "/char", produces = MediaType.IMAGE_PNG_VALUE)
+//	private byte[] getChar(@RequestParam("gameName") String gameName, @ModelAttribute Char chr) throws IOException {
+//		return charService.getImageByte(gameName, chr);
+//	}
+//
+//	@GetMapping("/resItem{resItem}")
+//	private String getRes(@ModelAttribute ResourceItem resItem) {
+//		return "/upload/files/" + resItem.getGame().getId() + "/" + resItem.getType() + "/" + resItem.getFileName();
+//	}
 }

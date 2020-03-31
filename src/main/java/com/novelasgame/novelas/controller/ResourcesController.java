@@ -28,7 +28,7 @@ import com.novelasgame.novelas.storage.StorageProperties;
 import com.novelasgame.novelas.storage.StorageService;
 
 @Controller
-public class FileUploadController {
+public class ResourcesController {
 
 	private final StorageService storageService;
 	@Autowired
@@ -39,7 +39,7 @@ public class FileUploadController {
 	StorageProperties storageProps;
 
 	@Autowired
-	public FileUploadController(StorageService storageService) {
+	public ResourcesController(StorageService storageService) {
 		this.storageService = storageService;
 	}
 
@@ -47,7 +47,7 @@ public class FileUploadController {
 	public String listUploadedFiles(Model model) throws IOException {
 		List<Game> findAll = gameService.findAll();
 		model.addAttribute("games", findAll);
-		return "uploadForm";
+		return "resources";
 	}
 
 	@GetMapping("/upload/files/{gameId}/{typeName}/{filename:.+}")
@@ -67,23 +67,23 @@ public class FileUploadController {
 	}
 	@PostMapping("/upload")
 	public String handleFileUpload(@RequestParam(name = "files", required = true) MultipartFile[] files,
-			@RequestParam(name = "game", required = true) String gameName,
+			@RequestParam(name = "gameId", required = true) long gameId,
 			@RequestParam(name = "type", required = true) String typeName,
 			@RequestParam(name = "charName", required = false, defaultValue = "") String charName,
 			RedirectAttributes redirectAttributes) {
-		Game game = gameService.findByTitle(gameName);
+		Game game = gameService.read(gameId);
 		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
 //			System.out.println("game is: " + gameName);
 //			System.out.println("type is: " + typeName);
-			storageProps.setLocation(gameName, typeName);
+			storageProps.setLocation(gameId+"", typeName);
 			for (MultipartFile file : files) {
 //				System.out.println(charName);
 				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(),null, game);
 				storageService.store(file);
 				resourcesItemService.create(item);
 			}
-		} else {
-			storageProps.setLocation(gameName, typeName, charName);
+		} else if(charName!="" || charName!=null){
+			storageProps.setLocation(gameId+"", typeName, charName);
 			for (MultipartFile file : files) {
 				ResourceItem item = new ResourceItem(TypeResources.CHARACTER_IMAGES, file.getOriginalFilename(),charName, game);
 				storageService.store(file);

@@ -32,7 +32,7 @@ public class Game extends AbstractEntity implements DropEntity{
 //    @Column(unique = true)
 //    private String name;
     
-    @Column
+    @Column(unique = true)
     private String title;
     
     @Column

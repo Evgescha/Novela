@@ -514,7 +514,7 @@ legend {
 
 
 /* ----------------------------------scenarios */
-.scenarioInput{
+.scenarioInput, .resourceInput{
 	display: contents;
 }
 .wCheckbox{

@@ -6,13 +6,9 @@
 </head>
 <body>
 
-<div th:if="${success}">
-	<h3 th:text="${success}"></h3>
-</div>
-
-
 <div th:replace="~{commons :: nav}"></div>
 
+<h3 class="text-center" th:if="${success}"> th:text="${success}"></h3>
 		
 <section>
 	<div class="container_slider_css">

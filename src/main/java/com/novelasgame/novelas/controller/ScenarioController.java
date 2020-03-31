@@ -78,12 +78,16 @@ public class ScenarioController {
 	private String updateCommand(@RequestParam(name = "commandId", required = true) long[] commandId,
 			@RequestParam(name = "newValue", required = true) String[] newValue) {
 
+		List<String> NEW = new ArrayList<String>();
+		for(String value:newValue) {
+			System.out.println("value:"+value+"|");
+			if(value.length()>0)
+				NEW.add(value);}
+		
 		for (int i = 0; i < commandId.length; i++) {
-			if (newValue[i] != "null") {
 				Command read = commandService.read(commandId[i]);
-				read.setValue(newValue[i]);
+				read.setValue(NEW.get(i));
 				commandService.update(read);
-			}
 		}
 		return "redirect:/scenario";
 	}

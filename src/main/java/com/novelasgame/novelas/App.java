@@ -1,9 +1,16 @@
 package com.novelasgame.novelas;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.novelasgame.novelas.entity.DataBase.Genre;
+import com.novelasgame.novelas.service.DataBase.GenreService;
 import com.novelasgame.novelas.storage.StorageProperties;
 
 /**
@@ -14,50 +21,32 @@ import com.novelasgame.novelas.storage.StorageProperties;
 
 @EnableConfigurationProperties(StorageProperties.class)
 public class App {
-//    private static GameService gameService;
-//    private static LabelService labelService;
-//    private static CommandService commandService;
-//    private static RoleServiceImpl roleServiceImpl;
-//    private static UserServiceImpl userServiceImpl;
-//    private static UserGameServiceImpl userGameServiceImpl;
-//
-//    @Autowired
-//    private GameService gameService0;
-//    @Autowired
-//    private LabelService labelService0;
-//    @Autowired
-//    private CommandService commandService0;
-//    @Autowired
-//    private RoleServiceImpl roleServiceImpl2;
-//    @Autowired
-//    private UserServiceImpl userServiceImpl2;
-//    @Autowired
-//    private UserGameServiceImpl userGameServiceImpl2;
-//
-//    @PostConstruct
-//    public void init() {
-//        this.gameService = this.gameService0;
-//        this.labelService = this.labelService0;
-//        this.commandService = this.commandService0;
-//        
-//        this.roleServiceImpl = this.roleServiceImpl2;
-//        this.userServiceImpl = this.userServiceImpl2;
-//        this.userGameServiceImpl = this.userGameServiceImpl2;
-//        
-//    }
+    private static GenreService genreService;
+
+    @Autowired
+    private GenreService genreService0;
+
+    @PostConstruct
+    public void init() {
+        this.genreService0 = this.genreService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
 
+        isGenre();
+        
         System.out.println("Hello World!");
                 
     }
-//    @Bean
-//	CommandLineRunner init(StorageService storageService) {
-//		return (args) -> {
-//			storageService.deleteAll();
-//			storageService.init();
-//		};
-//	}
+    private static void isGenre() {
+        List<Genre> findAll = genreService.findAll();
+        if(findAll==null || findAll.size()<2 ) {
+        	String[] arr=new String[] {"Detective", "Drama", "Comedy", "Mysticism", "ScienceFiction", "Parody", "Humdrum", "Adventures", "Romance", "Thriller", "Fantasy", "Fantasy", "Hentai", "Horror", "School", "Ekshn", "Ecchi"};
+        	for(String str:arr) {
+        		genreService.create(new Genre(str));
+        	}
+        }
+    }
     
 }

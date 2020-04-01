@@ -545,8 +545,14 @@ legend {
 	width: 10%
 }
 
+#deleteCommands .modal-dialog.modal-lg div {
+    margin: 10px;
+}
 
-
+.forTable{
+display: block;
+    column-count: 3;
+}
 /* ---------------resources */
 .rowImage {
 	    border-bottom: 1px solid white;

@@ -23,7 +23,7 @@ public class RunGameController {
 
         ArrayList<Object> parse = labelParserService.Parse(gameId, labelName);
         
-        model.addAttribute("gameName", gameId);
+        model.addAttribute("gameId", gameId);
         model.addAttribute("scenario", labelParserService.toJson(parse));
         System.out.println("view scene runGame");
         return "runGame";

@@ -1,44 +1,39 @@
 package com.novelasgame.novelas.entity.game;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.novelasgame.novelas.service.TypeResources;
 
 import lombok.Data;
 
 @Data
 public class Scene {
-    @JsonIgnore
-    static Logger logger = Logger.getLogger(Scene.class.getName());
-    private final String type = "scene";
-    private String path= "null";
-    private String name = "null";
-//    private String style = "";
+	private final String type = "scene";
+	private String path = "null";
+	private String name = "null";
 
-    public Scene(){}
-    public Scene(String str) {
-        logger.fine("Scene. Line constructor");
-        logger.log(Level.FINE, "Arguments: ",str);
-        String[] arr = str.split(" ");
-        if (arr.length == 2) { 
-//            style=arr[1];
-            name=arr[1];
-            path=TypeResources.BACKGROUND_IMAGES;
-        }
-        else {
-            if (arr[2].contains("black")) {
-//                style=arr[2];
-                path=TypeResources.BACKGROUND_IMAGES;
-            } else {
-                this.name = arr[2];
-                this.path = TypeResources.SPECIAL_IMAGES;
-            }
-        }
-    }
+	public Scene() {
+	}
 
+	public Scene(String str) {
+		String[] arr = str.split(" ");
 
+		if (arr.length == 2) {
+			name = arr[1];
+			path = TypeResources.BACKGROUND_IMAGES;
+		} else if (arr.length == 3) {
+			if (arr[1].equals("bg"))
+				this.path = TypeResources.BACKGROUND_IMAGES;
+			else
+				this.path = TypeResources.SPECIAL_IMAGES;
+			this.name = arr[2];
+		}
+	}
 
+//	public static void main(String args[]) {
+//		Scene scene;
+//		scene = new Scene("scene bg int_dining_hall_day");
+//		System.out.println(scene);
+//		scene = new Scene("scene cg lvl_4_semen_win");
+//		System.out.println(scene);
+//	}
 
 }

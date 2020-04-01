@@ -136,6 +136,7 @@ public class ResourcesController {
 		gameService.update(game);
 		
 		for (ResourceItem res : findByGameAndType) {
+			storageService.delete(res);
 			resourcesItemService.delete(res.getId());
 		}
 		redirectAttributes.addFlashAttribute("message", "You deleted all files of "+resourcesType+" category!");
@@ -147,7 +148,6 @@ public class ResourcesController {
 	public ResponseEntity<Resource> serveFile(@PathVariable String gameId, @PathVariable String typeName,
 			@PathVariable String filename) {
 		storageProps.setLocation();
-//		System.out.println("location: " + storageProps.getLocation());
 		Resource file = storageService.loadAsResource(gameId, typeName, filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION).body(file);
 	}
@@ -167,11 +167,8 @@ public class ResourcesController {
 			RedirectAttributes redirectAttributes) {
 		Game game = gameService.read(gameId);
 		if (!typeName.equalsIgnoreCase(TypeResources.CHARACTER_IMAGES)) {
-//			System.out.println("game is: " + gameName);
-//			System.out.println("type is: " + typeName);
 			storageProps.setLocation(gameId + "", typeName);
 			for (MultipartFile file : files) {
-//				System.out.println(charName);
 				ResourceItem item = new ResourceItem(typeName, file.getOriginalFilename(), null, game);
 				storageService.store(file);
 				resourcesItemService.create(item);

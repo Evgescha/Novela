@@ -133,7 +133,6 @@ public class FileSystemStorageService implements StorageService {
 		try {
 			FileSystemUtils.deleteRecursively(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

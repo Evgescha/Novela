@@ -20,36 +20,36 @@ public class СharacterService {
 	@Autowired
 	StorageProperties storageProps;
 
-	public byte[] getImageByte(String gameName, Char chr) {
+	public byte[] getImageByte(long gameId, Char chr) {
 		try {
-			System.out.println("URL: "+storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
-					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName()
-					+ FormatVariables.SPLITTER + chr.getBody() + FormatVariables.PNG);
-			System.out.println("StartfindImages");
+//			System.out.println("URL: "+storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
+//					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName()
+//					+ FormatVariables.SPLITTER + chr.getBody() + FormatVariables.PNG);
+//			System.out.println("StartfindImages");
 			storageProps.setLocation();
 			
 			//body
-			BufferedImage img1 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
+			BufferedImage img1 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
 					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName()
 					+ FormatVariables.SPLITTER + chr.getBody() + FormatVariables.PNG));
 
-			System.out.println("URL: "+storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
-					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName()
-					+ FormatVariables.SPLITTER + chr.getBody() + FormatVariables.PNG);
+//			System.out.println("URL: "+storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
+//					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName()
+//					+ FormatVariables.SPLITTER + chr.getBody() + FormatVariables.PNG);
 			//for all body
 			BufferedImage im = new BufferedImage(img1.getWidth(), img1.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			im.getGraphics().drawImage(img1, 0, 0, null);
 			
 			//dress
 			if(!chr.getDress().equals("null")) {
-			BufferedImage img2 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
+			BufferedImage img2 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
 					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName() + FormatVariables.SPLITTER
 					+ chr.getDress() + FormatVariables.PNG));
 			im.getGraphics().drawImage(img2, 0, 0, null);
 			
 			}
 			//emotion
-			BufferedImage img3 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
+			BufferedImage img3 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
 					+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName() + FormatVariables.SPLITTER
 					+ chr.getEmotion() + FormatVariables.PNG));
 			im.getGraphics().drawImage(img3, 0, 0, null);
@@ -59,7 +59,7 @@ public class СharacterService {
 
 			//thing
 			if (!chr.getThing().contains("null")) {
-				BufferedImage img4 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameName+ FormatVariables.SPLITTER
+				BufferedImage img4 = ImageIO.read(new File(storageProps.getLocation() + FormatVariables.SPLITTER + gameId+ FormatVariables.SPLITTER
 						+ TypeResources.CHARACTER_IMAGES + FormatVariables.SPLITTER + chr.getName() + FormatVariables.SPLITTER
 						+ chr.getThing() + FormatVariables.PNG));
 				im.getGraphics().drawImage(img4, 0, 0, null);

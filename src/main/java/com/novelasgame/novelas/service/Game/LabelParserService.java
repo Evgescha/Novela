@@ -93,7 +93,7 @@ public class LabelParserService {
 
 	public Object getCommand(String cmd) {
 		String[] arr = cmd.split(" ");
-		System.out.println("command: " + cmd);
+//		System.out.println("command: " + cmd);
 		if (cmd.charAt(0) == '"')
 			return new Dialog(cmd);
 

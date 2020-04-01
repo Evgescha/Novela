@@ -1,6 +1,5 @@
 package com.novelasgame.novelas.storage;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -48,13 +47,11 @@ public class FileSystemStorageService implements StorageService {
 			}
 			try (InputStream inputStream = file.getInputStream()) {
 				this.rootLocation.toFile().mkdirs();
-//                System.out.println(rootLocation.toString());
 				Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
 			}
 		} catch (IOException e) {
 			throw new StorageException("Failed to store file " + filename, e);
 		}
-//        System.out.println("SAVE AS: "+this.rootLocation.resolve(filename).toString());
 		return this.rootLocation.resolve(filename).toString();
 	}
 
@@ -124,5 +121,20 @@ public class FileSystemStorageService implements StorageService {
 		Path resolve = file.subpath(0, file.getNameCount()-1).resolve(newName);
 		
 		return file.toFile().renameTo(resolve.toFile());
+	}
+
+	@Override
+	public void delete(ResourceItem item) {
+		Path file = rootLocation.resolve(item.getGame().getId().toString()).resolve(item.getType())
+				.resolve(item.getFileName());
+		if (item.getCharName() != null)
+			file = rootLocation.resolve(item.getGame().getId().toString()).resolve(item.getType())
+					.resolve(item.getCharName()).resolve(item.getFileName());
+		try {
+			FileSystemUtils.deleteRecursively(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

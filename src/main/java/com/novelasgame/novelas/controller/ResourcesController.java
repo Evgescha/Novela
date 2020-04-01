@@ -104,6 +104,7 @@ public class ResourcesController {
 		}
 		gameService.update(game);
 		for (long resId : resIds) {
+			storageService.delete(resourcesItemService.read(resId));
 			resourcesItemService.delete(resId);
 		}
 		

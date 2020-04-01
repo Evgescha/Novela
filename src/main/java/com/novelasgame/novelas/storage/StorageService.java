@@ -24,5 +24,7 @@ public interface StorageService {
 
 	void deleteAll();
 	
+	void delete(ResourceItem item);
+	
 	boolean rename(ResourceItem item, String newName);
 }

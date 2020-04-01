@@ -25,7 +25,7 @@ public class StorageProperties {
         this.location = this.ground;
         for (String str : locArr)
             this.location = Paths.get(this.getLocation()).resolve(str).toString();
-        System.err.println(this.getLocation());
+//        System.err.println(this.getLocation());
     }
 
 }

@@ -3,7 +3,7 @@
 function addScene(scn) {
 	console.log("add Scene");
 	var url = "url(\"upload/files/"
-		+gameName
+		+gameId
 	+"/"
 	+scn["path"]
 	+"/"

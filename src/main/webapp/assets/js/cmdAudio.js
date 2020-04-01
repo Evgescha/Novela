@@ -6,7 +6,7 @@ function addSound(snd) {
 	console.log("add sound");
 	if (snd["play"] == true) {
 		var url = objectToUrl(snd, "/sound/get");
-		getSound("upload/files/"+gameName+"/musicSound/"+snd["name"]+".ogg", snd);
+		getSound("upload/files/"+gameId+"/musicSound/"+snd["name"]+".ogg", snd);
 	} else {
 		let vol = 0;
 		if (snd["fade"] != 0) {

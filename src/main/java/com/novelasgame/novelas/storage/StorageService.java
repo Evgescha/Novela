@@ -4,6 +4,8 @@ package com.novelasgame.novelas.storage;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.novelasgame.novelas.entity.DataBase.ResourceItem;
+
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -21,5 +23,6 @@ public interface StorageService {
 	Resource loadAsResource(String gameName, String typeName, String filename);
 
 	void deleteAll();
-
+	
+	boolean rename(ResourceItem item, String newName);
 }

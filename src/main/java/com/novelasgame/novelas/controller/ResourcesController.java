@@ -77,6 +77,7 @@ public class ResourcesController {
 		}
 		for (int i=0; i< resId.length;i++) {
 			ResourceItem read = resourcesItemService.read(resId[i]);
+			storageService.rename(read, newNames.get(i));
 			read.setFileName(newNames.get(i));
 			resourcesItemService.update(read);
 		}

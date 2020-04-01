@@ -62,20 +62,20 @@ public class ResourcesController {
 	}
 
 	@PostMapping("/upload/updateRes")
-	public String updateRes(
-			@RequestParam(name = "newName", required = true) String[] newName,
-			@RequestParam(name = "resId", required = true) long[] resId,RedirectAttributes redirectAttributes) throws IOException {
-		
+	public String updateRes(@RequestParam(name = "newName", required = true) String[] newName,
+			@RequestParam(name = "resId", required = true) long[] resId, RedirectAttributes redirectAttributes)
+			throws IOException {
+
 		List<String> newNames = new ArrayList<String>();
-		for(String name:newName)
-			if(name.length()>1)
+		for (String name : newName)
+			if (name.length() > 1)
 				newNames.add(name);
-		
-		if (newNames.size()!=resId.length) {
+
+		if (newNames.size() != resId.length) {
 			redirectAttributes.addFlashAttribute("message", "Incorrectly marked resources for editing");
 			return "redirect:/upload";
 		}
-		for (int i=0; i< resId.length;i++) {
+		for (int i = 0; i < resId.length; i++) {
 			ResourceItem read = resourcesItemService.read(resId[i]);
 			storageService.rename(read, newNames.get(i));
 			read.setFileName(newNames.get(i));
@@ -87,9 +87,10 @@ public class ResourcesController {
 
 	@PostMapping("/upload/deleteRes")
 	public String removeRes(@RequestParam(name = "gameId", required = true) long gameId,
-			@RequestParam(name = "resId", required = true) long[] resIds,RedirectAttributes redirectAttributes) throws IOException {
+			@RequestParam(name = "resId", required = true) long[] resIds, RedirectAttributes redirectAttributes)
+			throws IOException {
 		Game game = gameService.read(gameId);
-		
+
 		for (long resId : resIds) {
 			int id = -1;
 			List<ResourceItem> resourceItems = game.getResourceItems();
@@ -107,39 +108,42 @@ public class ResourcesController {
 			storageService.delete(resourcesItemService.read(resId));
 			resourcesItemService.delete(resId);
 		}
-		
+
 		redirectAttributes.addFlashAttribute("message", "You deleted files");
 		return "redirect:/upload";
 	}
-	
+
 	@PostMapping("/upload/deleteAllResType")
 	public String removeAllResType(@RequestParam(name = "gameId", required = true) long gameId,
-			@RequestParam(name = "resourcesType", required = true) String resourcesType,RedirectAttributes redirectAttributes) throws IOException {
+			@RequestParam(name = "resourcesType", required = true) String resourcesType,
+			RedirectAttributes redirectAttributes) throws IOException {
 
 		Game game = gameService.read(gameId);
-		
+
 		List<ResourceItem> findByGameAndType = resourcesItemService.findByGameAndType(game, resourcesType);
-		
+
 		for (ResourceItem res : findByGameAndType) {
 			int id = -1;
 			List<ResourceItem> resourceItems = game.getResourceItems();
 			System.out.println("size: " + resourceItems.size());
-			for (int i = resourceItems.size() - 1; i >= 0; i--) {
-				if (resourceItems.get(i).getId() == res.getId()) {
+			inner: for (int i = resourceItems.size() - 1; i >= 0; i--) {
+				if (resourceItems.get(i).getId().equals(res.getId())) {
+//					System.out.println("find");
 					id = i;
+					break inner;
 				}
-				System.out.println("i: " + i + ", id: " + id);
+//				System.out.println("resourceItems.get(i).getId(): " + resourceItems.get(i).getId() + ", res.getId(): "+ res.getId() + ", idForDel: " + id);
 			}
 			resourceItems.remove(id);
 		}
-		
+
 		gameService.update(game);
-		
+
 		for (ResourceItem res : findByGameAndType) {
 			storageService.delete(res);
 			resourcesItemService.delete(res.getId());
 		}
-		redirectAttributes.addFlashAttribute("message", "You deleted all files of "+resourcesType+" category!");
+		redirectAttributes.addFlashAttribute("message", "You deleted all files of " + resourcesType + " category!");
 		return "redirect:/upload";
 	}
 

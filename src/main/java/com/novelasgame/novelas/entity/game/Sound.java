@@ -1,16 +1,11 @@
 package com.novelasgame.novelas.entity.game;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.novelasgame.novelas.service.TypeResources;
 
 import lombok.Data;
 
 @Data
 public class Sound {
-    @JsonIgnore
-    Logger logger = Logger.getLogger(Sound.class.getName());
     private final String type = "sound";
     private String folder;
     private String name;
@@ -22,51 +17,57 @@ public class Sound {
     }
 
     public Sound(String str) {
-        logger.fine("Sound. Line constructor");
-        logger.log(Level.FINE, "Arguments: ", str);
         String[] arr = str.split(" ");
         // play
         if (arr[0].contains("play")) {
             if (arr[1].contains("music")) {
-                logger.log(Level.FINE, "Parse play music");
-                this.folder = arr[1];
+                this.folder =TypeResources.MUSIC_SOUND;
                 this.name = arr[2].split("\"")[1];
                 if (arr.length > 3)
                     this.fade = Integer.parseInt(arr[4]);
-                play = true;
                 sound_loop = false;
             } else if (arr[1].contains("sound_loop")) {
-                logger.log(Level.FINE, "Parse play sfx");
-                this.folder = "sfx";
+                this.folder = TypeResources.SFX_SOUND;
                 this.name = arr[2];
-                play = true;
                 sound_loop = true;
                 fade = arr.length == 5 ? Integer.parseInt(arr[4]) : 0;
             } else if (arr[1].contains("sound")) {
-                logger.log(Level.FINE, "Parse play sound");
-                this.folder = "sfx";
+                this.folder = TypeResources.SFX_SOUND;
                 this.name = arr[2];
-                play = true;
                 sound_loop = false;
                 fade = arr.length == 5 ? Integer.parseInt(arr[4]) : 0;
             } else if (arr[1].contains("ambience")) {
-                logger.log(Level.FINE, "Parse play ambience");
-                this.folder = arr[1];
+                this.folder = TypeResources.AMBIENCE_SOUND;
                 this.name = arr[2];
-                play = true;
                 sound_loop = false;
                 fade = arr.length == 5 ? Integer.parseInt(arr[4]) : 0;
             }
+            play = true;
             this.name = name.replace("ambience_", "").replace("sfx_", "");
         }
         // stop
         else {
-            logger.log(Level.FINE, "Parse stop music");
             this.play = false;
-            this.folder = arr[1];
+            if (arr[1].contains("sound") || arr[1].contains("sound_loop"))
+                this.folder = TypeResources.SFX_SOUND;
+            else if (arr[1].contains("ambience"))
+                this.folder = TypeResources.AMBIENCE_SOUND;
+            else if (arr[1].contains("music"))
+                this.folder = TypeResources.MUSIC_SOUND;
             fade = arr.length == 4 ? Integer.parseInt(arr[3]) : 0;
         }
 
+    }
+    public static void main(String args[]) {
+    	Sound snd;
+    	snd = new Sound("play sound_loop sfx_street_traffic_outside fadein 2");
+    	System.out.println(snd);
+    	snd = new Sound("play ambience ambience_cold_wind_loop fadein 3");
+    	System.out.println(snd);
+    	snd = new Sound("play sound sfx_intro_bus_stop_steps");
+    	System.out.println(snd);
+    	snd = new Sound("play music music_list[\"lightness_radio_bus\"] fadein 7");
+    	System.out.println(snd);
     }
 
 }

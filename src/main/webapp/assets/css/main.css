@@ -15,13 +15,13 @@
 
 
 
-.playBody {
-	margin: 0;
-	padding: 0;
+/* .playBody { */
+/* 	margin: 0; */
+/* 	padding: 0; */
 	
-}
+/* } */
 
-.game {
+.playBody .game {
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -54,7 +54,7 @@
 	height: 100%;
 }
 
-.sprite {
+.playBody .sprite {
 	height: inherit;
 	position: absolute;
 	height: 200%;
@@ -62,44 +62,47 @@
 }
 
 /* position */
-.left {
+.playBody .left {
 	left: 0;
 }
 
-.cleft {
+.playBody .cleft {
 	left: 25%;
 	transform: translate(-20%, 0%);
 }
 
-.center {
+.playBody .center {
 	left: 0;
 	right: 0;
 	margin: auto;
 }
 
-.cright {
+.playBody .cright {
 	right: 25%;
 	transform: translate(20%, 0%);
 }
 
-.right {
+.playBody .right {
 	right: 0;
 }
 
 /* location */
-.far {
+.playBody .far {
 	transform: scale(0.7);
 	position: fixed;
 	/*     top: 0%; */
 }
 
-.close {
+.playBody .close {
 	transform: scale(1.5);
 	position: fixed;
 	/*     top: 40%; */
 }
 
-.window {
+.playBody .window {
+/* 	display: flex; */
+    flex-direction: column;
+    justify-content: space-between;
 	width: 100%;
 	min-height: 20%;
 	position: absolute;
@@ -110,17 +113,24 @@
 	line-height: 1.5;
 }
 
-.textAuthor {
+.playBody .textAuthor {
 	color: rgb(0, 234, 50);
 	margin: 5px 0 10px 20px;
 }
 
-.textContent {
+.playBody .textContent {
 	color: #DEC88C;
 	margin: 0 10px;
 }
 
-.menu {
+.playBody .playBtns{
+	height: 50%;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.playBody .menu {
 	color: white;
 	position: absolute;
 	top: 50%;
@@ -130,11 +140,11 @@
 	display: none;
 }
 
-.menuTitle {
+.playBody .menuTitle {
 	
 }
 
-.menuChoose li {
+.playBody .menuChoose li {
 	color: white;
 	border: 1px solid black;
 	background: #b69999;
@@ -145,12 +155,12 @@
 	list-style-type: none;
 }
 
-.menuChoose li:hover {
+.playBody .menuChoose li:hover {
 	color: black;
 	background: #f0cbcb;
 }
 
-.audio {
+.playBody .audio {
 	display: none;
 }
 
@@ -159,7 +169,7 @@
 }
 
 .show {
-	display: block;
+	display: flex;
 }
 
 

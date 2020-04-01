@@ -14,27 +14,43 @@
 <script src="/js/cmdWindow.js"></script>
 </head>
 
-<body class="playBody background1">
-	<button class="next" onclick="next()">NEXT</button>
-	<div class="game" >
-		<div class=""></div>
-		<div class="background2"></div>
-		<div class="sprites">
-			<!--             <img class="sprite"  src=""> -->
-		</div>
-		<div class="window">
-			<div class="textAuthor"></div>
-			<div class="textContent"></div>
-		</div>
-		<div class="menu">
-			<p class="menuTitle"></p>
-			<ul class="menuChoose">
-			<li>Остаться в общаге</li>
-			<li>Пойти в универ</li>
-			</ul>
-		</div>
-		<audio class="audio" id="myAudio" src="" controls="controls"></audio>
-	</div>
+<body class="playBody position-absolute w-100 h-100">
+	<section id="playBody">
+		<div class="game">
+			<div class="playBGs">
+				<div class="background1"></div>
+				<div class="background2"></div>
+			</div>
+			<div class="sprites">
+				<!--             <img class="sprite"  src=""> -->
+			</div>
+			<div class="window hide">
+				<div class="playText">
+					<div class="textAuthor"></div>
+					<div class="textContent"></div>
+				</div>
+				<div class="playBtns">
+					<button class="next mx-2" onclick="next()">History</button>
+					<button class="next mx-2" onclick="next()">Next</button>
+					<button class="next mx-2" onclick="next()">Save</button>
+					<button class="next mx-2" onclick="next()">Load</button>
+					<button class="next mx-2" onclick="next()">Main page</button>
+				</div>
+			</div>
+			<div class="menu">
+				<p class="menuTitle"></p>
+				<ul class="menuChoose">
+					<li>Остаться в общаге</li>
+					<li>Пойти в универ</li>
+				</ul>
+			</div>
+			<audio class="audio ambienceSound" id="myAudio ambienceSound" src="" controls="controls"></audio>
+			<audio class="audio musicSound" id="myAudio musicSound" src="" controls="controls"></audio>
+			<audio class="audio sfxSound" id="myAudio sfxSound" src="" controls="controls"></audio>
+		</div>	
+	</section>
+	<button class="next mx-2" onclick="next()">Next</button>
+	
 
 	<script>
 		// получили json-строку с сервера и преобразовали в нормальный json 

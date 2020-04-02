@@ -25,8 +25,8 @@ function next() {
 
 	parse(temp);
 	i++;
-	if (temp["type"] != "menu" && temp["type"] != "dialog")
-		next();
+//	if (temp["type"] != "menu" && temp["type"] != "dialog")
+//		next();
 
 }
 
@@ -58,6 +58,7 @@ function parse(temp) {
 
 // !!!!!!!!!!!!!!!!!!!!!!!
 // получение пути по entity
+//это для получения персонажей
 // !!!!позже обновить до передачи параметров не в строке
 function objectToUrl(obj, url) {
 	var tempSrc = url + "?";
@@ -67,3 +68,11 @@ function objectToUrl(obj, url) {
 	tempSrc = tempSrc.substring(0, tempSrc.length - 1);
 	return tempSrc;
 }
+function sleep(milliseconds) {
+	console.log("sleep:"+milliseconds);
+	  const date = Date.now();
+	  let currentDate = null;
+	  do {
+	    currentDate = Date.now();
+	  } while (currentDate - date < milliseconds);
+	}

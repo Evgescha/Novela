@@ -13,7 +13,7 @@ public class Window {
     static Logger logger = Logger.getLogger(Window.class.getName());
     private final String type = "window";
     private boolean show = true;
-    private String effect = "";
+    private With with=null;
 
     public Window() {
     }

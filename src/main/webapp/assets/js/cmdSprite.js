@@ -12,10 +12,13 @@ function addChar(chr) {
 	// если до этого персонажа не было, просто добавить на экран
 	else
 		$(".sprites").append(div);
+//	withEffect(chr,chr["name"]. "show");
 }
 
 // удаление персонажей с экрана
 function hide(hd) {
 //	console.log("Char " + hd["name"] + " hide");
+//	withEffect(hd,hd["name"], "hide");
+//	if ($("." + hd["name"]).length > 0)
 	$("." + hd["name"]).remove();
 }

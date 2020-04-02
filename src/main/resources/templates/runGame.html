@@ -3,7 +3,7 @@
 <head>
 <title>Play</title>
 <meta th:replace="~{commons :: head}"></meta>
-<script src="/js/main.js"></script>
+<script src="/js/withEffect.js"></script>
 <script src="/js/cmdAudio.js"></script>
 <script src="/js/cmdDialog.js"></script>
 <script src="/js/cmdJump.js"></script>
@@ -12,6 +12,7 @@
 <script src="/js/cmdSprite.js"></script>
 <script src="/js/cmdVariable.js"></script>
 <script src="/js/cmdWindow.js"></script>
+<script src="/js/main.js"></script>
 </head>
 
 <body class="playBody position-absolute w-100 h-100" onload="next()">
@@ -58,6 +59,7 @@
 		data = data.replace(/(&quot\;)/g, "\"");
 		var arr = JSON.parse(data);
 		var gameId="[[${gameId}]]";
+		sleep(1000);
 	</script>
 </body>
 </html>

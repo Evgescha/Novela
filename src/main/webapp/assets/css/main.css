@@ -566,11 +566,34 @@ display: block;
 
 
 
+/* --------------------- game effects */
+@keyframes show{
+0%{
+	opacity:0;
+}
+100% {
+	opacity:1;
+}
+}
 
+@keyframes hide{
+0%{	opacity:1;}
+100% {opacity:0;}
+}
 
-
-
-
+.dsprShow{opacity: 1; visibility: visible;transition:0.2s;}
+.dsprHide{opacity: 0; visibility: hidden;transition:0.2s;}
+.dissolveShow{opacity: 1; visibility: visible;transition:1s;}
+.dissolveShow{opacity: 0; visibility: hidden;transition:1s;}
+.dissolve2Show{opacity: 1; visibility: visible;transition:2s;}
+.dissolve2Hide{opacity: 0; visibility: hidden;transition:2s;}
+/* .fadeShow{opacity: 1; visibility: visible;transition:2s;} */
+/* .fade2Show{opacity: 1; visibility: visible;transition:2s;} */
+/* .fade3Show{opacity: 1; visibility: visible;transition:2s;} */
+/* .flashShow{opacity: 1; visibility: visible;transition:2s;} */
+/* .fiash_redShow{opacity: 1; visibility: visible;transition:2s;} */
+/* .hpunchShow{opacity: 1; visibility: visible;transition:2s;} */
+/* .vpunchShow{opacity: 1; visibility: visible;transition:2s;} */
 
 
 

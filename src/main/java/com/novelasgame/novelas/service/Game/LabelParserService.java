@@ -128,6 +128,7 @@ public class LabelParserService {
 			if(obj instanceof Char) {((Char)obj).setWith(with); }
 			if(obj instanceof Scene) {((Scene)obj).setWith(with);}
 			if(obj instanceof Hide) {((Hide)obj).setWith(with);}
+			if(obj instanceof Window) {((Window)obj).setWith(with);}
 		}
 
 		return null;

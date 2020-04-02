@@ -9,6 +9,7 @@ public class Scene {
 	private final String type = "scene";
 	private String path = "null";
 	private String name = "null";
+	private With with=null;
 
 	public Scene() {
 	}

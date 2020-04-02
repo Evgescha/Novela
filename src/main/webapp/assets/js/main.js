@@ -13,7 +13,7 @@ function next() {
 	if (i == arr.length)
 		return;
 	var temp = arr[i];
-	console.log(arr[i]);
+//	console.log(arr[i]);
 
 	// пропускаем не обработанные комманды
 	if (temp == null) {
@@ -34,6 +34,8 @@ function next() {
 // !!!!!!!!!!!!!!!!!!!!!!Parse
 // в зависимости от комманды вызываем нужный метод-обработчик
 function parse(temp) {
+	console.log("Command:");
+	console.log(temp);
 	if (temp["type"] == "char")
 		addChar(temp);
 	else if (temp["type"] == "dialog")

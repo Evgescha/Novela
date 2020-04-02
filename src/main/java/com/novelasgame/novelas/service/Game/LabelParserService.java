@@ -22,6 +22,7 @@ import com.novelasgame.novelas.entity.game.Scene;
 import com.novelasgame.novelas.entity.game.Sound;
 import com.novelasgame.novelas.entity.game.Variables;
 import com.novelasgame.novelas.entity.game.Window;
+import com.novelasgame.novelas.entity.game.With;
 import com.novelasgame.novelas.service.DataBase.GameService;
 import com.novelasgame.novelas.service.DataBase.ResourcesItemService;
 
@@ -120,6 +121,14 @@ public class LabelParserService {
 
 		if (arr[0].contains("jump"))
 			return new Jump(cmd, gameId);
+		
+		if(arr[0].contains("with")) {
+			With with = new With(cmd);
+			Object obj = list.get(list.size()-1);
+			if(obj instanceof Char) {((Char)obj).setWith(with); }
+			if(obj instanceof Scene) {((Scene)obj).setWith(with);}
+			if(obj instanceof Hide) {((Hide)obj).setWith(with);}
+		}
 
 		return null;
 	}

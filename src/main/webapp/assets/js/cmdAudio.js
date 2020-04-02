@@ -3,8 +3,8 @@
 // счетчики увеличения/уменьшения громкости звука
 var intervalUpAmbience, intervalDownAmbience, intervalUpMusic, intervalDownMusic, intervalUpSfx, intervalDownSfx;
 function addSound(snd) {
-	console.log("add sound");
-	console.log(snd);
+//	console.log("add sound");
+//	console.log(snd);
 	if (snd["play"] == true) {
 		// var url = objectToUrl(snd, "/sound/get");
 		getSound("upload/files/" + gameId + "/" + snd["folder"] + "/"

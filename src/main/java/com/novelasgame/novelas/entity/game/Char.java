@@ -22,6 +22,7 @@ public class Char {
     private String body;
     private String dress;
     private String emotion;
+    private With with=null;
     
     // left, cleft, center, cright, right.
     private String position;

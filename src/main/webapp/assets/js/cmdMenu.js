@@ -2,7 +2,7 @@
 var menus;
 
 function menu(mn){
-    console.log("add menu");
+//    console.log("add menu");
     menus = mn;
     var menuFront = $(".menuChoose");
     var liS = "";
@@ -17,7 +17,7 @@ function menu(mn){
 function menuItem(index){
     arr= arr.slice(i);
     i=0;
-    console.log(arr);
+//    console.log(arr);
     arr=menus.items[index].commands.concat(arr);
     $(".menu").css("display","none");
     $(".window").removeClass("hide").addClass("show");

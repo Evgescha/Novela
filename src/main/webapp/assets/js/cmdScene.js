@@ -1,7 +1,7 @@
 // !!!!!!!!!!РАБОТА С ФОНОМ
 // выводим сцену на экран
 function addScene(scn) {
-	console.log("add Scene");
+//	console.log("add Scene");
 	var url = "url(\"upload/files/"
 		+gameId
 	+"/"
@@ -10,7 +10,7 @@ function addScene(scn) {
 	+scn["name"]
 	+".jpg"
 	+"\")";// + objectToUrl(scn, "/scene/get") + "\")";
-	console.log(url);
+//	console.log(url);
 	$(".background2").css("background-image", url);
 	$(".sprite").remove();
 }

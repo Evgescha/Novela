@@ -12,7 +12,7 @@ public class Hide {
     @JsonIgnore
     static Logger logger = Logger.getLogger(Hide.class.getName());
     private final String type = "hide";
-    private String effect = "";
+    private With with=null;
     private String name;
     
     public Hide() {

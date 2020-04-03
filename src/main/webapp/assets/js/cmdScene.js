@@ -6,5 +6,5 @@ function addScene(scn) {
 //	console.log(url);
 	$(".background2").css("background-image", url);
 	$(".sprite").remove();
-	withEffect(scn,".background2", "show");
+//	withEffect(scn,".background2", "show");
 }

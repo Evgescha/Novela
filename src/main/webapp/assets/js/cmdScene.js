@@ -7,4 +7,5 @@ function addScene(scn) {
 	$(".background2").css("background-image", url);
 	$(".sprite").remove();
 //	withEffect(scn,".background2", "show");
+	setTimeout(() => {  next(); }, 1000);
 }

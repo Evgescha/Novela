@@ -45,7 +45,7 @@ public class User extends AbstractEntity {
     private String avatar = "default.png";
 
     //хранение сохранений для каждой игры
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     private Collection<UserGame> userGames;
     

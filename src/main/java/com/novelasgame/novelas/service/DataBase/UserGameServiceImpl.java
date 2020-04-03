@@ -3,6 +3,9 @@ package com.novelasgame.novelas.service.DataBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.novelasgame.novelas.entity.DataBase.Game;
+import com.novelasgame.novelas.entity.DataBase.Label;
+import com.novelasgame.novelas.entity.DataBase.User;
 import com.novelasgame.novelas.entity.DataBase.UserGame;
 import com.novelasgame.novelas.repository.UserGameRepository;
 @Service
@@ -10,6 +13,8 @@ public class UserGameServiceImpl implements CrudService<UserGame>{
 
     @Autowired
     UserGameRepository repository;
+    @Autowired
+    UserServiceImpl userService;
     
     @Override
     public boolean create(UserGame entity) {
@@ -19,6 +24,17 @@ public class UserGameServiceImpl implements CrudService<UserGame>{
         }catch (Exception e) {
             return false;
         }
+    }
+    public boolean update(User user, Long gameId, Long labelId, UserGame entity) {
+        	
+        	user.getUserGames().add(entity);
+        	if(!userService.update(user))return false;
+        	
+        	entity.setGameId(gameId);
+        	entity.setLabelId(labelId);
+        	
+        	
+        	return update(entity);
     }
 
     @Override

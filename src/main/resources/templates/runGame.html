@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Play</title>
 <meta th:replace="~{commons :: head}"></meta>
@@ -33,7 +33,7 @@
 				<div class="playBtns">
 					<button class="next mx-2" onclick="next()">History</button>
 					<button class="next mx-2" onclick="next()">Next</button>
-					<button class="next mx-2" onclick="next()">Save</button>
+					<button class="next mx-2" onclick="saveVar()">Save</button>
 					<button class="next mx-2" onclick="next()">Load</button>
 					<button class="next mx-2" onclick="next()">Main page</button>
 				</div>
@@ -45,24 +45,28 @@
 					<li>Пойти в универ</li>
 				</ul>
 			</div>
-			<audio class="audio ambienceSound" id="myAudio ambienceSound" src="" controls="controls"></audio>
-			<audio class="audio musicSound" id="myAudio musicSound" src="" controls="controls"></audio>
-			<audio class="audio sfxSound" id="myAudio sfxSound" src="" controls="controls"></audio>
-		</div>	
+			<audio class="audio ambienceSound" id="myAudio ambienceSound" src=""
+				controls="controls"></audio>
+			<audio class="audio musicSound" id="myAudio musicSound" src=""
+				controls="controls"></audio>
+			<audio class="audio sfxSound" id="myAudio sfxSound" src=""
+				controls="controls"></audio>
+		</div>
 	</section>
 	<button class="next mx-2" onclick="next()">Next</button>
-	
-<form method="post" class="hide formPlay" action="/runGame">
-	<input name="gameId" class="gameId" type="number" th:value=${gameId}>
-	<input name="labelName" class="labelName" type="text">
-	<input name="variables" class="variables" type="text">
-</form>
+
+	<form method="post" class="hide formPlay" action="/runGame">
+		<input name="gameId" class="gameId" type="number" th:value=${gameId}>
+		<input name="labelName" class="labelName" type="text"> <input
+			name="variables" class="variables" type="text">
+	</form>
 	<script>
 		// получили json-строку с сервера и преобразовали в нормальный json 
 		var data = "[[${scenario}]]";
 		data = data.replace(/(&quot\;)/g, "\"");
 		var arr = JSON.parse(data);
 		var gameId="[[${gameId}]]";
+		var labelName="[[${labelName}]]";
 		
 		var variables_=JSON.parse("[[${variables}]]".replace(/(&quot\;)/g, "\""));
 		
@@ -72,10 +76,25 @@
 		    return mp;
 		});
 		var variables =xah_obj_to_map(variables_);
-		console.log("strt variables");
+		var variablesForSaving =JSON.stringify([...variables]).split('","').join('":"').split('],[').join(',');
 		console.log(variables);
-		console.log("end variables");
 		sleep(1000);
+		
+		function saveVar(){
+			var _temp = JSON.stringify([...variables]).split('","').join('":"').split('],[').join(',');
+			console.log("start var");
+// 			var __temp=_temp
+			console.log(_temp);
+			console.log("end var");
+			$.post( "/save", { 
+				gameId: gameId, 
+				labelName: labelName,
+				variables:variablesForSaving
+				})
+			  .done(function( data ) {
+			    alert(data );
+			  });
+		}
 	</script>
 </body>
 </html>

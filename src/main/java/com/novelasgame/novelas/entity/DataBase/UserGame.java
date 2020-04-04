@@ -22,7 +22,7 @@ public class UserGame extends AbstractEntity{
     private long gameId;
     
     @Column
-    private long labelId;
+    private String labelName;
     
     @ElementCollection
     @Column
@@ -38,10 +38,10 @@ public class UserGame extends AbstractEntity{
 	}
 
 
-	public UserGame(long gameId, long labelId, Map<String, String> variables) {
+	public UserGame(long gameId, String labelName, Map<String, String> variables) {
 		super();
 		this.gameId = gameId;
-		this.labelId = labelId;
+		this.labelName = labelName;
 		this.variables = variables;
 	}
     

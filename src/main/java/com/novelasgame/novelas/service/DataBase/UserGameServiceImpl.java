@@ -25,17 +25,17 @@ public class UserGameServiceImpl implements CrudService<UserGame>{
             return false;
         }
     }
-    public boolean update(User user, Long gameId, Long labelId, UserGame entity) {
-        	
-        	user.getUserGames().add(entity);
-        	if(!userService.update(user))return false;
-        	
-        	entity.setGameId(gameId);
-        	entity.setLabelId(labelId);
-        	
-        	
-        	return update(entity);
-    }
+//    public boolean update(User user, Long gameId, String labelName, UserGame entity) {
+//        	
+//        	user.getUserGames().add(entity);
+//        	if(!userService.update(user))return false;
+//        	
+//        	entity.setGameId(gameId);
+//        	entity.setLabelName(labelName);
+//        	
+//        	
+//        	return update(entity);
+//    }
 
     @Override
     public UserGame read(long id) {

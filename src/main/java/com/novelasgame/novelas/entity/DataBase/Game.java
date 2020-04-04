@@ -76,7 +76,7 @@ public class Game extends AbstractEntity implements DropEntity{
     
     @JsonIgnore
     @Fetch(value = FetchMode.SELECT)
-    @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinTable(name = "game_genre",
         joinColumns = @JoinColumn(name = "game_id"),
         inverseJoinColumns = @JoinColumn(name = "genre_id"),

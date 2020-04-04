@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Table
@@ -23,16 +25,18 @@ public class Comment extends AbstractEntity {
 	@Column
 	Date date=new Date(System.currentTimeMillis());
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "game_id")
 	private Game game;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	@Override
 	public String toString() {
-		return "Comment [text=" + text + ", date=" + date + ", game=" + game.getTitle() + ", user=" + user.getUsername() + "]";
+		return "[text:" + text + ", date:" + date + ", game:" + game.getTitle() + ", user:" + user.getUsername() + "]";
 	}
 }

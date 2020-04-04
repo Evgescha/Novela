@@ -72,33 +72,12 @@
 						<form class="comment-form" action="/comments" method="post">
 							<input hidden="true" type="number" th:value="${game.id}"
 								name="gameId">
-							<div id="review">
-								<table class="table table-striped table-bordered">
-									<tbody
-										th:each="i : ${#numbers.sequence(comments.size() - 1, 0, -1)}"
-										th:with="comment=${comments[i]}">
-										<tr>
-											<td style="width: 50%;" class="commentsName"><strong
-												th:text="${comment.user.username}">Matthew Wade</strong></td>
-											<td class="text-right commenstData" th:text="${comment.date}">09/03/2017</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="comment-info">
-												<p class="commentText" th:text="${comment.text}">Contrary
-													to popular belief, Lorem Ipsum is not simply random text.</p>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<div class="text-right"></div>
-							</div>
-
 
 							<h3>Write a review</h3>
 							<div class="form-group required">
 								<div class="col-sm-12">
 									<label class="control-label">Your Name</label> <input
-										type="text" name="username" class="form-control"
+										type="text" name="username" class="form-control userName"
 										th:value="${#request.userPrincipal.name}" disabled="disabled">
 								</div>
 							</div>
@@ -113,10 +92,12 @@
 							</div>
 							<div class="buttons clearfix">
 								<div class="pull-right">
-									<button type="submit" id="button-review"
-										data-loading-text="Loading..." class="btn btn-primary">Continue</button>
+									<button type="button" id="button-review"
+										data-loading-text="Loading..." class="btn btn-primary" onclick="commentAdd()">Add</button>
 								</div>
 							</div>
+							<div th:replace="~{commons :: comments}"></div>							
+							
 						</form>
 					</div>
 				</div>
@@ -135,6 +116,61 @@
 			});
 
 		});
+		
+		function commentRemove(commentId){
+			$.post("/comments/delete",{commentId:commentId})
+			  .done(function( data ) {
+// 			    alert(data);
+			    if(data==true){
+			    	$(".commentRemove"+commentId).parent().parent().parent().remove();
+			    }
+			  });
+		}
+		function commentAdd(){
+			$.post("/comments",{
+				gameId:[[${game.id}]],
+				text:$("textarea").val()
+				})
+			  .done(function( data ) {
+				  if(data=true){					  
+// 					 var today = new Date;
+// 					 var temp = '<tbody><tr><td style="width: 50%;" class="commentsName"><strong>'
+// 						 +$(".userName").val()+'</strong></td><td class="text-right commenstData">'
+// 						 +today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+// 						 +'</td></tr><tr><td colspan="2" class="comment-info"><p class="commentText">'
+// 						 +$("textarea").val()+'</p></td></tr></tbody>';
+// 					  $("table").prepend(temp);
+					  $("textarea").val("");
+			  	}
+			  });
+		}
+		
+		var data_;
+		function commentGet(){
+			var lastId=$(".commentId").val();
+			if(lastId=="")lastId=-1;
+			$.get("/comments/get",{
+				gameId:[[${game.id}]],
+				commentId:lastId
+				})
+			  .done(function( data ) {
+				data=JSON.parse(data);
+				  data.forEach(function(item) {
+					  var today = new Date(item["date"]);
+	 					 var temp = '<tbody><tr><td style="width: 50%;" class="commentsName"><strong>'
+	 						 +"Someone"+'</strong>'
+	 						 +'<input hidden value="'+item["id"]+'" class="commentId">'
+	 						 +'</td><td class="text-right commenstData">'
+	 						 +today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+	 						 +'</td></tr><tr><td colspan="2" class="comment-info"><p class="commentText">'
+	 						 +item["text"]+'</p></td></tr></tbody>';
+	 					  $("table").prepend(temp);
+					});
+				  
+			  });
+		}
+		
+		setInterval(() => commentGet(), 2000);
 	</script>
 </body>
 </html>

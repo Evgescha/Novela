@@ -461,6 +461,7 @@ img.game-image {
     letter-spacing: 0.6px;
 }
 .comment-info{
+	position:relative;
 	padding: 10px 15px;
     vertical-align: top;
 	border: 1px solid #4a4a4a;
@@ -476,7 +477,17 @@ img.game-image {
     border: 1px solid #4a4a4a;
     text-align: left;
 }
-
+.commentRemove{
+	position: absolute;
+	right: -20px;
+	font-size: 20px;
+	color: red;
+	background: none;
+	border:  none;
+}
+#review{
+	margin-top: 50px;
+}
 
 /* ---------------AddGamePage */
 #newGame .container h1, .container h2 {

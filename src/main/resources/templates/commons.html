@@ -151,6 +151,37 @@
 </div>
 
 
+
+<div th:fragment="comments">
+	<div id="review">
+		<table class="table table-striped table-bordered">
+			<tbody
+				th:each="i : ${#numbers.sequence(comments.size() - 1, 0, -1)}"
+				th:with="comment=${comments[i]}">
+				<tr>
+					<td style="width: 50%;" class="commentsName">
+						<strong th:text="${comment.user.username}">Matthew Wade</strong>
+						<input hidden th:value="${comment.id}" class="commentId">
+					</td>
+					<td class="text-right commenstData" th:text="${comment.date}">09/03/2017</td>
+					
+				</tr>
+				<tr>
+					<td colspan="2" class="comment-info">
+						<button th:class="'commentRemove commentRemove'+${comment.id}"
+							 onclick="commentRemove(this['value'])"
+							 th:if="${#request.userPrincipal.name==comment.user.username or #request.isUserInRole('ADMIN')}"
+							 th:value="${comment.id}" 
+							 type="button">	X</button>
+						<p class="commentText" th:text="${comment.text}">random text.</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-right"></div>
+	</div>
+</div>
+
 <footer th:fragment="footer" >
 	<div class="index-gamePrev d-flex justify-content-center">Have a nice Game</div>
 	<div class="index-powered"><p id="index-powered">Powered By Yauhenii© 2019-2020	</p></div>

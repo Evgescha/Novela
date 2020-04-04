@@ -1,5 +1,6 @@
 package com.novelasgame.novelas.service.DataBase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,15 @@ public class CommentService implements CrudService<Comment> {
     
     public List<Comment> findByGame(Game game) {
         return repository.findByGame(game);
+    }
+    public List<Comment> findByGameAndMinId(Game game, long minId) {
+        List<Comment> findByGame = repository.findByGame(game);
+        List<Comment> newComments = new ArrayList<Comment>();
+        if(findByGame.get(findByGame.size()-1).getId()>minId)
+	        for(Comment comment:findByGame)
+	        	if(comment.getId()>minId)
+	        		newComments.add(comment);
+        
+        return newComments;
     }
 }

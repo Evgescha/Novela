@@ -49,7 +49,7 @@ public class LabelParserService {
 		Game game = gameService.read(gameId);
 		Label label = null;
 		for (Label lbl : game.getLabels()) {
-			if (lbl.getName().equalsIgnoreCase(labelName)) {
+			if (lbl.getName().equals(labelName)) {
 				label = lbl;
 				break;
 			}

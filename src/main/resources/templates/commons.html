@@ -102,7 +102,7 @@
 </div>
 
 <!-- scenario - each game button -->
-<div th:fragment="eachGameButton" class="d-flex my-1" th:value="${game.id}" th:each="game:${games}" th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}">
+<div th:fragment="eachGameButton" class="d-flex my-1" th:value="${game.id}" th:each="game:${games}">
 	<button class="btn btn-primary" data-toggle="modal" th:data-target="'.game'+${game.id}" th:text="${game.title}">Large modal</button>
 
 	<div th:class="'modal fade game'+${game.id}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -134,20 +134,33 @@
 								<div th:text="${command.value}"></div>
 							</td>
 							<td>
-								<input type="text" name="newValue" value="" th:data-ids="${command.id}">
+								<input class="commandIdScenario" type="text" name="newValue" value="" th:data-ids="${command.id}">
 							</td>
 							<td class="wCheckbox">
-								<input type="checkbox" name="commandId" th:value="${command.id}">
+								<input class="checkboxScenario" type="checkbox" name="commandId" th:value="${command.id}">
 							</td>
 						</tr>
 					</table>
 					<input type="submit" formaction="/scenario/deleteCommand" value="Delete selected" class="btn btn-secondary">
-					<input type="submit" formaction="/scenario/update" value="Update selected" class="btn btn-secondary">
+					<input type="submit" formaction="/scenario/update" value="Update selected" class="btn btn-secondary scenarioUpdate" onclick="updateCommand()">
 					<input type="submit" formaction="/scenario/deleteLabel" value="Delete LABEL" class="btn btn-secondary">
 				</form>
 		  	</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+		function updateCommand(){
+			var commands=$(".commandIdScenario");
+			var checkboxes=$(".checkboxScenario");
+			$.each(commands, function(index, value){
+				if(value["value"].length>0)
+					$(checkboxes[index]).prop('checked', true);
+				else
+					$(checkboxes[index]).prop('checked', false);
+		    });
+		}
+	</script>
 </div>
 
 

@@ -17,11 +17,11 @@ public class ScenarioService {
     @Autowired
     GameService gameService;
 
-    public void saveScenario(Scenario sc) {
+    public boolean saveScenario(Scenario sc) {
         Game game = null;
         game = gameService.read(sc.getGameId());
         if (game == null) 
-            return;
+            return false;
         
 
         Label label = null;
@@ -43,12 +43,9 @@ public class ScenarioService {
         for (String str : arr) {
             Command cmd = new Command();
             cmd.setValue(str);
-//            cmds.add(cmd);
             label.getCommands().add(cmd);
         }
 
-        // gameService.create(game);
-         gameService.update(game);
-//         System.out.println("Добавлено: "+sc);
+         return gameService.update(game);
     }
 }

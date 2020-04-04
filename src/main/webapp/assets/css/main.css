@@ -559,7 +559,7 @@ legend {
 }
 
 #deleteCommands .modal-dialog.modal-lg div {
-    margin: 10px;
+    margin: 10px auto;
 }
 
 .forTable{

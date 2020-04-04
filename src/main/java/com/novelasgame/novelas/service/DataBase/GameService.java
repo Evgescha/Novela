@@ -1,5 +1,6 @@
 package com.novelasgame.novelas.service.DataBase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class GameService implements CrudService<Game> {
         
         if(create(entity)) {
             User user = userService.findByUsername(username);
+            if(user.getGames()==null)user.setGames(new ArrayList<Game>());
             user.getGames().add(entity);
             userService.update(user);
             

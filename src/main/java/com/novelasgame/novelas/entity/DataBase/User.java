@@ -47,10 +47,10 @@ public class User extends AbstractEntity {
     //хранение сохранений для каждой игры
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    private Collection<UserGame> userGames;
+    private List<UserGame> userGames;
     
     @OneToMany(fetch=FetchType.LAZY, mappedBy="user", cascade=CascadeType.ALL)
-    private Collection<Game> games;
+    private List<Game> games;
 
     @JsonIgnore
     @Fetch(value = FetchMode.SELECT)

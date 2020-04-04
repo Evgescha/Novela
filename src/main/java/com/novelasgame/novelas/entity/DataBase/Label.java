@@ -23,7 +23,7 @@ import lombok.Data;
 @Table
 public class Label extends AbstractEntity {
 
-    @Column(unique = true)
+//    @Column(unique = true)
     private String name;
 
     @JsonIgnore

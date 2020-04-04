@@ -32,9 +32,9 @@
 						</div>
 					</div>
 					<div class="description-btns justify-content-around d-flex mb-5">
-						<a class="btn btn-secondary w-25" th:href="'/runGame?gameId='+${game.id}">Play</a> <a
-							class="btn btn-secondary w-25">Load and Play</a> <a
-							class="btn btn-secondary w-25"
+						<a class="btn btn-secondary w-25" th:href="'/runGame?gameId='+${game.id}">Play</a> 
+						<a class="btn btn-secondary w-25" th:href="'/load?gameId='+${game.id}">Load and Play</a> 
+						<a class="btn btn-secondary w-25"
 							th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}"
 							th:href="'/games/deleteGame?gameId='+${game.id}">Delete</a>
 					</div>

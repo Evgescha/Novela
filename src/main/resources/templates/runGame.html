@@ -34,7 +34,7 @@
 					<button class="next mx-2" onclick="next()">History</button>
 					<button class="next mx-2" onclick="next()">Next</button>
 					<button class="next mx-2" onclick="saveVar()">Save</button>
-					<button class="next mx-2" onclick="next()">Load</button>
+					<button class="next mx-2" onclick="loadVar()">Load</button>
 					<button class="next mx-2" onclick="next()">Main page</button>
 				</div>
 			</div>
@@ -57,8 +57,8 @@
 
 	<form method="post" class="hide formPlay" action="/runGame">
 		<input name="gameId" class="gameId" type="number" th:value=${gameId}>
-		<input name="labelName" class="labelName" type="text"> <input
-			name="variables" class="variables" type="text">
+		<input name="labelName" class="labelName" type="text"> 
+		<input name="variables" class="variables" type="text">
 	</form>
 	<script>
 		// получили json-строку с сервера и преобразовали в нормальный json 
@@ -88,12 +88,17 @@
 			console.log("end var");
 			$.post( "/save", { 
 				gameId: gameId, 
-				labelName: labelName,
+				labelName: "[[${labelName}]]",
 				variables:variablesForSaving
 				})
 			  .done(function( data ) {
 			    alert(data );
 			  });
+		}
+		function loadVar(){
+			$(".formPlay").attr('action', '/load');
+			$(".formPlay").attr('method', 'get');
+			$(".formPlay").submit();
 		}
 	</script>
 </body>

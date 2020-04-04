@@ -27,42 +27,25 @@ public class RunGameController {
 			@RequestParam(defaultValue = "default", required = false) String labelName, Model model,
 			@RequestParam(name = "variables", required = false) String variables)
 			throws JsonMappingException, JsonProcessingException {
-		System.out.println("variables: " + variables);
-		HashMap readValue = new HashMap<String, String>();
-		ObjectMapper mapper = new ObjectMapper();
-		if (variables != null) {
-			readValue = mapper.readValue(variables, HashMap.class);
-			System.out.println("NEw arr:  ");
-			System.out.println(readValue);
-		}
 
-		ArrayList<Object> parse = labelParserService.Parse(gameId, labelName);
-		model.addAttribute("gameId", gameId);
-		model.addAttribute("scenario", labelParserService.toJson(parse));
-		model.addAttribute("variables", mapper.writeValueAsString(readValue));
-		System.out.println("view scene runGame");
-		return "runGame";
+		return postRunScene(gameId, labelName, model, variables);
 	}
+
 	@PostMapping
-	private String getRunScene1(@RequestParam(value = "gameId", required = true) long gameId,
+	private String postRunScene(@RequestParam(value = "gameId", required = true) long gameId,
 			@RequestParam(defaultValue = "default", required = false) String labelName, Model model,
 			@RequestParam(name = "variables", required = false) String variables)
 			throws JsonMappingException, JsonProcessingException {
-//		System.out.println("variables: " + variables);
 		HashMap readValue = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		if (variables != null) {
+		if (variables != null && !variables.equals(""))
 			readValue = mapper.readValue(variables, HashMap.class);
-//			System.out.println("NEw arr:  ");
-//			System.out.println(readValue);
-		}
 
 		ArrayList<Object> parse = labelParserService.Parse(gameId, labelName);
 		model.addAttribute("gameId", gameId);
 		model.addAttribute("labelName", labelName);
 		model.addAttribute("variables", mapper.writeValueAsString(readValue));
 		model.addAttribute("scenario", labelParserService.toJson(parse));
-//		System.out.println("view scene runGame");
 		return "runGame";
 	}
 

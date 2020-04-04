@@ -40,12 +40,12 @@ public class GameController {
 	GenreService genreService;
 
 	@GetMapping()
-	public String getGameController(Model model, @RequestParam(name = "isCreate", required = false) String isCreate) {
+	public String getGameController(Model model, @RequestParam(name = "notification", required = false) String notification) {
 		List<Game> games = gameService.findAll();
 		if (!games.isEmpty())
 			model.addAttribute("games", games);
-		if (isCreate != null)
-			model.addAttribute("notification", isCreate);
+		if (notification != null)
+			model.addAttribute("notification", notification);
 		model.addAttribute("genres", genreService.findAll());
 		return "addGame";
 	}
@@ -56,7 +56,11 @@ public class GameController {
 			@RequestParam(name = "screen", required = true) MultipartFile[] screens,
 			@RequestParam(name = "genre", required = false) String[] genre, RedirectAttributes ra,
 			Principal principal) {
-
+		
+			if (gameService.findByTitle(game.getTitle())!=null) {
+				ra.addAttribute("notification", "A game with this name already exists");
+				return "redirect:/games";
+			}
 		boolean isCreate = false;
 		if ((isCreate = gameService.addGame(game, principal.getName()))) {
 			// загрузить аватарку
@@ -89,6 +93,7 @@ public class GameController {
 			}
 			_genre = null;
 			gameService.update(game);
+			return "redirect:/description"+game.getId();
 		}
 
 		ra.addAttribute("notification", "Success added - " + isCreate);
@@ -99,7 +104,7 @@ public class GameController {
 //    @PreAuthorize("hasPermission(#gameId, hasRole('ROLE_ADMIN'))")
 	private String getDeleteGame(@RequestParam(name = "gameId", required = true) long gameId, RedirectAttributes ra) {
 		boolean delete = gameService.delete(gameId);
-		ra.addAttribute("notification", "Success: " + delete);
+		ra.addAttribute("notification", delete==true?"The game was successfully deleted":"The game was not deleted");
 		return "redirect:/games";
 	}
 

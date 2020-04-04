@@ -16,9 +16,9 @@
 </head>
 <body>
 	
-	<h2 th:if="${notification}" th:text="${notification}" class="text-center"></h2>
 	
 	<div th:replace="~{commons :: nav}"></div>
+	<h2 th:if="${notification}" th:text="${notification}" class="text-center"></h2>
 	
 	<section id="newGame" class="my-5">
 		<div class="newGame container">

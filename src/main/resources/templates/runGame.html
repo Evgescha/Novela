@@ -52,13 +52,29 @@
 	</section>
 	<button class="next mx-2" onclick="next()">Next</button>
 	
-
+<form method="post" class="hide formPlay" action="/runGame">
+	<input name="gameId" class="gameId" type="number" th:value=${gameId}>
+	<input name="labelName" class="labelName" type="text">
+	<input name="variables" class="variables" type="text">
+</form>
 	<script>
 		// получили json-строку с сервера и преобразовали в нормальный json 
 		var data = "[[${scenario}]]";
 		data = data.replace(/(&quot\;)/g, "\"");
 		var arr = JSON.parse(data);
 		var gameId="[[${gameId}]]";
+		
+		var variables_=JSON.parse("[[${variables}]]".replace(/(&quot\;)/g, "\""));
+		
+		const xah_obj_to_map = ( obj => {
+		    const mp = new Map;
+		    Object.keys ( obj ). forEach (k => { mp.set(k, obj[k]) });
+		    return mp;
+		});
+		var variables =xah_obj_to_map(variables_);
+		console.log("strt variables");
+		console.log(variables);
+		console.log("end variables");
 		sleep(1000);
 	</script>
 </body>

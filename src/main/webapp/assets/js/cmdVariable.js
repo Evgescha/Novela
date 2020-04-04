@@ -1,11 +1,12 @@
 // !!!!!!!!!!!!!!!!!!!!РАБОТА С ПЕРЕМЕННЫМИ
 // массив переменных
-var variables = new Map();
+//var variables = new Map();
 
 // чтение переменных
 function addVariable(vrbl) {
-//	console.log("Add variable " + vrbl["key"] + ":" + vrbl["value"]);
+	console.log("Add variable " + vrbl["key"] + ":" + vrbl["value"]);
 	variables.set(vrbl["key"], vrbl["value"]);
+//	next();
 }
 // изменение переменной на заданное значение
 function updateNumericVariable(key, value) {

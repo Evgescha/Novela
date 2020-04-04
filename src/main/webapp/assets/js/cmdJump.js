@@ -1,5 +1,10 @@
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!JUMP
 function jump(jmp){
-//	console.log("Go to label: "+jmp["label"]);
-	document.location.href ="/runGame?gameId="+jmp["gameId"]+"&labelName="+jmp["label"];
+	var temp = JSON.stringify([...variables]);
+	var temp1=temp.split('","').join('":"').split("],[").join(",").replace("[[","{").replace("]]","}");
+	console.log(temp1);
+	$(".formPlay .labelName").val(jmp["label"]);
+	$(".formPlay .variables").val(temp1);
+	$(".formPlay").submit();
+	
 }

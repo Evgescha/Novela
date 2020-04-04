@@ -16,7 +16,7 @@
 
 	<div th:replace="~{commons :: nav}"></div>
 	
-	<h2 class="text-center" th:if="${message}" th:text="${message}"></h2>
+	<h2 th:if="${notification}" th:text="${notification}" class="text-center"></h2>
 	
 	<section id="resources" class="my-5">
 		<div class="resources container">
@@ -94,7 +94,7 @@
 								</div>
 								<div class="resBtn d-flex justify-content-between">
 									<input type="submit" formaction="/upload/deleteRes" value="Delete selected" class="btn btn-secondary">
-									<input type="submit" formaction="/upload/updateRes" value="Update selected" class="btn btn-secondary">
+									<input type="submit" formaction="/upload/updateRes" value="Update selected" class="btn btn-secondary" onclick="updateResources()">
 									<input type="submit" formaction="/upload/deleteAllResType" value="Delete ALL OF TYPE" class="btn btn-secondary">
 								</div>
 							</form>
@@ -121,27 +121,48 @@
 	$('.getRes').click(function(){
 		gameId=$('#res_gameSelect').val();
 		type=$('#res_typeResSelect').val();
-		
 		 $.get("/upload/getRes", {gameId:gameId, type:type}, function(_data) {
 			data=_data;
 			console.log(data);
 			show();
 		});
-		 
 	});
+
+	function updateResources(){
+		var commands=$(".resNewName");
+		var checkboxes=$(".resChechBox");
+		$.each(commands, function(index, value){
+			if(value["value"].length>0)
+				$(checkboxes[index]).prop('checked', true);
+			else
+				$(checkboxes[index]).prop('checked', false);
+	    });
+	}
 	function show(){
 		var values="";
 		
-		data.forEach( function(v, i) { 
-			values+='<tr class="rowImage my-3"><td><img class="resImage mx-1" src="/upload/files/'+gameId+'/'+type+'/'+v['fileName']+'"></td>'+
-'						<td><input class="resOldName mx-1" disabled type="text" name="oldName" value="'+v['fileName']+'"></td>'+
-'						<td><input class="resNewName mx-1" type="text" name="newName" value=""></td>'+
-'						<td class="wCheckbox mx-1"><input type="checkbox" name="resId" value="'+v['id']+'"></td>'+
-'					</tr>';
+		data.forEach( function(v, i) {			
+			var charname=	type=="characterImages" ? v["charName"]+'/' : '';		
+			values+='<tr class="rowImage my-3"><td>'
+			+'<img class="resImage mx-1" src="/upload/files/'+gameId+'/'+type+'/'+charname +v['fileName']+'">'
+			+'</td><td><input class="resOldName mx-1" disabled type="text" name="oldName" value="'+v['fileName']+'"></td>'+
+'				<td><input class="resNewName mx-1" type="text" name="newName" value=""></td>'+
+'				<td class="wCheckbox mx-1"><input type="checkbox" class="resChechBox" name="resId" value="'+v['id']+'"></td>'+
+'			</tr>';
 			} );
+		
+		
 		$("#resourcesFind table").html(values);
 		$(".resourcesGameId").attr("value",gameId);
 		$(".resourcesType").attr("value",type);
+		
+		if(type=="musicSound" || type=="sfxSound" || type=="ambienceSound"){
+			console.log("change");
+			$('.resImage').each(function() {
+				$(this).parent().html($(this).parent().html().replace('<img','<audio type="audio/ogg" controls'));
+// 				$(this).parent().html().replace('<img','<audio type="audio/ogg" controls');
+			});
+		}
 		
 		hide();
 	}

@@ -89,9 +89,7 @@ public class ScenarioController {
 			commandService.delete(commandId);
 		}
 		model.addAttribute("notification", "Commands were deleted");
-		List<Game> games;
-		if ((games = getGames(principal)) != null)
-			model.addAttribute("games", games);
+			model.addAttribute("games", getGames(principal));
 		return "scenario";
 	}
 
@@ -114,9 +112,7 @@ public class ScenarioController {
 				isOk = isOk && commandService.update(read);
 			}
 		model.addAttribute("notification", isOk ? "Commands were updated" : "Can'u update commands.");
-		List<Game> games;
-		if ((games = getGames(principal)) != null)
-			model.addAttribute("games", games);
+			model.addAttribute("games", getGames(principal));
 		return "scenario";
 	}
 

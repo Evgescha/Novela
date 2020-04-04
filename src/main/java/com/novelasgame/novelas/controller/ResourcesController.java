@@ -1,10 +1,10 @@
 package com.novelasgame.novelas.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.SafeHtml.Attribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +25,7 @@ import com.novelasgame.novelas.entity.DataBase.ResourceItem;
 import com.novelasgame.novelas.service.TypeResources;
 import com.novelasgame.novelas.service.DataBase.GameService;
 import com.novelasgame.novelas.service.DataBase.ResourcesItemService;
+import com.novelasgame.novelas.service.DataBase.UserServiceImpl;
 import com.novelasgame.novelas.storage.StorageFileNotFoundException;
 import com.novelasgame.novelas.storage.StorageProperties;
 import com.novelasgame.novelas.storage.StorageService;
@@ -41,14 +42,16 @@ public class ResourcesController {
 	StorageProperties storageProps;
 
 	@Autowired
+	UserServiceImpl userService;
+
+	@Autowired
 	public ResourcesController(StorageService storageService) {
 		this.storageService = storageService;
 	}
 
 	@GetMapping("/upload")
-	public String listUploadedFiles(Model model) throws IOException {
-		List<Game> findAll = gameService.findAll();
-		model.addAttribute("games", findAll);
+	public String listUploadedFiles(Model model, Principal principal) throws IOException {
+		model.addAttribute("games", userService.findByUsername(principal.getName()).getGames());
 		return "resources";
 	}
 
@@ -72,7 +75,7 @@ public class ResourcesController {
 				newNames.add(name);
 
 		if (newNames.size() != resId.length) {
-			redirectAttributes.addFlashAttribute("message", "Incorrectly marked resources for editing");
+			redirectAttributes.addFlashAttribute("notification", "Incorrectly marked resources for editing");
 			return "redirect:/upload";
 		}
 		for (int i = 0; i < resId.length; i++) {
@@ -81,7 +84,7 @@ public class ResourcesController {
 			read.setFileName(newNames.get(i));
 			resourcesItemService.update(read);
 		}
-		redirectAttributes.addFlashAttribute("message", "You updatesd names your's files");
+		redirectAttributes.addFlashAttribute("notification", "File names updated");
 		return "redirect:/upload";
 	}
 
@@ -109,7 +112,7 @@ public class ResourcesController {
 			resourcesItemService.delete(resId);
 		}
 
-		redirectAttributes.addFlashAttribute("message", "You deleted files");
+		redirectAttributes.addFlashAttribute("notification", "Files were deleted");
 		return "redirect:/upload";
 	}
 
@@ -143,7 +146,7 @@ public class ResourcesController {
 			storageService.delete(res);
 			resourcesItemService.delete(res.getId());
 		}
-		redirectAttributes.addFlashAttribute("message", "You deleted all files of " + resourcesType + " category!");
+		redirectAttributes.addFlashAttribute("notification", "Deleted all files of " + resourcesType + " category!");
 		return "redirect:/upload";
 	}
 
@@ -187,7 +190,7 @@ public class ResourcesController {
 			}
 		}
 
-		redirectAttributes.addFlashAttribute("message", "You successfully uploaded files!");
+		redirectAttributes.addFlashAttribute("notification", "You successfully uploaded files!");
 		return "redirect:/upload";
 	}
 

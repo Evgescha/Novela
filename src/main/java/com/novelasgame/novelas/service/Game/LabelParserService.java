@@ -125,7 +125,7 @@ public class LabelParserService {
 		if(arr[0].contains("with")) {
 			With with = new With(cmd);
 			Object obj = list.get(list.size()-1);
-			if(obj instanceof Char) {((Char)obj).setWith(with); }
+			//if(obj instanceof Char) {((Char)obj).setWith(with); }
 			if(obj instanceof Scene) {((Scene)obj).setWith(with);}
 			if(obj instanceof Hide) {((Hide)obj).setWith(with);}
 			if(obj instanceof Window) {((Window)obj).setWith(with);}

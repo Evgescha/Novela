@@ -12,7 +12,7 @@ function windowww(wnd) {
 //		withEffect(wnd,".window","hide");
 		$(".window").removeClass("show");
 		$(".window").addClass("hide");
-		 setTimeout(() => {  next(); }, 1000);
+		 setTimeout(() => {  next(); }, 2000);
 //		sleep(2000);
 	}
 }

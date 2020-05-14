@@ -40,16 +40,18 @@ function parse(temp) {
 		addChar(temp);
 	else if (temp["type"] == "dialog")
 		addDialog(temp);
-	else if (temp["type"] == "scene")
-		addScene(temp);
-	else if (temp["type"] == "sound")
+	else if (temp["type"] == "scene"){
+		addScene(temp);setTimeout(next, 3000);}
+	else if (temp["type"] == "sound"){
 		addSound(temp);
+		setTimeout(next, 100);}
 	else if (temp["type"] == "window")
 		windowww(temp);
 	else if (temp["type"] == "hide")
 		hide(temp);
-	else if (temp["type"] == "variable")
+	else if (temp["type"] == "variable"){
 		addVariable(temp);
+		setTimeout(next, 100);}
 	else if (temp["type"] == "jump")
 		jump(temp);
 	else if (temp["type"] == "menu")
@@ -65,7 +67,8 @@ function objectToUrl(obj, url) {
 	for ( var i in obj) {
 		tempSrc += i + "=" + obj[i] + "&";
 	}
-	tempSrc = tempSrc.substring(0, tempSrc.length - 1);
+	console.log(tempSrc);
+	tempSrc = tempSrc.substring(0, tempSrc.length - 1).replace("with=[object%20Object]","");
 	return tempSrc;
 }
 function sleep(milliseconds) {

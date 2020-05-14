@@ -12,7 +12,7 @@ function addChar(chr) {
 	// если до этого персонажа не было, просто добавить на экран
 	else
 		$(".sprites").append(div);
-	setTimeout(() => {  next(); }, 1000);
+	//setTimeout(() => {  next(); }, 1000);
 //	withEffect(chr,chr["name"]. "show");
 }
 
@@ -22,5 +22,5 @@ function hide(hd) {
 //	withEffect(hd,hd["name"], "hide");
 //	if ($("." + hd["name"]).length > 0)
 	$("." + hd["name"]).remove();
-	setTimeout(() => {  next(); }, 1000);
+	//setTimeout(() => {  next(); }, 1000);
 }

@@ -36,11 +36,11 @@ public class RunGameController {
 			@RequestParam(defaultValue = "default", required = false) String labelName, Model model,
 			@RequestParam(name = "variables", required = false) String variables)
 			throws JsonMappingException, JsonProcessingException {
-		HashMap readValue = new HashMap<String, String>();
+		HashMap<String, String> readValue = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
 		if (variables != null && !variables.equals(""))
 			readValue = mapper.readValue(variables, HashMap.class);
-
+		System.out.println("jump to "+gameId+":"+labelName);
 		ArrayList<Object> parse = labelParserService.Parse(gameId, labelName);
 		model.addAttribute("gameId", gameId);
 		model.addAttribute("labelName", labelName);

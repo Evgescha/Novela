@@ -67,7 +67,7 @@
 		var arr = JSON.parse(data);
 		var gameId="[[${gameId}]]";
 		var labelName="[[${labelName}]]";
-		
+		console.log("[[${variables}]]");
 		var variables_=JSON.parse("[[${variables}]]".replace(/(&quot\;)/g, "\""));
 		
 		const xah_obj_to_map = ( obj => {

@@ -36,6 +36,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setApplicationContext(context);
         web.expressionHandler(handler);
+        web.
     }
     
     @Override
@@ -44,9 +45,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         
         http.authorizeRequests()
             .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/games", "/games/**").hasAnyRole("USER", "ADMIN")
             .antMatchers("/login", "/registration").anonymous()
-            .antMatchers("/h2-console/**","/images/**","/forPages/**","/js/**","/css/**","/font/**","/","/upload/files/**").permitAll()
+            .antMatchers("/h2-console/**","/files/**","/file/**").permitAll()
             .anyRequest().authenticated().and()
             .formLogin()
                 .loginPage("/")

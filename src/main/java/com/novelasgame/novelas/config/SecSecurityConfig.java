@@ -36,7 +36,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setApplicationContext(context);
         web.expressionHandler(handler);
-        web.
     }
     
     @Override
@@ -44,20 +43,21 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         
         http.authorizeRequests()
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/login", "/registration").anonymous()
-            .antMatchers("/h2-console/**","/files/**","/file/**").permitAll()
-            .anyRequest().authenticated().and()
-            .formLogin()
-                .loginPage("/")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/index?error=true").and()
-            .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-            .deleteCookies("JSESSIONID");
-        http.headers().frameOptions().sameOrigin();
+        .antMatchers("/admin/**").hasRole("ADMIN")
+        .antMatchers("/games", "/games/**").hasAnyRole("USER", "ADMIN")
+        .antMatchers("/login", "/registration").anonymous()
+        .antMatchers("/h2-console/**","/images/**","/forPages/**","/js/**","/css/**","/font/**","/","/upload/files/**").permitAll()
+        .anyRequest().authenticated().and()
+        .formLogin()
+            .loginPage("/")
+            .loginProcessingUrl("/perform_login")
+            .defaultSuccessUrl("/", true)
+            .failureUrl("/index?error=true").and()
+        .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+        .deleteCookies("JSESSIONID");
+    http.headers().frameOptions().sameOrigin();
     }
 
 

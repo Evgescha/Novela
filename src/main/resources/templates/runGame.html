@@ -41,8 +41,8 @@
 			<div class="menu">
 				<p class="menuTitle"></p>
 				<ul class="menuChoose">
-					<li>Остаться в общаге</li>
-					<li>Пойти в универ</li>
+					<li>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</li>
+					<li>пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ</li>
 				</ul>
 			</div>
 			<audio class="audio ambienceSound" id="myAudio ambienceSound" src=""
@@ -61,7 +61,7 @@
 		<input name="variables" class="variables" type="text">
 	</form>
 	<script>
-		// получили json-строку с сервера и преобразовали в нормальный json 
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ json-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ json 
 		var data = "[[${scenario}]]";
 		data = data.replace(/(&quot\;)/g, "\"");
 		var arr = JSON.parse(data);
@@ -100,6 +100,8 @@
 			$(".formPlay").attr('method', 'get');
 			$(".formPlay").submit();
 		}
+		var tempNames=JSON.parse("[[${names}]]".replace(/(&quot\;)/g, "\""));
+		var names=xah_obj_to_map(tempNames);
 	</script>
 </body>
 </html>

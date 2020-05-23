@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.novelasgame.novelas.service.DataBase.GameService;
 import com.novelasgame.novelas.service.Game.LabelParserService;
 
 @Controller
@@ -21,6 +22,8 @@ import com.novelasgame.novelas.service.Game.LabelParserService;
 public class RunGameController {
 	@Autowired
 	LabelParserService labelParserService;
+	@Autowired
+	GameService gameService;
 
 	@GetMapping
 	private String getRunScene(@RequestParam(value = "gameId", required = true) long gameId,
@@ -38,14 +41,19 @@ public class RunGameController {
 			throws JsonMappingException, JsonProcessingException {
 		HashMap<String, String> readValue = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
-		if (variables != null && !variables.equals(""))
+		if (variables != null && !variables.equals("")) {
 			readValue = mapper.readValue(variables, HashMap.class);
+			System.out.println("variables:");
+			System.out.println(variables);
+		}
 		System.out.println("jump to "+gameId+":"+labelName);
 		ArrayList<Object> parse = labelParserService.Parse(gameId, labelName);
 		model.addAttribute("gameId", gameId);
 		model.addAttribute("labelName", labelName);
 		model.addAttribute("variables", mapper.writeValueAsString(readValue));
 		model.addAttribute("scenario", labelParserService.toJson(parse));
+		gameService.read(gameId).getCharNames();
+		model.addAttribute("names", mapper.writeValueAsString(gameService.read(gameId).getCharNames()));
 		return "runGame";
 	}
 

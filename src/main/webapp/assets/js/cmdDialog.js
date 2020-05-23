@@ -9,7 +9,10 @@ function addDialog(dlg) {
 //	console.log("add dialog");
 	dialogCount = dlg["text"].length;
 	dialogCurrent = 0;
-	$(".textAuthor").text(dlg["name"]);
+	if(dlg["name"].length>0)
+		$(".textAuthor").text(names.get(dlg["name"]));
+	else
+		$(".textAuthor").text(dlg["name"]);
 	var text = dlg["text"];
 	$(".textContent").text(text[dialogCurrent]);
 	dialogCount--;

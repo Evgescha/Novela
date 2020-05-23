@@ -9,4 +9,5 @@ public class TypeResources {
 	public static final String AMBIENCE_SOUND = "ambienceSound";
 	public static final String MUSIC_SOUND = "musicSound";
 	public static final String SFX_SOUND = "sfxSound";
+	public static final String CHARACTER_NAMES = "charNames";
 }

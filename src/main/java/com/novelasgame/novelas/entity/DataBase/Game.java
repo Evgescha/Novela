@@ -2,10 +2,13 @@ package com.novelasgame.novelas.entity.DataBase;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -53,8 +56,9 @@ public class Game extends AbstractEntity implements DropEntity{
     @Column(length=255)
     private String avatar="default.png";
 
-//    @Column
-//    private String[] screens;
+    @ElementCollection
+    @Column
+    private Map<String,String> charNames = new HashMap<String, String>();
     
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

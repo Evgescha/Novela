@@ -39,13 +39,14 @@
 						<label class="col-sm-12 control-label">Select resources type</label>
 						<div class="col-sm-10 resourceInput">
 							<select id="res_typeResSelect" name="type" size="1"  class="form-control">
-								<option value="backgroundImages">BackgroundImages</option>
-								<option value="specialImages">SpecialImages</option>
+								<option value="backgroundImages">Background Images</option>
+								<option value="specialImages">Special Images</option>
 								<option value="screenImage">ScreenImage</option>
 								<option value="characterImages">Characters</option>
-								<option value="musicSound">MusicSound</option>
-								<option value="sfxSound">SfxSound</option>
-								<option value="ambienceSound">AmbienceSound</option>
+								<option value="musicSound">Music Sound</option>
+								<option value="sfxSound">Sfx Sound</option>
+								<option value="ambienceSound">Ambience Sound</option>
+								<option value="charNames">Character Names</option>
 							</select>
 						</div>
 					</div>
@@ -55,13 +56,19 @@
 							<input required type="text" name="charName" placeholder="Michael" class="form-control" id="res_charName">
 						</div>
 					</div>
+					<div class="form-group required charNames d-none">
+						<label class="col-sm-12 control-label">Character names</label>
+						<div class="col-sm-10 resourceInput">
+							<textarea rows="5" name="names" placeholder="sl=Slaya" class="form-control"></textarea>
+						</div>
+					</div>	
 					<div class="form-group required">
 						<label class="col-sm-2 control-label">Resources</label>
 						<div class="col-sm-10 resourceInput">							
 							<div class="form-group">
 								<div class="file-loading">
 									<input  type="file" class="file" multiple data-overwrite-initial="false" 
-									name="files"  required > 
+									name="files"   > 
 								</div>
 							</div>
 						</div>
@@ -115,6 +122,15 @@
 			$('#res_charName').prop('disabled', true);
 		else 
 			$('#res_charName').prop('disabled', false);
+		
+		if ($('#res_typeResSelect').val()!="charNames"){
+			$('.charNames').addClass('d-none');
+			 $('#form').attr('action', '/upload');
+		}
+		else{
+			$('.charNames').removeClass('d-none');
+			$('#form').attr('action', '/uploadNames');
+		} 
 	});
 	
 	var data, gameId, type;

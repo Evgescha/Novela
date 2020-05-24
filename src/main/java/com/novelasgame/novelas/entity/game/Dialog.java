@@ -27,7 +27,9 @@ public class Dialog {
         if (arr.length > 1) {
             name=arr[0];
             text=arr[1].replace("\"", "").split("\\{w\\}");
-        }        
+        }    
+//        for(int i=0; i<text.length;i++)
+//        	text[i]=text[i].replace('{', '<').replace('}', '>');
         logger.log(Level.FINE, "Text for dialog: ",text);
     }
 

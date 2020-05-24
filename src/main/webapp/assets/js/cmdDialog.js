@@ -6,13 +6,16 @@ let dialogCurrent = 0;
 
 // начать вывод диалога на экран
 function addDialog(dlg) {
-//	console.log("add dialog");
+//	console.log("add dialog");	
+	for(var indexD=0;indexD<dlg["text"].length;indexD++){
+		dlg["text"][indexD]=dlg["text"][indexD].split('{').join('<').split('}').join('>');
+	}
 	dialogCount = dlg["text"].length;
 	dialogCurrent = 0;
 	if(dlg["name"].length>0)
 		$(".textAuthor").text(names.get(dlg["name"]));
 	else
-		$(".textAuthor").text(dlg["name"]);
+		$(".textAuthor").html(dlg["name"]);
 	var text = dlg["text"];
 	$(".textContent").text(text[dialogCurrent]);
 	dialogCount--;
@@ -23,7 +26,7 @@ function addDialog(dlg) {
 function nextDialog(dlg) {
 //	console.log("next dialog");
 	var text = dlg["text"];
-	$(".textContent").text($(".textContent").text() + text[dialogCurrent]);
+	$(".textContent").html($(".textContent").html() + text[dialogCurrent]);
 	dialogCount--;
 	dialogCurrent++;
 }

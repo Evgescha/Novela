@@ -17,7 +17,7 @@ function addDialog(dlg) {
 	else
 		$(".textAuthor").html(dlg["name"]);
 	var text = dlg["text"];
-	$(".textContent").text(text[dialogCurrent]);
+	$(".textContent").html(text[dialogCurrent]);
 	dialogCount--;
 	dialogCurrent++;
 }

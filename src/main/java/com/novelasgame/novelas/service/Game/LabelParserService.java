@@ -15,6 +15,9 @@ import com.novelasgame.novelas.entity.DataBase.ResourceItem;
 import com.novelasgame.novelas.entity.game.Char;
 import com.novelasgame.novelas.entity.game.Dialog;
 import com.novelasgame.novelas.entity.game.Hide;
+import com.novelasgame.novelas.entity.game.IF;
+import com.novelasgame.novelas.entity.game.IFCriterion;
+import com.novelasgame.novelas.entity.game.IFItem;
 import com.novelasgame.novelas.entity.game.Jump;
 import com.novelasgame.novelas.entity.game.Menu;
 import com.novelasgame.novelas.entity.game.MenuItem;
@@ -64,7 +67,9 @@ public class LabelParserService {
 
 			if (arr[0].contains("menu")) {
 				list.add(getMenu(cmd));
-			} else
+			} else if (arr[0].contains("if"))
+				list.add(getIF(cmd));
+			else
 				list.add(getCommand(cmd));
 
 		}
@@ -92,6 +97,57 @@ public class LabelParserService {
 		return menu;
 	}
 
+	public IF getIF(String cmd) {
+		boolean contains = cmd.contains(" not ");
+		cmd = cmd.replace(":", "").replace(" not ", "");
+		String[] split = cmd.split(" ");
+		IF ifObject = new IF();
+		IFItem ifItem = new IFItem();
+		IFCriterion ifCriterion = new IFCriterion(split[1], split[3], !contains);
+
+		ifObject.getItems().add(ifItem);
+		ifItem.getCriterions().add(ifCriterion);
+
+		try {
+
+			i++;
+			cmd = commands.get(i).getValue().replace("\t", "    ");
+			while (cmd.charAt(0) == ' ') {
+				ifItem.getCommands().add(getCommand(cmd.replace("    ", "")));
+				i++;
+				cmd = commands.get(i).getValue().replace("\t", "    ");
+			}
+			i--;
+		} catch (Exception ex) {
+			i--;
+			return ifObject;
+		}
+		return ifObject;
+	}
+//	public IF getIFElse(String cmd) {
+//		boolean contains=cmd.contains(" not ");
+//		cmd=cmd.replace(":", "").replace(" not ", "");
+//		String[] split = cmd.split(" ");
+//		IF ifObject = new IF();
+//		IFItem ifItem = new IFItem();
+//		IFCriterion ifCriterion = new IFCriterion(split[1], split[3], !contains);
+//		
+//		
+//		ifObject.getItems().add(ifItem);
+//		ifItem.getCriterions().add(ifCriterion);
+//		
+//		
+//		i++;
+//		cmd = commands.get(i).getValue().replace("\t", "    ");
+//		while (cmd.charAt(0) == ' ') {
+//			ifItem.getCommands().add(getCommand(cmd.replace("    ", "")));
+//			i++;
+//			cmd = commands.get(i).getValue().replace("\t", "    ");
+//		}
+//		i--;
+//		return ifObject;
+//	}
+
 	public Object getCommand(String cmd) {
 		String[] arr = cmd.split(" ");
 //		System.out.println("command: " + cmd);
@@ -113,7 +169,7 @@ public class LabelParserService {
 		if (arr[0].contains("hide"))
 			return new Hide(cmd);
 
-		if (arr[0].contains("show") && arr.length>2)
+		if (arr[0].contains("show") && arr.length > 2)
 			return getChar(cmd);
 
 		if (cmd.charAt(0) == '$' && (cmd.contains("=") || cmd.contains("++") || cmd.contains("--")))
@@ -121,14 +177,20 @@ public class LabelParserService {
 
 		if (arr[0].contains("jump"))
 			return new Jump(cmd, gameId);
-		
-		if(arr[0].contains("with")) {
+
+		if (arr[0].contains("with")) {
 			With with = new With(cmd);
-			Object obj = list.get(list.size()-1);
-			//if(obj instanceof Char) {((Char)obj).setWith(with); }
-			if(obj instanceof Scene) {((Scene)obj).setWith(with);}
-			if(obj instanceof Hide) {((Hide)obj).setWith(with);}
-			if(obj instanceof Window) {((Window)obj).setWith(with);}
+			Object obj = list.get(list.size() - 1);
+			// if(obj instanceof Char) {((Char)obj).setWith(with); }
+			if (obj instanceof Scene) {
+				((Scene) obj).setWith(with);
+			}
+			if (obj instanceof Hide) {
+				((Hide) obj).setWith(with);
+			}
+			if (obj instanceof Window) {
+				((Window) obj).setWith(with);
+			}
 		}
 
 		return null;
@@ -188,7 +250,7 @@ public class LabelParserService {
 		for (ResourceItem item : findByGameAndCharName) {
 			if (item.getFileName().contains(emotion)) {
 				String tempPose = "";
-				
+
 				tempPose = item.getFileName().substring(0, item.getFileName().indexOf(emotion));
 				body = tempPose + "body";
 				emotion = item.getFileName().substring(0, item.getFileName().indexOf("."));
@@ -198,7 +260,7 @@ public class LabelParserService {
 			}
 		}
 
-		return  new Char(name,body, dress,emotion, position, location, behind, thing);
+		return new Char(name, body, dress, emotion, position, location, behind, thing);
 	}
 
 	public String toJson(Object temp) {

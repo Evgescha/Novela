@@ -56,6 +56,8 @@ function parse(temp) {
 		jump(temp);
 	else if (temp["type"] == "menu")
 		menu(temp);
+	else if (temp["type"] == "if")
+		ifObject(temp);
 }
 
 // !!!!!!!!!!!!!!!!!!!!!!!

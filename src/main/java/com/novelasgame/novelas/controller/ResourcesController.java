@@ -1,4 +1,4 @@
-	package com.novelasgame.novelas.controller;
+package com.novelasgame.novelas.controller;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -51,7 +51,10 @@ public class ResourcesController {
 
 	@GetMapping("/upload")
 	public String listUploadedFiles(Model model, Principal principal) throws IOException {
-		model.addAttribute("games", userService.findByUsername(principal.getName()).getGames());
+		if (principal.getName().equals("admin"))
+			model.addAttribute("games", gameService.findAll());
+		else
+			model.addAttribute("games", userService.findByUsername(principal.getName()).getGames());
 		return "resources";
 	}
 
@@ -193,20 +196,20 @@ public class ResourcesController {
 		redirectAttributes.addFlashAttribute("notification", "You successfully uploaded files!");
 		return "redirect:/upload";
 	}
+
 	@PostMapping("/uploadNames")
 	public String handleFileUploadNames(@RequestParam(name = "gameId", required = true) long gameId,
 			@RequestParam(name = "type", required = true) String typeName,
-			@RequestParam(name = "names", required = true) String names,
-			RedirectAttributes redirectAttributes) {
-		
+			@RequestParam(name = "names", required = true) String names, RedirectAttributes redirectAttributes) {
+
 		Game game = gameService.read(gameId);
-		System.out.println("new names: "+names);
+		System.out.println("new names: " + names);
 		if (typeName.equalsIgnoreCase(TypeResources.CHARACTER_NAMES)) {
 			String[] split = names.split("\n");
-			for(int i=0; i<split.length;i++) {
+			for (int i = 0; i < split.length; i++) {
 				String[] nameVal = split[i].split("=");
-				if(split[i].contains("="))
-				game.getCharNames().put(nameVal[0].trim(), nameVal[1].trim());
+				if (split[i].contains("="))
+					game.getCharNames().put(nameVal[0].trim(), nameVal[1].trim());
 			}
 			gameService.update(game);
 			redirectAttributes.addFlashAttribute("notification", "You successfully uploaded names!");

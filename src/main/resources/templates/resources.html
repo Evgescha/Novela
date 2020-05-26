@@ -30,7 +30,7 @@
 						<div class="col-sm-10 resourceInput">
 							<select id="res_gameSelect" type="text" name="gameId" size="1"  class="form-control" required> 
 								<option th:value="${game.id}" th:each="game:${games}" 
-								th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ADMIN')}"
+								th:if="${#request.userPrincipal.name==game.user.username or #request.isUserInRole('ROLE_ADMIN')}"
 								th:text="${game.title}">GameName</option>
 							</select>
 						</div>

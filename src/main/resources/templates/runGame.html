@@ -14,6 +14,17 @@
 <script src="/js/cmdWindow.js"></script>
 <script src="/js/cmdIF.js"></script>
 <script src="/js/main.js"></script>
+<style type="text/css">
+.charDialog {
+    color: black;
+    display: flex;
+    margin-bottom: 10px;
+}
+.charName {
+    color: red;
+    margin-right: 10px;
+}
+</style>
 </head>
 
 <body class="playBody position-absolute w-100 h-100" onload="next()">
@@ -32,11 +43,11 @@
 					<div class="textContent"></div>
 				</div>
 				<div class="playBtns">
-					<button class="next mx-2" onclick="next()">History</button>
+					<button class="next mx-2" onclick="history()" data-toggle="modal" data-target="#history123">History</button>
 					<button class="next mx-2" onclick="next()">Next</button>
 					<button class="next mx-2" onclick="saveVar()">Save</button>
 					<button class="next mx-2" onclick="loadVar()">Load</button>
-					<button class="next mx-2" onclick="next()">Main page</button>
+					<button class="next mx-2" onclick="toMainPage()">Main page</button>
 				</div>
 			</div>
 			<div class="menu">
@@ -61,6 +72,29 @@
 		<input name="labelName" class="labelName" type="text"> 
 		<input name="variables" class="variables" type="text">
 	</form>
+	
+	
+	
+	
+	
+	
+	
+	<div class="modal fade" id="history123" tabindex="-1" role="dialog" >
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content bg-white">			
+			<div class="form-bottom">
+				<div id="historyHTML">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
 	<script>
 		// �������� json-������ � ������� � ������������� � ���������� json 
 		var data = "[[${scenario}]]";
@@ -103,6 +137,24 @@
 		}
 		var tempNames=JSON.parse("[[${names}]]".replace(/(&quot\;)/g, "\""));
 		var names=xah_obj_to_map(tempNames);
+		
+		
+		function toMainPage(){
+			window.location.href="/description"+gameId;
+		}
+		function history(){	
+			var divTemp='';
+			for(var index=history123.length-1; index>=0; index--){
+				var charName;
+				if(history123[index]["name"].length>0)
+					charName = names.get(history123[index]["name"]);
+				else
+					charName = "";
+				var charText = history123[index]["text"];
+				divTemp+='<div class="charDialog"><div class="charName">'+charName+'</div><div class="charText">'+charText+'</div></div>';
+			}
+			$("#historyHTML").html(divTemp);
+		}
 	</script>
 </body>
 </html>

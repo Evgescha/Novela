@@ -30,7 +30,7 @@ function next() {
 
 }
 
-
+var history123=[];
 // !!!!!!!!!!!!!!!!!!!!!!Parse
 // в зависимости от комманды вызываем нужный метод-обработчик
 function parse(temp) {
@@ -38,8 +38,10 @@ function parse(temp) {
 	console.log(temp);
 	if (temp["type"] == "char")
 		addChar(temp);
-	else if (temp["type"] == "dialog")
+	else if (temp["type"] == "dialog"){
 		addDialog(temp);
+		history123.push(temp);
+	}
 	else if (temp["type"] == "scene"){
 		addScene(temp);setTimeout(next, 3000);}
 	else if (temp["type"] == "sound"){

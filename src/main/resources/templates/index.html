@@ -34,11 +34,11 @@
 			<div class="games-item position-relative" th:each="game:${games}">
 				<a th:href="description+${game.id}" class="game-banner">
 					<img th:src="@{${game.avatar}}" class="game-image">
-				</a>
 				<div class="game-detail position-absolute">
 					<span class="game-title text-uppercase"
 						th:text="${game.title}">Kingdom Rush: Frontiers</span>
 				</div>
+				</a>
 			</div>
 		</div>
 	</div>

@@ -88,17 +88,22 @@
 
 /* location */
 .playBody .far {
-	transform: scale(0.7);
+	transform: scale(0.4);
 	position: fixed;
 	/*     top: 0%; */
 }
 
 .playBody .close {
-	transform: scale(1.5);
+	transform: scale(1.7);
 	position: fixed;
 	/*     top: 40%; */
 }
 
+.playBody .normal {
+	transform: scale(1.5);
+	position: fixed;
+	/*     top: 40%; */
+}
 .playBody .window {
 	background-image:url("/forPages/window.png");
 	font-family: Arimo;
@@ -433,8 +438,21 @@ img.game-image {
     margin: 0 20px;
 }
 
-
-
+@media screen and (max-width: 768px) {
+	.container_slider_css{
+	height: 425px;
+	}
+}
+@media screen and (max-width: 575px) {
+	.container_slider_css{
+	height: 200px;
+	}
+}
+@media screen and (max-width: 321px) {
+	.container_slider_css{
+	height: 200px;
+	}
+}
 
 
 

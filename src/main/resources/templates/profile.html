@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Profile</title>
+<meta th:replace="~{commons :: head}"></meta>
+<style type="text/css">
+.form-control:disabled, .form-control[readonly] {
+    background-color: #000000;
+}
+
+.mCenter{
+	margin:0 auto;
+}
+</style>
+</head>
+<body>
+
+	<div th:replace="~{commons :: nav}"></div>
+<section>
+	<div class="container">
+		<form id="profileForm" action="/profile" method="post" class="form-horizontal">
+			<div class="row justify-content-center">
+				<div class="form-group required col-sm-6 mCenter">
+					<div class=" userInfo">
+						<label class="control-label">Username</label>
+						<input type="text" class="form-control" readonly="readonly" th:value="${user.username}">
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group required  col-sm-6 mCenter">
+					<div class="userInfo">
+						<label class="control-label">Email</label>
+						<input type="text" class="form-control" readonly="readonly" th:value="${user.email}">
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">			
+				<div class="form-group required col-sm-6 mCenter">
+					<button class="btn btn-danger" type="submit">DELETE ACCOUNT</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+<section id="index-gamePrev">
+		<div class="container">
+			<div class="index-gamePrev d-flex justify-content-center">Your's
+				games</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="games d-flex flex-wrap justify-content-center">
+
+				<div class="games-item position-relative" th:each="game:${games}">
+					<a th:href="description+${game.id}" class="game-banner"> <img
+						th:src="@{${game.avatar}}" class="game-image">
+						<div class="game-detail position-absolute">
+							<span class="game-title text-uppercase" th:text="${game.title}">Kingdom
+								Rush: Frontiers</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:replace="~{commons :: footer}"></div>
+
+</body>
+
+</html>

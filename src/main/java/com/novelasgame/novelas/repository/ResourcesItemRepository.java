@@ -14,5 +14,7 @@ public interface ResourcesItemRepository extends JpaRepository<ResourceItem, Lon
     public List<ResourceItem> findByGameAndType(Game game,String type);
     
     public List<ResourceItem> findByGameAndCharName(Game game,String CharName);
+    
+    public ResourceItem findByFileName(String fileName);
 
 }

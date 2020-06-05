@@ -16,6 +16,10 @@ public class CommentService implements CrudService<Comment> {
 
     @Autowired
     private CommentRepository repository;
+    
+    public Comment findByText(String text) {
+    	return repository.findByText(text);
+    }
 
     public boolean create(Comment entity, User user, Game game) {
         try {

@@ -7,5 +7,5 @@ import com.novelasgame.novelas.entity.DataBase.Command;
 
 @Repository
 public interface CommandRepository extends JpaRepository<Command, Long> {
-
+	public Command findByValue(String value);
 }

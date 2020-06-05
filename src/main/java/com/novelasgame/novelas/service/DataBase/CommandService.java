@@ -12,6 +12,9 @@ public class CommandService implements CrudService<Command> {
     @Autowired
     private CommandRepository repository;
 
+    public Command findByValue(String value) {
+    	return repository.findByValue(value);
+    }
     @Override
     public boolean create(Command entity) {
         try {

@@ -11,4 +11,5 @@ import com.novelasgame.novelas.entity.DataBase.Game;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 	public List<Comment> findByGame(Game game);
+	public Comment findByText(String text);
 }

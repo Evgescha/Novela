@@ -15,6 +15,9 @@ public class ResourcesItemService implements CrudService<ResourceItem> {
 	@Autowired
 	ResourcesItemRepository repository;
 
+	public ResourceItem findByFileName(String fileName) {
+		return repository.findByFileName(fileName);
+	}
 	@Override
 	public boolean create(ResourceItem entity) {
 		try {
